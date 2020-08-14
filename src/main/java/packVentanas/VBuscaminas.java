@@ -401,7 +401,7 @@ public class VBuscaminas extends JFrame implements ActionListener, Observer{
 		if (pB==false){
 			if (new File("sources/lose.wav").getAbsoluteFile() != null){
 				try {
-					ais = AudioSystem.getAudioInputStream(new File("sources/lose.wav").getAbsoluteFile());
+					ais = AudioSystem.getAudioInputStream(new File("src/main/resources/lose.wav").getAbsoluteFile());
 				} catch (UnsupportedAudioFileException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
