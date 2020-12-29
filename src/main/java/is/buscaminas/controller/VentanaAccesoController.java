@@ -1,6 +1,6 @@
 package is.buscaminas.controller;
 
-import is.buscaminas.Partida;
+import is.buscaminas.Main;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -54,7 +54,7 @@ public class VentanaAccesoController {
             }
 
             // Se inicia la partida
-            Partida.getPartida().login(nombreUser, numDificultad);
+            Main.login(nombreUser, numDificultad);
 
         }
         else {
