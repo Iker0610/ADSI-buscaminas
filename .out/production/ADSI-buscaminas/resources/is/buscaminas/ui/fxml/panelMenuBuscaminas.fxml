@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import is.buscaminas.view.VistaContador?>
-<?import is.buscaminas.view.VistaEmoji?>
-<?import is.buscaminas.view.VistaMarcadas?>
+<?import is.buscaminas.view.uiElements.VistaContador?>
+<?import is.buscaminas.view.uiElements.VistaEmoji?>
+<?import is.buscaminas.view.uiElements.VistaMarcadas?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
-<GridPane alignment="CENTER" hgap="5.0" style="-fx-background-color: '#6B8CFF'; -fx-background-insets:0 0 0 0, 4 0 0 4, 4;"
-          BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="is.buscaminas.controller.PanelMenuBuscaminasController">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" hgap="5.0"
+          style="-fx-background-color: '#6B8CFF'; -fx-background-insets:0 0 0 0, 4 0 0 4, 4;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.2-internal"
+          fx:controller="is.buscaminas.view.FXMLControllers.PanelMenuBuscaminasController">
 
     <columnConstraints>
         <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" percentWidth="25.0"/>

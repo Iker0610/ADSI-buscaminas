@@ -1,8 +1,8 @@
 package is.buscaminas.model.ranking;
 
-import is.buscaminas.model.Contador;
-import is.buscaminas.model.estructurasDatos.OrderedDoubleLinkedList;
-import is.buscaminas.view.VistaRanking;
+import is.buscaminas.model.buscaminas.Contador;
+import is.buscaminas.model.ranking.estructurasDatos.OrderedDoubleLinkedList;
+import is.buscaminas.view.uiElements.VistaRanking;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

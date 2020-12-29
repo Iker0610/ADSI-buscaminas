@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane maxHeight="793.0" prefHeight="731.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.controller.VentanaRankingController">
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="793.0" prefHeight="731.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="is.buscaminas.view.FXMLControllers.VentanaRankingController">
     <ImageView fitHeight="850.0" fitWidth="540.0">
-        <Image url="@../assets/ranking/fondoRanking.png" />
+        <Image url="@../assets/ranking/fondoRanking.png"/>
     </ImageView>
     <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="540.0">
         <top>
             <VBox prefHeight="169.0" prefWidth="540.0" BorderPane.alignment="CENTER">
                 <HBox alignment="CENTER" prefHeight="86.0" prefWidth="540.0">
                     <ImageView fitHeight="95.0" fitWidth="372.0">
-                        <Image url="@../assets/ranking/titulo.png" />
+                        <Image url="@../assets/ranking/titulo.png"/>
                     </ImageView>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="45.0" prefWidth="540.0" spacing="27.0">
-                    <Button mnemonicParsing="false" onAction="#cambiarVistaRanking" opacity="0.0" prefHeight="50.0" prefWidth="150.0" text="Dificultad 1" />
-                    <Button mnemonicParsing="false" onAction="#cambiarVistaRanking" opacity="0.0" prefHeight="50.0" prefWidth="150.0" text="Dificultad 2" />
-                    <Button mnemonicParsing="false" onAction="#cambiarVistaRanking" opacity="0.0" prefHeight="50.0" prefWidth="150.0" text="Dificultad 3" />
+                    <Button mnemonicParsing="false" onAction="#cambiarVistaRanking" opacity="0.0" prefHeight="50.0" prefWidth="150.0" text="Dificultad 1"/>
+                    <Button mnemonicParsing="false" onAction="#cambiarVistaRanking" opacity="0.0" prefHeight="50.0" prefWidth="150.0" text="Dificultad 2"/>
+                    <Button mnemonicParsing="false" onAction="#cambiarVistaRanking" opacity="0.0" prefHeight="50.0" prefWidth="150.0" text="Dificultad 3"/>
                 </HBox>
             </VBox>
         </top>
         <center>
-            <StackPane fx:id="zonaRanking" prefHeight="555.0" prefWidth="540.0" BorderPane.alignment="CENTER" />
+            <StackPane fx:id="zonaRanking" prefHeight="555.0" prefWidth="540.0" BorderPane.alignment="CENTER"/>
         </center>
         <bottom>
             <HBox alignment="BOTTOM_CENTER" prefHeight="55.0" prefWidth="540.0" BorderPane.alignment="BOTTOM_CENTER">
                 <opaqueInsets>
-                    <Insets />
+                    <Insets/>
                 </opaqueInsets>
                 <padding>
-                    <Insets bottom="20.0" />
+                    <Insets bottom="20.0"/>
                 </padding>
                 <Button fx:id="aceptar" mnemonicParsing="false" onAction="#pulsarAceptar" prefHeight="43.0" prefWidth="131.0" style="-fx-background-image: url(is/buscaminas/ui/assets/ranking/aceptar.gif);                         -fx-background-repeat: no-repeat;                         -fx-background-size: cover, auto;                         -fx-background-color: transparent;">
                     <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="14.0"/>
                     </font>
                 </Button>
             </HBox>

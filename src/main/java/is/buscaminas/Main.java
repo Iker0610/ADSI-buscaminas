@@ -1,6 +1,7 @@
 package is.buscaminas;
 
-import is.buscaminas.model.SFXPlayer;
+import is.buscaminas.controller.Partida;
+import is.buscaminas.controller.SFXPlayer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -77,7 +78,7 @@ public class Main extends Application {
 
         try {
             //Se carga la pantalla y se introduce en el Stage
-            Parent root = FXMLLoader.load(Partida.class.getResource("ui/fxml/ventanaAcceso.fxml"));
+                Parent root = FXMLLoader.load(Main.class.getResource("ui/fxml/ventanaAcceso.fxml"));
             ventanaAct.setScene(new Scene(root));
 
             //Se muestra el stage una vez cargado

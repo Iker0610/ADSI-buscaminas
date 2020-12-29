@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="793.0" prefHeight="731.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="is.buscaminas.controller.VentanaRankingController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="793.0" prefHeight="731.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="is.buscaminas.view.FXMLControllers.VentanaRankingController">
     <ImageView fitHeight="850.0" fitWidth="540.0">
         <Image url="@../assets/ranking/fondoRanking.png"/>
     </ImageView>

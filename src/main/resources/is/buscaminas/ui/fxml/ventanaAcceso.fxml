@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="is.buscaminas.controller.VentanaAccesoController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="is.buscaminas.view.FXMLControllers.VentanaAccesoController">
     <ImageView fitHeight="400.0" fitWidth="600.0">
         <Image url="@../assets/acceso/fondoAcceso.png"/>
     </ImageView>

@@ -10,7 +10,7 @@
                 -fx-background-insets:0 0 0 0, 4 0 0 4, 4;"
           BorderPane.alignment="CENTER"
           xmlns="http://javafx.com/javafx"
-          fx:controller="is.buscaminas.controller.TableroController">
+          fx:controller="is.buscaminas.view.FXMLControllers.TableroController">
 
 
     <padding>
