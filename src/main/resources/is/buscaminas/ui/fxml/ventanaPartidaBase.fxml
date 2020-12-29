@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            style="-fx-background-color: '#c0c0c0'; -fx-border-color: '#777777'; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/10.0.2-internal">
+
+    <top>
+        <fx:include source="panelMenuBuscaminas.fxml" BorderPane.alignment="CENTER"/>
+    </top>
+
+    <center>
+        <fx:include source="tablero.fxml" BorderPane.alignment="CENTER"/>
+    </center>
+
+</BorderPane>
