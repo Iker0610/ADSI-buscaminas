@@ -25,7 +25,7 @@ public class VistaAyuda extends Pane {
         //Post: Se carga la pagina correspondiente a ese numero
 
         //cargamos la imagen
-        Image imagenCasilla = new Image(new File("src/main/resources/is/buscaminas/ui/ayuda/ayudaPag" + pPag + ".png").toURI().toString());
+        Image imagenCasilla = new Image(new File("src/main/resources/is/buscaminas/temas/mario/ayuda/ayudaPag" + pPag + ".png").toURI().toString());
         BackgroundSize backgroundSize = new BackgroundSize(820, 460, false, false, false, false);
         setBackground(new Background(new BackgroundImage(imagenCasilla, null, null, null, backgroundSize)));
     }

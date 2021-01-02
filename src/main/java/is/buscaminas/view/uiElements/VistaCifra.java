@@ -48,7 +48,7 @@ public class VistaCifra extends Pane {
             cifraAct = pCifra;
 
             //Se carga la imagen adecuada
-            Image imagenCasilla = new Image(new File("src/main/resources/is/buscaminas/ui/assets/timer/time" + pCifra + ".gif").toURI().toString());
+            Image imagenCasilla = new Image(new File("src/main/resources/is/buscaminas/temas/mario/assets/timer/time" + pCifra + ".gif").toURI().toString());
             BackgroundSize backgroundSize = new BackgroundSize(width, height, false, false, false, false);
             setBackground(new Background(new BackgroundImage(imagenCasilla, null, null, null, backgroundSize)));
         }

@@ -81,7 +81,7 @@ public class VistaEmoji extends Button implements PropertyChangeListener {
         //Post: Se ha cambia el aspecto del emoji al establecido por el string
 
         //Se carga y se aplica
-        Image imagenCasilla = new Image(new File("src/main/resources/is/buscaminas/ui/assets/emoji/" + pString + ".gif").toURI().toString());
+        Image imagenCasilla = new Image(new File("src/main/resources/is/buscaminas/temas/mario/assets/emoji/" + pString + ".gif").toURI().toString());
         BackgroundSize backgroundSize = new BackgroundSize(size, size, false, false, false, false);
         setBackground(new Background(new BackgroundImage(imagenCasilla, null, null, null, backgroundSize)));
     }
