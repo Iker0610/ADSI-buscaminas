@@ -237,6 +237,7 @@ nivel</ColNames>
       <Position>4</Position>
       <DataType>TEXT|0s</DataType>
       <NotNull>1</NotNull>
+      <DefaultExpression>&quot;Classic&quot;</DefaultExpression>
     </column>
     <index id="57" parent="11" name="sqlite_autoindex_Usuario_1">
       <NameSurrogate>1</NameSurrogate>

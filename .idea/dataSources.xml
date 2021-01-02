@@ -6,6 +6,14 @@
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/src/main/resources/is/buscaminas/DB/dbBuscaminas.db</jdbc-url>
+      <driver-properties>
+        <property name="defer_foreign_keys" value="false" />
+        <property name="case_sensitive_like" value="false" />
+        <property name="foreign_keys" value="true" />
+        <property name="date_class" value="TEXT" />
+        <property name="date_precision" value="SECONDS" />
+        <property name="date_string_format" value="dd/MM/yyyy" />
+      </driver-properties>
     </data-source>
   </component>
 </project>
