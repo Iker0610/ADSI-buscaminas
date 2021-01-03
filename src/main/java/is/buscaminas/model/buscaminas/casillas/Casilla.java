@@ -80,8 +80,8 @@ public abstract class Casilla {
         lObservers.firePropertyChange("estado", null, pEstado.getClass().getSimpleName() + pNum);
     }
 
-    public void verMinas ()
+    public void verMina()
     {
-        estadoAct.verMinas(this);
+        estadoAct.verMina(this);
     }
 }

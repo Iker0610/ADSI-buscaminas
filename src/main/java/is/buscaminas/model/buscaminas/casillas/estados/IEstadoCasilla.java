@@ -11,5 +11,5 @@ public interface IEstadoCasilla
 	
 	Pair<Boolean, Boolean> marcar(Casilla pCasilla);
 	
-	default void verMinas(Casilla pCasilla){}
+	default void verMina(Casilla pCasilla){}
 }

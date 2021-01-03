@@ -39,7 +39,7 @@ public abstract class EstadoDespejable implements IEstadoCasilla
 	}
 	
 	@Override
-	public void verMinas(Casilla pCasilla)
+	public void verMina(Casilla pCasilla)
 	{
 		if (pCasilla instanceof CasillaMina) pCasilla.cambiarEstado(new MinaMostrada());
 	}

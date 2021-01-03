@@ -28,7 +28,7 @@ public class Marcado implements IEstadoCasilla
 	}
 	
 	@Override
-	public void verMinas(Casilla pCasilla)
+	public void verMina(Casilla pCasilla)
 	{
 		if (pCasilla instanceof CasillaNum) pCasilla.cambiarEstado(new MarcadoIncorrecto());
 	}
