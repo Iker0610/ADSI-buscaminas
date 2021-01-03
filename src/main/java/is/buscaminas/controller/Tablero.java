@@ -1,10 +1,7 @@
 package is.buscaminas.controller;
 
 
-import is.buscaminas.model.buscaminas.casillas.Casilla;
-import is.buscaminas.model.buscaminas.casillas.CasillaMina;
-import is.buscaminas.model.buscaminas.casillas.CasillaNum;
-import is.buscaminas.model.buscaminas.casillas.CasillaTemp;
+import is.buscaminas.model.buscaminas.casillas.*;
 import javafx.util.Pair;
 
 import java.beans.PropertyChangeListener;
@@ -127,8 +124,10 @@ public class Tablero
 		//      - El número es el adecuado a la dificultad
 		//      - Las minas se colocan aleatoriamente
 		//      - No habrá ninguna mina ni en la primera casilla seleccionada por el jugador ni en sus adyacentes.
+		//      - Habrá una MinaReset si hay más de 1 mina.
+		//      - Habrá una Mina 50% si hay más de 2 minas.
 		
-		int numMinas = this.numMinas;
+		int numMinas = this.numMinas - 2;
 		int fila, columna;
 		Random random = new Random();
 		
@@ -143,18 +142,59 @@ public class Tablero
 			// Si cumplen las condiciones se añade, de lo contrario se obtiene otra coordenada aleatoria
 			if ((Math.abs(pFila - fila) > 1 || Math.abs(pColumna - columna) > 1)) // Si no es adyacente a la casilla del click
 			{
-				// Si la casilla esta vacía, se crea mina y se disminuyen las minas restantes
-				if (matrizCasillas[fila][columna] == null){
-					matrizCasillas[fila][columna] = new CasillaMina(pMatrizBotones[fila][columna]);
-					numMinas--;
-				}
-				// Si habia una casillaTemp:
-				// Se manda crear una casilla mina pasandole la casillaTemp .
-				// También disminuyen las minas restantes
-				else if (matrizCasillas[fila][columna] instanceof CasillaTemp){
-					//mando a la mina temp crear una casilla mina igual a ella
-					matrizCasillas[fila][columna] = new CasillaMina((CasillaTemp) matrizCasillas[fila][columna]);
-					numMinas--;
+				switch (numMinas){
+					
+					// Casilla RESET
+					case 2:
+						// Si la casilla esta vacía, se crea mina y se disminuyen las minas restantes
+						if (matrizCasillas[fila][columna] == null){
+							matrizCasillas[fila][columna] = new CasillaMinaReset(pMatrizBotones[fila][columna]);
+							numMinas--;
+						}
+						// Si habia una casillaTemp:
+						// Se manda crear una casilla mina pasandole la casillaTemp .
+						// También disminuyen las minas restantes
+						else if (matrizCasillas[fila][columna] instanceof CasillaTemp){
+							//mando a la mina temp crear una casilla mina igual a ella
+							matrizCasillas[fila][columna] = new CasillaMinaReset((CasillaTemp) matrizCasillas[fila][columna]);
+							numMinas--;
+						}
+						break;
+					
+					// Casilla 50%
+					case 3:
+						// Si la casilla esta vacía, se crea mina y se disminuyen las minas restantes
+						if (matrizCasillas[fila][columna] == null){
+							matrizCasillas[fila][columna] = new CasillaMina50(pMatrizBotones[fila][columna]);
+							numMinas--;
+						}
+						// Si habia una casillaTemp:
+						// Se manda crear una casilla mina pasandole la casillaTemp .
+						// También disminuyen las minas restantes
+						else if (matrizCasillas[fila][columna] instanceof CasillaTemp){
+							//mando a la mina temp crear una casilla mina igual a ella
+							matrizCasillas[fila][columna] = new CasillaMina50((CasillaTemp) matrizCasillas[fila][columna]);
+							numMinas--;
+						}
+						break;
+					
+					
+					// Casillas Normales
+					default:
+						// Si la casilla esta vacía, se crea mina y se disminuyen las minas restantes
+						if (matrizCasillas[fila][columna] == null){
+							matrizCasillas[fila][columna] = new CasillaMina(pMatrizBotones[fila][columna]);
+							numMinas--;
+						}
+						// Si habia una casillaTemp:
+						// Se manda crear una casilla mina pasandole la casillaTemp .
+						// También disminuyen las minas restantes
+						else if (matrizCasillas[fila][columna] instanceof CasillaTemp){
+							//mando a la mina temp crear una casilla mina igual a ella
+							matrizCasillas[fila][columna] = new CasillaMina((CasillaTemp) matrizCasillas[fila][columna]);
+							numMinas--;
+						}
+						break;
 				}
 			}
 		}
