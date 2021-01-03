@@ -9,6 +9,7 @@ import javafx.util.Pair;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -225,6 +226,8 @@ public class Tablero
 			 *  3 = casilla sin minas adyacentes -> Despejar las de alrededor y decrementar el contador 'casillasPorDespejar'
 			 *  4 = Despejar las casillas que estén inmediatamente adyacentes a la casilla despejada en caso de que el numero de minas adyacentes que tenga
 			 *          sea exactamente el número de casillas marcadas en las 8 celdas inmediatamente adyacentes (no necesariamente tienen que estar bien marcadas)
+			 *  5 = Se desvela la posición la mitad de las minas que aún no estén marcadas.
+			 *  6 = Se resetea el tablero (no la partida, por tanto tampoco el contador)
 			 */
 			
 			switch (result){
@@ -266,7 +269,7 @@ public class Tablero
 					break;                                                                              // con banderas, se procede a despejar las casillas
 				
 				case 5: // Despeja el 50% de las minas restantes sin marcar
-					// TODO PROGRAMARLO
+					marcarMitadMinasRestantes();
 					break;
 				
 				case 6: // Resetea el tablero
@@ -335,6 +338,51 @@ public class Tablero
 		}
 	}
 	
+	private void marcarMitadMinasRestantes()
+	{
+		// Pre:
+		// Post: Se ha mostrado la posición del 50% de las minas que el usuario aún no había marcado correctamente
+		
+		// Se obtiene el número de casillas a marcar
+		int mitadNumMinasSinMarcar = (numMinas - obtenerMinasCorrectamenteMarcadas()) / 2;
+		
+		// Se actualiza el valor de numMinasPorMarcar
+		lObservers.firePropertyChange("numMinasPorMarcar", numMinasPorMarcar, numMinasPorMarcar - mitadNumMinasSinMarcar);
+		
+		// Se crea una lista con todas las minas que no estén ni marcadas ni despejadas
+		ArrayList<CasillaMina> lMinasSinMarcar = new ArrayList<>();
+		for (Casilla[] columna : matrizCasillas){
+			for (Casilla casilla : columna){
+				if (casilla instanceof CasillaMina && !casilla.estaMarcada() && !casilla.estaDespejada()) lMinasSinMarcar.add((CasillaMina) casilla);
+			}
+		}
+		
+		// Se muestra la posición de una mina random de la lista obtenida.
+		while (mitadNumMinasSinMarcar > 0){
+			Random rand = new Random();
+			int posRandom = rand.nextInt(lMinasSinMarcar.size());
+			CasillaMina minaRandom = lMinasSinMarcar.remove(posRandom);
+			minaRandom.verMina();
+			mitadNumMinasSinMarcar--;
+		}
+	}
+	
+	private int obtenerMinasCorrectamenteMarcadas()
+	{
+		// Pre:
+		// Post: Devuelve el número de minas que están correctamente marcadas.
+		
+		int minasCorrectamenteMarcadas = 0;
+		for (Casilla[] columna : matrizCasillas){
+			for (Casilla casilla : columna){
+				if (casilla instanceof CasillaMina && casilla.estaMarcada()) minasCorrectamenteMarcadas++;
+			}
+		}
+		return minasCorrectamenteMarcadas;
+	}
+	
+	//-----------------------------------------------------------------------------------
+	
 	public void marcarCasilla(int pFila, int pColumna)
 	{
 		//Pre:  Recibe el número de fila y columna de la casilla seleccionada a ser marcada
@@ -370,7 +418,7 @@ public class Tablero
 	{
 		for (int fila = 0; fila <= matrizCasillas.length - 1; fila++){
 			for (int columna = 0; columna <= matrizCasillas[0].length - 1; columna++){
-				matrizCasillas[fila][columna].verMinas();
+				matrizCasillas[fila][columna].verMina();
 			}
 		}
 	}
