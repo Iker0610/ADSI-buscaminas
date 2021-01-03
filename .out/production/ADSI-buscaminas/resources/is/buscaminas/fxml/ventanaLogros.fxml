@@ -34,7 +34,7 @@
              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
             <children>
-               <Label prefHeight="55.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-font-family: MarioFont; -fx-font-size: 20pt" text="LOGROS" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <Label prefHeight="55.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-font-family: MarioFont; -fx-font-size: 20pt" text="LOGROS" textFill="WHITE" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
          </GridPane>
       </top>
