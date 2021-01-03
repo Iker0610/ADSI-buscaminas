@@ -50,12 +50,12 @@ public class Partida {
     }
 
     // Login en la aplicacion
-    public void iniciarPartida (String pUsuario, int pDificultad)
+    public void inicializarTablero(String pUsuario, int pDificultad)
     {
         nombreUsuario = pUsuario;
-        dificultad = pDificultad;
-
-        iniciarPartida();
+        dificultad    = pDificultad;
+    
+        inicializarTablero();
     }
 
     //Metodos publicos de la clase para administrar los atributos:
@@ -86,23 +86,23 @@ public class Partida {
             finalizarPartida(false);
         }
         partidaActiva = true;
-        iniciarPartida();
+        inicializarTablero();
     }
-
+    
     //Metodos relacionados a la partida
-    private void iniciarPartida ()
+    public void inicializarTablero()
     {
         //Pre:
         //Post: Se inicia una ventana con una partida de buscaminas
-
-        try {
+        
+        try{
             //Se inicia el tablero
             Tablero.getTablero().iniciarTablero();
-
+            
             //Se carga la pantalla y se introduce en el Stage
             Parent root = FXMLLoader.load(Main.class.getResource("ui/fxml/ventanaPartidaBase.fxml"));
             ventanaAct.setScene(new Scene(root));
-
+    
             //Se activa el boolean que indica que existe una partida activa
             partidaActiva = true;
 
