@@ -2,59 +2,38 @@ package is.buscaminas.view.FXMLControllers;
 
 import is.buscaminas.Main;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 
 
 public class VentanaAccesoController {
 
     //Atributos normales
-    private ToggleGroup dificultadGroup;
-
-    //Atributos FXML
-    @FXML
-    private TextField nombreTextField;
-    @FXML
-    private RadioButton dificultad1;
-    @FXML
-    private RadioButton dificultad2;
-    @FXML
-    private RadioButton dificultad3;
+    @FXML private TextField nombreTextField;
+    @FXML private TextField mailTextField;
+    @FXML private TextField contrasenaTextField;
+    @FXML private TextField mailRecuperacionTextField;
 
 
     //Constructora
     @FXML
-    public void initialize ()
-    {
-        dificultadGroup = new ToggleGroup();
-        dificultad1.setToggleGroup(dificultadGroup);
-        dificultad2.setToggleGroup(dificultadGroup);
-        dificultad3.setToggleGroup(dificultadGroup);
+    public void initialize (){
+        //TODO
     }
 
     @FXML
     public void pulsarAceptar ()
     {
-        // Si se introduce un nombre y se selcciona una dificultad
-        if (!nombreTextField.getText().equals("") && dificultadGroup.getSelectedToggle() != null) {
+        // Si se introduce un nombre y TODO login correcto
+        if (!nombreTextField.getText().equals("")) {
 
             // Guardamos el nombre de jugador
             String nombreUser = nombreTextField.getText();
 
-            // Introducimos la dificultad seleccionada
-            int numDificultad;
-            String dificultad = ((Node) dificultadGroup.getSelectedToggle()).getId();
+            //TODO Login
 
-            try {
-                numDificultad = Integer.parseInt(dificultad);
-            }
-            catch (Exception e) {
-                numDificultad = 1;
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "ERROR (introducir dificultad)", ButtonType.YES, ButtonType.NO);
-            }
-
-            // Se inicia la partida
-            Main.login(nombreUser, numDificultad);
+            // Se abre el menú principal
+            Main.login();
 
         }
         else {
@@ -62,8 +41,18 @@ public class VentanaAccesoController {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Datos incorrectos");
             alerta.setHeaderText(null);
-            alerta.setContentText("Introduce un nombre y una dificultad");
+            alerta.setContentText("Error al iniciar sesión");
             alerta.show();
         }
+    }
+
+    @FXML
+    public void recuperarContrasena(){
+        //TODO
+    }
+
+    @FXML
+    public void loginRedSocial(){
+        //TODO
     }
 }

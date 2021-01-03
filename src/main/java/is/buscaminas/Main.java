@@ -36,11 +36,25 @@ public class Main extends Application {
     }
 
     // Login en la aplicacion
-    public static void login (String pUsuario, int pDificultad)
+    public static void login ()
     {
-
-        Partida.getPartida().iniciarPartida(pUsuario, pDificultad);
+        Partida.getPartida().abrirMenuPrincipal();
     }
+
+    // Se selecciona Jugar en el menú principal
+    public static void jugar (){
+        //Parámetros temporales hasta la implementación del login
+        Partida.getPartida().iniciarPartida("???", 1);
+    }
+
+    // Se selecciona Gestionar Cuenta en el menú principal
+    public static void gestionarCuenta(){
+        Partida.getPartida().abrirGestinarCuenta();
+    }
+
+    // Se selecciona abrir Logros en el menú principal
+    public static void verLogros(){ Partida.getPartida().abrirLogros(); }
+
     ////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
@@ -71,7 +85,7 @@ public class Main extends Application {
         SFXPlayer.getSFXPlayer().setBackgroundTheme("marioTheme");
     }
 
-    private void iniciarLogin ()
+    public static void iniciarLogin ()
     {
         //Pre:
         //Post: Se muestra la pantalla login

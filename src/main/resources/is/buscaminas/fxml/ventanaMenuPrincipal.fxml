@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.MenuPrincipalController">
+   <ImageView fitHeight="400.0" fitWidth="600.0">
+      <image>
+         <Image url="@../temas/mario/assets/principal/fondoPrincipal.png" />
+      </image>
+   </ImageView>
+    <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+        <top>
+            <HBox alignment="CENTER" prefHeight="124.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="113.0" fitWidth="578.0">
+               <image>
+                  <Image url="@../temas/mario/assets/principal/buscaminas.png" />
+               </image>
+            </ImageView>
+            </HBox>
+        </top>
+      <center>
+         <GridPane prefHeight="182.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="241.0" />
+             <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="129.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="53.0" minHeight="4.0" prefHeight="5.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+            <children>
+               <Button mnemonicParsing="false" onAction="#pulsarJugar" prefHeight="75.0" prefWidth="185.0" style="-fx-background-image: url(is/buscaminas/temas/mario/assets/principal/botonJugar.png);                         -fx-background-repeat: no-repeat;                         -fx-background-size: cover, auto;                         -fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <Button mnemonicParsing="false" onAction="#pulsarAyuda" prefHeight="40.0" prefWidth="40.0" style="-fx-background-image: url(is/buscaminas/temas/mario/assets/principal/botonAyuda.png);                         -fx-background-repeat: no-repeat;                         -fx-background-size: cover, auto;                         -fx-background-color: transparent;" GridPane.columnIndex="2">
+                  <GridPane.margin>
+                     <Insets left="150.0" />
+                  </GridPane.margin>
+               </Button>
+            </children>
+         </GridPane>
+      </center>
+      <bottom>
+         <GridPane prefHeight="103.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="0.0" prefWidth="49.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="570.0" minWidth="10.0" prefWidth="330.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="570.0" minWidth="10.0" prefWidth="222.0" />
+           </columnConstraints>
+           <rowConstraints>
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+             <RowConstraints maxHeight="35.0" minHeight="9.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+             <Button mnemonicParsing="false" onAction="#pulsarVolver" prefHeight="30.0" prefWidth="90.0" style="-fx-background-image: url(is/buscaminas/temas/mario/assets/principal/botonVolver.png); -fx-background-color: transparent; -fx-font-family: VCR_OSD_MONO; -fx-font-size: 11pt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                   <Button mnemonicParsing="false" onAction="#pulsarVerRanking" prefHeight="50.0" prefWidth="40.0" style="-fx-background-image: url(is/buscaminas/temas/mario/assets/principal/botonRanking.png); -fx-background-repeat: no-repeat; -fx-background-size: cover, auto; -fx-background-color: transparent;" />
+                   <Button mnemonicParsing="false" onAction="#pulsarVerLogros" prefHeight="50.0" prefWidth="40.0" style="-fx-background-image: url(is/buscaminas/temas/mario/assets/principal/botonLogros.png); -fx-background-repeat: no-repeat; -fx-background-size: cover, auto; -fx-background-color: transparent;" />
+                   <Button mnemonicParsing="false" onAction="#pulsarGestionarCuenta" prefHeight="50.0" prefWidth="40.0" style="-fx-background-image: url(is/buscaminas/temas/mario/assets/principal/botonGestionarCuenta.png); -fx-background-repeat: no-repeat; -fx-background-size: cover, auto; -fx-background-color: transparent;" />
+               </HBox>
+         </GridPane>
+      </bottom>
+    </BorderPane>
+</AnchorPane>

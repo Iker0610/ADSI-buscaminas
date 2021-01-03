@@ -54,14 +54,14 @@ public class Usuario
 	public String getTematicaActual(){
 		return tematicaActual;
 	}
-	
-	public void setTematicaActual(String tematicaActual){
-		this.tematicaActual = tematicaActual;
+
+	public boolean esAdmin(){
+		return esAdmin;
 	}
 	
 	// Setters
-	
-	public boolean esAdmin(){
-		return esAdmin;
+
+	public void setTematicaActual(String tematicaActual){
+		this.tematicaActual = tematicaActual;
 	}
 }
