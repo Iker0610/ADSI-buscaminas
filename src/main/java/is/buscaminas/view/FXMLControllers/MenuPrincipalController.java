@@ -1,6 +1,7 @@
 package is.buscaminas.view.FXMLControllers;
 
 import is.buscaminas.Main;
+import is.buscaminas.controller.Partida;
 import is.buscaminas.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -42,7 +43,7 @@ public class MenuPrincipalController {
         Main.iniciarLogin();
     }
     @FXML public void pulsarVerRanking (){
-        //TODO
+        Partida.getPartida().mostrarRanking();
     }
     @FXML public void pulsarVerLogros (){
         Main.verLogros();

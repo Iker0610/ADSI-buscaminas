@@ -26,7 +26,7 @@ public class LogrosController {
     }
 
     @FXML public void pulsarVolver(){
-        Main.login();
+        Main.login(Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s",""));
     }
 }
 

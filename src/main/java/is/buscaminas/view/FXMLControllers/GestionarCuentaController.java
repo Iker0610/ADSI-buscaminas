@@ -39,14 +39,14 @@ public class GestionarCuentaController {
 
     @FXML public void pulsarVolver(){
         //Se abre el menú principal
-        Main.login();
+        Main.login(Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s",""));
     }
 
     @FXML public void pulsarGuardar(){
         //TODO se guarda la temática seleccionada
 
         //Se abre el menú principal
-        Main.login();
+        Main.login(Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s",""));
     }
 
 

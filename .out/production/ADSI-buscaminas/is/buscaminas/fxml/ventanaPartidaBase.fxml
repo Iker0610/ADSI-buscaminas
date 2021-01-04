@@ -9,7 +9,7 @@
     </top>
 
     <center>
-        <fx:include source="tablero.fxml" BorderPane.alignment="CENTER"/>
+        <fx:include source="UI_Tablero.fxml" BorderPane.alignment="CENTER"/>
     </center>
 
 </BorderPane>

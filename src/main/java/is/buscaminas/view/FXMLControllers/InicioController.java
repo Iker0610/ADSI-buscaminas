@@ -1,6 +1,7 @@
 package is.buscaminas.view.FXMLControllers;
 
 import is.buscaminas.Main;
+import is.buscaminas.controller.GestorUsuario;
 import is.buscaminas.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,7 +13,7 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 
 
-public class VentanaAccesoController {
+public class InicioController {
 
     @FXML private TextField nombreTextField;
     @FXML private TextField mailTextField;
@@ -21,17 +22,22 @@ public class VentanaAccesoController {
     @FXML private ImageView background;
     @FXML private ImageView title;
     @FXML private Button botonEntrar;
+    @FXML private Button botonRedSocial;
+    @FXML private Button botonRecuperar;
 
 
     //Constructora
     @FXML
     public void initialize (){
+        GestorUsuario.checkEmailContrasena("a","a","a");
         //Cargar temática
-        Image backgroundImage = new Image(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/acceso/fondoAcceso.png").toURI().toString());
+        Image backgroundImage = new Image(new File("src/main/resources/is/buscaminas/inicio/fondoInicio.png").toURI().toString());
         background.setImage(backgroundImage);
-        Image titleImage = new Image(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/acceso/buscaminas.png").toURI().toString());
+        Image titleImage = new Image(new File("src/main/resources/is/buscaminas/inicio/buscaminas.png").toURI().toString());
         title.setImage(titleImage);
-        botonEntrar.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/acceso/botonEntrar.png); -fx-background-color: transparent;");
+        botonEntrar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonEntrar.png); -fx-background-color: transparent;");
+        botonRedSocial.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonRedSocial.png); -fx-background-color: transparent;");
+        botonRecuperar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonRecuperar.png); -fx-background-color: transparent;");
     }
 
     @FXML
@@ -45,8 +51,9 @@ public class VentanaAccesoController {
 
             //TODO Login
 
+
             // Se abre el menú principal
-            Main.login();
+            Main.login(Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s",""));
 
         }
         else {

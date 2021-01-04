@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -31,14 +30,12 @@
                <RowConstraints maxHeight="53.0" minHeight="4.0" prefHeight="5.0" vgrow="SOMETIMES" />
                <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES" />
            </rowConstraints>
-            <children>
                <Button fx:id="botonJugar" mnemonicParsing="false" onAction="#pulsarJugar" prefHeight="75.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                <Button fx:id="botonAyuda" mnemonicParsing="false" onAction="#pulsarAyuda" prefHeight="40.0" prefWidth="40.0" GridPane.columnIndex="2">
                   <GridPane.margin>
                      <Insets left="150.0" />
                   </GridPane.margin>
                </Button>
-            </children>
          </GridPane>
       </center>
       <bottom>
