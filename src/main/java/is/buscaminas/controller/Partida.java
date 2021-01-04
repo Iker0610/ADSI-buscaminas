@@ -51,7 +51,7 @@ public class Partida {
     }
 
     // Login en la aplicacion
-    public void inicializarTablero(String pUsuario, int pDificultad)
+    public void iniciarPartida(String pUsuario, int pDificultad)
     {
         nombreUsuario = pUsuario;
         dificultad    = pDificultad;
