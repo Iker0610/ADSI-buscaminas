@@ -36,11 +36,33 @@ public class Main extends Application {
     }
 
     // Login en la aplicacion
-    public static void login (String pUsuario, int pDificultad)
+    public static void login (String pTema)
     {
+        //Se carga la fuente
+        try {
+            Font.loadFont(new FileInputStream(new File("src/main/resources/is/buscaminas/temas/" + pTema + "/fuente/font.ttf")), 20);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        Partida.getPartida().inicializarTablero(pUsuario, pDificultad);
+        Partida.getPartida().abrirMenuPrincipal();
     }
+
+    // Se selecciona Jugar en el menú principal
+    public static void jugar (){
+        //Parámetros temporales hasta la implementación del login
+        Partida.getPartida().iniciarPartida("???", 1);
+    }
+
+    // Se selecciona Gestionar Cuenta en el menú principal
+    public static void gestionarCuenta(){
+        Partida.getPartida().abrirGestinarCuenta();
+    }
+
+    // Se selecciona abrir Logros en el menú principal
+    public static void verLogros(){ Partida.getPartida().abrirLogros(); }
+
     ////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
@@ -49,20 +71,12 @@ public class Main extends Application {
         //Pre:
         //Post: Se inicia la aplicación
 
-        //Se carga la fuente
-        try {
-            Font.loadFont(new FileInputStream("src/main/resources/is/buscaminas/fuentes/MarioFont.ttf"), 20);
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         //Se guarda el Stage
         ventanaAct = pStage;
 
         //Se configura el Stage
         ventanaAct.setTitle("Buscaminas");
-        ventanaAct.getIcons().add(new Image(new File("src/main/resources/is/buscaminas/ui/assets/logo/logoBuscaminas.png").toURI().toString()));
+        ventanaAct.getIcons().add(new Image(new File("src/main/resources/is/buscaminas/inicio/logo.png").toURI().toString()));
         ventanaAct.setResizable(false);
         ventanaAct.centerOnScreen();
 
@@ -71,14 +85,14 @@ public class Main extends Application {
         SFXPlayer.getSFXPlayer().setBackgroundTheme("marioTheme");
     }
 
-    private void iniciarLogin ()
+    public static void iniciarLogin ()
     {
         //Pre:
         //Post: Se muestra la pantalla login
 
         try {
             //Se carga la pantalla y se introduce en el Stage
-                Parent root = FXMLLoader.load(Main.class.getResource("ui/fxml/ventanaAcceso.fxml"));
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/UI_Inicio.fxml"));
             ventanaAct.setScene(new Scene(root));
 
             //Se muestra el stage una vez cargado
@@ -88,7 +102,7 @@ public class Main extends Application {
             // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
             Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
             errorDeCarga.setTitle("Error carga FXML");
-            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: ui/fxml/ventanaAcceso.fxml");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/UI_Inicio.fxml");
             errorDeCarga.setContentText(e.toString() + "\n\nLa aplicación se cerrará");
             errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
             errorDeCarga.show();

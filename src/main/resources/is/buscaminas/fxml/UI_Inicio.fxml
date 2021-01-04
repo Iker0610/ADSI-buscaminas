@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxWidth="400.0" minWidth="500.0" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.InicioController">
+   <ImageView fx:id="background" fitHeight="602.0" fitWidth="500.0"/>
+   <BorderPane layoutX="-7.0" layoutY="-5.0" prefHeight="607.0" prefWidth="512.0">
+      <bottom>
+         <Pane prefHeight="29.0" prefWidth="512.0" BorderPane.alignment="CENTER">
+               <Label layoutX="431.0" layoutY="6.0" text="Always Late">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Label>
+         </Pane>
+      </bottom>
+      <top>
+         <HBox alignment="CENTER" prefHeight="151.0" prefWidth="512.0" BorderPane.alignment="CENTER">
+               <ImageView fx:id="title" fitHeight="90.0" fitWidth="400.0"/>
+         </HBox>
+      </top>
+      <right>
+         <GridPane prefHeight="459.0" prefWidth="512.0" BorderPane.alignment="CENTER">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="33.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+             <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+             <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+               <Label text="Login" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <font>
+                     <Font name="System Bold" size="20.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="mailTextField" prefHeight="30.0" promptText="Correo electrónico" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <TextField fx:id="contrasenaTextField" prefHeight="30.0" promptText="Contraseña" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               <Button fx:id="botonRedSocial" onAction="#loginRedSocial" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+               <Label prefHeight="17.0" prefWidth="156.0" text="Recuperar contraseña:" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="mailRecuperacionTextField" prefHeight="30.0" promptText="Correo electrónico" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+               <Button fx:id="botonRecuperar" onAction="#recuperarContrasena" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+               <Button fx:id="botonEntrar" onAction="#pulsarAceptar" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+               <TextField fx:id="nombreTextField" promptText="Introduce un nickname" GridPane.columnIndex="1" />
+         </GridPane>
+      </right>
+   </BorderPane>
+</AnchorPane>

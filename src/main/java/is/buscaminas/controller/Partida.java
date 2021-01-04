@@ -1,6 +1,7 @@
 package is.buscaminas.controller;
 
 import is.buscaminas.Main;
+import is.buscaminas.model.Usuario;
 import is.buscaminas.model.buscaminas.Contador;
 import is.buscaminas.model.ranking.Ranking;
 import javafx.fxml.FXMLLoader;
@@ -100,7 +101,7 @@ public class Partida {
             Tablero.getTablero().iniciarTablero();
             
             //Se carga la pantalla y se introduce en el Stage
-            Parent root = FXMLLoader.load(Main.class.getResource("ui/fxml/ventanaPartidaBase.fxml"));
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/ventanaPartidaBase.fxml"));
             ventanaAct.setScene(new Scene(root));
     
             //Se activa el boolean que indica que existe una partida activa
@@ -113,7 +114,7 @@ public class Partida {
             // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
             Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
             errorDeCarga.setTitle("Error carga FXML");
-            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: ui/fxml/ventanaPartidaBase.fxml");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/ventanaPartidaBase.fxml");
             errorDeCarga.setContentText(e.toString() + "\n\nLa aplicación se cerrará");
             errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
             errorDeCarga.show();
@@ -156,12 +157,12 @@ public class Partida {
         try {
             // Se carga el FXML
             Stage ventanaAyuda = new Stage();
-            Parent root = FXMLLoader.load(Main.class.getResource("ui/fxml/ventanaMenuAyuda.fxml"));
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/ventanaMenuAyuda.fxml"));
             ventanaAyuda.setScene(new Scene(root));
 
             //Se configura el Stage
             ventanaAyuda.setTitle("Ayuda");
-            ventanaAyuda.getIcons().add(new Image(new File("src/main/resources/is/buscaminas/ui/assets/logo/ayuda.png").toURI().toString()));
+            ventanaAyuda.getIcons().add(new Image(new File("src/main/resources/is/buscaminas/temas/mario/assets/logo/ayuda.png").toURI().toString()));
             ventanaAyuda.setResizable(false);
             ventanaAyuda.centerOnScreen();
             ventanaAyuda.initModality(Modality.WINDOW_MODAL);   // Hace que se carge el stage como ventana emergente (ventana hija)
@@ -185,7 +186,7 @@ public class Partida {
             // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
             Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
             errorDeCarga.setTitle("Error carga FXML");
-            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: ui/fxml/ventanaMenuAyuda.fxml");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/ventanaMenuAyuda.fxml");
             errorDeCarga.setContentText(e.toString() + Arrays.toString(e.getStackTrace()) + "\n\nLa aplicación se cerrará");
             errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
             errorDeCarga.show();
@@ -200,12 +201,12 @@ public class Partida {
         try {
             // Se carga el FXML
             Stage ventanaRanking = new Stage();
-            Parent root = FXMLLoader.load(Main.class.getResource("ui/fxml/ventanaRanking.fxml"));
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/UI_VerRanking.fxml"));
             ventanaRanking.setScene(new Scene(root));
 
             //Se configura el Stage
             ventanaRanking.setTitle("Ranking");
-            ventanaRanking.getIcons().add(new Image(new File("src/main/resources/is/buscaminas/ui/assets/logo/ranking.jpg").toURI().toString()));
+            ventanaRanking.getIcons().add(new Image(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/logo/ranking.png").toURI().toString()));
             ventanaRanking.setResizable(false);
             ventanaRanking.centerOnScreen();
             ventanaRanking.initModality(Modality.WINDOW_MODAL);   // Hace que se carge el stage como ventana emergente (ventana hija)
@@ -227,8 +228,68 @@ public class Partida {
             // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
             Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
             errorDeCarga.setTitle("Error carga FXML");
-            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: ui/fxml/ventanaRanking.fxml");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/UI_VerRanking.fxml");
             errorDeCarga.setContentText(e.toString() + Arrays.toString(e.getStackTrace()) + "\n\nLa aplicación se cerrará");
+            errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
+            errorDeCarga.show();
+        }
+    }
+
+    public void abrirMenuPrincipal() {
+        try{
+            //Se carga la pantalla y se introduce en el Stage
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/UI_MenuPrincipal.fxml"));
+            ventanaAct.setScene(new Scene(root));
+
+            //Se muestra el stage una vez cargado
+            ventanaAct.show();
+        }
+        catch (Exception e) {
+            // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
+            Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
+            errorDeCarga.setTitle("Error carga FXML");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/UI_MenuPrincipal.fxml");
+            errorDeCarga.setContentText(e.toString() + "\n\nLa aplicación se cerrará");
+            errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
+            errorDeCarga.show();
+        }
+    }
+
+    public void abrirGestinarCuenta(){
+        try{
+            //Se carga la pantalla y se introduce en el Stage
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/UI_GestionarCuenta.fxml"));
+            ventanaAct.setScene(new Scene(root));
+
+            //Se muestra el stage una vez cargado
+            ventanaAct.show();
+        }
+        catch (Exception e) {
+            // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
+            Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
+            errorDeCarga.setTitle("Error carga FXML");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/UI_GestionarCuenta.fxml");
+            errorDeCarga.setContentText(e.toString() + "\n\nLa aplicación se cerrará");
+            errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
+            errorDeCarga.show();
+        }
+    }
+
+    public void abrirLogros(){
+        try{
+            //Se carga la pantalla y se introduce en el Stage
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/UI_Logros.fxml"));
+            ventanaAct.setScene(new Scene(root));
+
+            //Se muestra el stage una vez cargado
+            ventanaAct.show();
+        }
+        catch (Exception e) {
+            // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
+            Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
+            errorDeCarga.setTitle("Error carga FXML");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/UI_Logros.fxml");
+            errorDeCarga.setContentText(e.toString() + "\n\nLa aplicación se cerrará");
             errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
             errorDeCarga.show();
         }

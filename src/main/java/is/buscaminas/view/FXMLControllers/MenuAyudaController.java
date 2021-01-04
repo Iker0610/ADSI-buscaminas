@@ -53,7 +53,7 @@ public class MenuAyudaController {
         //Pre:
         //Post: Devuelve el número de páginas de ayuda que hay disponibles
 
-        File[] paginas = new File("src/main/resources/is/buscaminas/ui/ayuda/").listFiles();
+        File[] paginas = new File("src/main/resources/is/buscaminas/temas/mario/ayuda/").listFiles();
         return paginas != null ? paginas.length : 0;
     }
 

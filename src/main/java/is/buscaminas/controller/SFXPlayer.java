@@ -32,7 +32,7 @@ public class SFXPlayer {
         }
 
         // Se arranca el nuevo tema
-        Media backgroundTheme = new Media(new File("src/main/resources/is/buscaminas/sfx/themes/" + pTheme + ".mp3").toURI().toString());
+        Media backgroundTheme = new Media(new File("src/main/resources/is/buscaminas/temas/mario/sfx/themes/" + pTheme + ".mp3").toURI().toString());
         backgroundThemePlayer = new MediaPlayer(backgroundTheme);
         backgroundThemePlayer.seek(Duration.ZERO);
         backgroundThemePlayer.setCycleCount(MediaPlayer.INDEFINITE);
@@ -57,7 +57,7 @@ public class SFXPlayer {
 
         backgroundThemePlayer.stop();
         // Se ejecuta el nuevo efecto
-        Media effect = new Media(new File("src/main/resources/is/buscaminas/sfx/effects/" + pTheme + ".wav").toURI().toString());
+        Media effect = new Media(new File("src/main/resources/is/buscaminas/temas/mario/sfx/effects/" + pTheme + ".wav").toURI().toString());
         efectPlayer = new MediaPlayer(effect);
         efectPlayer.setOnEndOfMedia(() -> backgroundThemePlayer.play());
         efectPlayer.play();
@@ -79,7 +79,7 @@ public class SFXPlayer {
         if (backgroundThemePlayer != null) backgroundThemePlayer.setVolume(0.3);
 
         // Se ejecuta el nuevo efecto
-        Media effect = new Media(new File("src/main/resources/is/buscaminas/sfx/effects/" + pTheme + ".wav").toURI().toString());
+        Media effect = new Media(new File("src/main/resources/is/buscaminas/temas/mario/sfx/effects/" + pTheme + ".wav").toURI().toString());
         efectPlayer = new MediaPlayer(effect);
         efectPlayer.play();
 
