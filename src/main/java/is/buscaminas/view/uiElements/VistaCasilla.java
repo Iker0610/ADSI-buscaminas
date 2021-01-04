@@ -1,6 +1,7 @@
 package is.buscaminas.view.uiElements;
 
 
+import is.buscaminas.model.Usuario;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -47,7 +48,7 @@ public class VistaCasilla extends Button implements PropertyChangeListener {
         //Post: Se cambia la apariencia de la casilla
 
         //Se carga la imagen y se aplica 'como fondo'
-        Image imagenCasilla = new Image(new File("src/main/resources/is/buscaminas/temas/mario/assets/casilla/" + pString + ".gif").toURI().toString());
+        Image imagenCasilla = new Image(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/casilla/" + pString + ".gif").toURI().toString());
         BackgroundSize backgroundSize = new BackgroundSize(size, size, false, false, false, false);
         setBackground(new Background(new BackgroundImage(imagenCasilla, null, null, null, backgroundSize)));
     }

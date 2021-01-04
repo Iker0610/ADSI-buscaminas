@@ -15,9 +15,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.VentanaAccesoController">
-    <ImageView fitHeight="400.0" fitWidth="600.0">
-        <Image url="@../temas/mario/assets/acceso/fondoAcceso.png" />
-    </ImageView>
+    <ImageView fx:id="background" fitHeight="400.0" fitWidth="600.0"/>
     <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
         <bottom>
             <HBox alignment="CENTER" prefHeight="122.0" prefWidth="560.0" spacing="300.0" BorderPane.alignment="CENTER">
@@ -27,15 +25,12 @@
                 <padding>
                     <Insets right="15.0" top="20.0" />
                 </padding>
-                <Button onAction="#pulsarAceptar" prefHeight="30.0" prefWidth="90.0" style="-fx-background-image: url(is/buscaminas/temas/mario/assets/acceso/botonEntrar.png); -fx-background-color: transparent;">
-                </Button>
+                <Button fx:id="botonEntrar" onAction="#pulsarAceptar" prefHeight="30.0" prefWidth="90.0" />
             </HBox>
         </bottom>
         <top>
             <HBox alignment="CENTER" prefHeight="124.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                <ImageView fitHeight="99.0" fitWidth="409.0">
-                    <Image url="@../temas/mario/assets/acceso/buscaminas.png" />
-                </ImageView>
+                <ImageView fx:id="title" fitHeight="99.0" fitWidth="409.0"/>
             </HBox>
         </top>
       <right>

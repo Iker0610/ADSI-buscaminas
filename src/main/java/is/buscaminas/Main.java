@@ -92,7 +92,7 @@ public class Main extends Application {
 
         try {
             //Se carga la pantalla y se introduce en el Stage
-                Parent root = FXMLLoader.load(Main.class.getResource("fxml/ventanaAcceso.fxml"));
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/ventanaAcceso.fxml"));
             ventanaAct.setScene(new Scene(root));
 
             //Se muestra el stage una vez cargado

@@ -1,5 +1,6 @@
 package is.buscaminas.view.uiElements;
 
+import is.buscaminas.model.Usuario;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -48,7 +49,7 @@ public class VistaCifra extends Pane {
             cifraAct = pCifra;
 
             //Se carga la imagen adecuada
-            Image imagenCasilla = new Image(new File("src/main/resources/is/buscaminas/temas/mario/assets/timer/time" + pCifra + ".gif").toURI().toString());
+            Image imagenCasilla = new Image(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/timer/time" + pCifra + ".gif").toURI().toString());
             BackgroundSize backgroundSize = new BackgroundSize(width, height, false, false, false, false);
             setBackground(new Background(new BackgroundImage(imagenCasilla, null, null, null, backgroundSize)));
         }

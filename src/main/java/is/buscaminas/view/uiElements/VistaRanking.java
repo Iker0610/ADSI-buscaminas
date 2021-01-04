@@ -1,5 +1,6 @@
 package is.buscaminas.view.uiElements;
 
+import is.buscaminas.model.Usuario;
 import is.buscaminas.model.ranking.JugadorRanking;
 import is.buscaminas.model.ranking.Ranking;
 import javafx.geometry.Insets;
@@ -33,7 +34,7 @@ public class VistaRanking extends GridPane implements PropertyChangeListener {
             numPosicion.setMaxHeight(size);
             numPosicion.setMaxWidth(size);
 
-            Image imagenPosicion = new Image(new File("src/main/resources/is/buscaminas/temas/mario/assets/ranking/" + i + ".png").toURI().toString());
+            Image imagenPosicion = new Image(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/ranking/" + i + ".png").toURI().toString());
             BackgroundSize backgroundSize = new BackgroundSize(size, size, false, false, false, false);
             numPosicion.setBackground(new Background(new BackgroundImage(imagenPosicion, null, null, null, backgroundSize)));
 

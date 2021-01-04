@@ -14,11 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.GestionarCuentaController">
-   <ImageView fitHeight="400.0" fitWidth="600.0">
-      <image>
-         <Image url="@../temas/mario/assets/gestionarCuenta/fondoGestionarCuenta.png" />
-      </image>
-   </ImageView>
+   <ImageView fx:id="background" fitHeight="400.0" fitWidth="600.0"/>
     <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
       <center>
          <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
@@ -38,8 +34,8 @@
              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
             <children>
-               <Button mnemonicParsing="false" onAction="#pulsarVolver" prefHeight="30.0" prefWidth="90.0" style="-fx-background-image: url(is/buscaminas/temas/mario/assets/gestionarCuenta/botonVolver.png); -fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               <Button mnemonicParsing="false" onAction="#pulsarGuardar" prefHeight="35.0" prefWidth="90.0" style="-fx-background-image: url(is/buscaminas/temas/mario/assets/gestionarCuenta/botonGuardar.png);" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+               <Button fx:id="botonVolver" mnemonicParsing="false" onAction="#pulsarVolver" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <Button fx:id="botonGuardar" mnemonicParsing="false" onAction="#pulsarGuardar" prefHeight="35.0" prefWidth="90.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             </children>
          </GridPane>
       </bottom>
@@ -58,7 +54,7 @@
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
             <children>
-               <Button mnemonicParsing="false" onAction="#pulsarCambiarContrasena" prefHeight="30.0" prefWidth="90.0" style="-fx-background-image: url(is/buscaminas/temas/mario/assets/gestionarCuenta/botonCambiar.png);" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <Button fx:id="botonCambiar" mnemonicParsing="false" onAction="#pulsarCambiarContrasena" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                   <GridPane.margin>
                      <Insets left="30.0" />
                   </GridPane.margin></Button>

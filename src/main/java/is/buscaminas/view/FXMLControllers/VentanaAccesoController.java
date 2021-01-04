@@ -1,24 +1,37 @@
 package is.buscaminas.view.FXMLControllers;
 
 import is.buscaminas.Main;
+import is.buscaminas.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import java.io.File;
 
 
 public class VentanaAccesoController {
 
-    //Atributos normales
     @FXML private TextField nombreTextField;
     @FXML private TextField mailTextField;
     @FXML private TextField contrasenaTextField;
     @FXML private TextField mailRecuperacionTextField;
+    @FXML private ImageView background;
+    @FXML private ImageView title;
+    @FXML private Button botonEntrar;
 
 
     //Constructora
     @FXML
     public void initialize (){
-        //TODO
+        //Cargar temática
+        Image backgroundImage = new Image(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/acceso/fondoAcceso.png").toURI().toString());
+        background.setImage(backgroundImage);
+        Image titleImage = new Image(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/acceso/buscaminas.png").toURI().toString());
+        title.setImage(titleImage);
+        botonEntrar.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/acceso/botonEntrar.png); -fx-background-color: transparent;");
     }
 
     @FXML
