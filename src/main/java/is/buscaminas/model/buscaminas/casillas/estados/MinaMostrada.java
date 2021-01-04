@@ -5,7 +5,7 @@ import is.buscaminas.model.buscaminas.casillas.Casilla;
 import javafx.util.Pair;
 
 
-public class MarcadoIncorrecto implements IEstadoCasilla
+public class MinaMostrada implements IEstadoCasilla
 {
 	@Override
 	public int despejar(Casilla pCasilla)

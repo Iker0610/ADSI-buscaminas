@@ -39,7 +39,7 @@ public class Main extends Application {
     public static void login (String pUsuario, int pDificultad)
     {
 
-        Partida.getPartida().iniciarPartida(pUsuario, pDificultad);
+        Partida.getPartida().inicializarTablero(pUsuario, pDificultad);
     }
     ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -51,7 +51,7 @@ public class Main extends Application {
 
         //Se carga la fuente
         try {
-            Font.loadFont(new FileInputStream(new File("src/main/resources/is/buscaminas/fuentes/MarioFont.ttf")), 20);
+            Font.loadFont(new FileInputStream("src/main/resources/is/buscaminas/fuentes/MarioFont.ttf"), 20);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
