@@ -33,7 +33,7 @@ public abstract class EstadoDespejable implements IEstadoCasilla
 			return 6;
 		}
 		else{                                                               // Si es mina
-			SFXPlayer.getSFXPlayer().playAbsoluteSFX("gameover");
+			SFXPlayer.getSFXPlayer().playFinalSFX("gameover");
 			return 2;
 		}
 	}
