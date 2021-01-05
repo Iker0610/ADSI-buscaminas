@@ -48,6 +48,8 @@ public class SFXPlayer
 				// Si se esta ejecutando un tema, se para y se libera la memoria
 				backgroundThemePlayer.stop();
 				backgroundThemePlayer.dispose();
+				backgroundThemePlayer = null;
+				backgroundThemeName   = null;
 			}
 			
 			// Se arranca el nuevo tema
@@ -81,6 +83,8 @@ public class SFXPlayer
 				// Si se esta ejecutando un tema, se para y se libera la memoria
 				floatWindowBackgroundThemePlayer.stop();
 				floatWindowBackgroundThemePlayer.dispose();
+				floatWindowBackgroundThemePlayer = null;
+				floatWindowBackgroundThemeName   = null;
 			}
 			
 			// Se arranca el nuevo tema
@@ -96,8 +100,9 @@ public class SFXPlayer
 	{
 		if (floatWindowBackgroundThemePlayer != null){
 			floatWindowBackgroundThemePlayer.stop();
-			if (floatWindowBackgroundThemePlayer.getOnEndOfMedia() != null) floatWindowBackgroundThemePlayer.getOnEndOfMedia().run();
 			floatWindowBackgroundThemePlayer.dispose();
+			floatWindowBackgroundThemePlayer = null;
+			floatWindowBackgroundThemeName   = null;
 		}
 		playBackground();
 	}
@@ -112,6 +117,7 @@ public class SFXPlayer
 			efectPlayer.stop();
 			if (efectPlayer.getOnEndOfMedia() != null) efectPlayer.getOnEndOfMedia().run();
 			efectPlayer.dispose();
+			efectPlayer = null;
 		}
 		
 		// Se ejecuta el nuevo efecto
@@ -155,6 +161,8 @@ public class SFXPlayer
 			// Si se esta ejecutando un tema, se para y se libera la memoria
 			backgroundThemePlayer.stop();
 			backgroundThemePlayer.dispose();
+			backgroundThemePlayer = null;
+			backgroundThemeName   = null;
 		}
 		setSFX(pTheme);
 		efectPlayer.play();
