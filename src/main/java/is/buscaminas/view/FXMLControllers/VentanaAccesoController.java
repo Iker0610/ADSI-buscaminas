@@ -3,6 +3,7 @@ package is.buscaminas.view.FXMLControllers;
 
 import is.buscaminas.controller.GestorVentanas;
 import is.buscaminas.controller.Partida;
+import is.buscaminas.controller.SFXPlayer;
 import is.buscaminas.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -56,6 +57,9 @@ public class VentanaAccesoController
 		dificultad1.setToggleGroup(dificultadGroup);
 		dificultad2.setToggleGroup(dificultadGroup);
 		dificultad3.setToggleGroup(dificultadGroup);
+		
+		// Se pone el tema de fondo:
+		SFXPlayer.getSFXPlayer().setBackgroundTheme("marioTheme");
 	}
 	
 	
