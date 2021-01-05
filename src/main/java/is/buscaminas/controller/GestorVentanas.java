@@ -182,6 +182,4 @@ public class GestorVentanas
 	{
 		abrirVentanaEmergente("ventanaMenuAyuda", "Ayuda");
 	}
-	
-	
 }
