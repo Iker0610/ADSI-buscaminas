@@ -17,7 +17,7 @@ public class GestorUsuario
     public static void checkEmailContrasena(String pEmail, String pContra, String pNickname){
         // TODO ARREGLAR Y TERMINAR DE IMPLEMENTAR
         try {
-            Usuario.create(pEmail, pNickname,1,"mario",false);
+            Usuario.create(pEmail, pNickname,1,"amongus",true);
         } catch (IllegalAccessException e) {
             System.out.println("IKER LA HA LIADO");
         }
