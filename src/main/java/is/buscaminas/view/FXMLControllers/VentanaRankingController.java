@@ -59,7 +59,7 @@ public class VentanaRankingController
 		mostrarRanking(Partida.getPartida().getDificultad());
 		
 		// Se pone el tema de fondo:
-		SFXPlayer.getSFXPlayer().setBackgroundTheme("challengeTheme");
+		SFXPlayer.getSFXPlayer().setFloatWindowBackgroundTheme("challengeTheme");
 	}
 	
 	
