@@ -20,6 +20,7 @@ public class MenuPrincipalController {
     @FXML private Button botonAyuda;
     @FXML private Button botonVolver;
     @FXML private Button botonJugar;
+    @FXML private Button botonAdmin;
 
     //Constructora
     @FXML private void initialize(){
@@ -34,10 +35,16 @@ public class MenuPrincipalController {
         botonAyuda.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/principal/botonAyuda.png); -fx-background-repeat: no-repeat; -fx-background-size: cover, auto; -fx-background-color: transparent;");
         botonVolver.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/principal/botonVolver.png); -fx-background-repeat: no-repeat; -fx-background-size: cover, auto; -fx-background-color: transparent;");
         botonJugar.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/principal/botonJugar.png); -fx-background-repeat: no-repeat; -fx-background-size: cover, auto; -fx-background-color: transparent;");
+        botonAdmin.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/principal/botonAdmin.png); -fx-background-repeat: no-repeat; -fx-background-size: cover, auto; -fx-background-color: transparent;");
+        if(!Usuario.getUsuario().esAdmin()){
+            botonAdmin.setDisable(true);
+            botonAdmin.setOpacity(0.0);
+
+        }
     }
 
     @FXML public void pulsarJugar (){
-        Main.jugar();
+        Main.seleccionarNivel();
     }
     @FXML public void pulsarVolver (){
         Main.iniciarLogin();
@@ -53,5 +60,8 @@ public class MenuPrincipalController {
     }
     @FXML public void pulsarAyuda(){
         //TODO
+    }
+    @FXML public void pulsarAdmin(){
+        Main.administrar();
     }
 }

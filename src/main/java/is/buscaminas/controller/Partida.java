@@ -294,4 +294,104 @@ public class Partida {
             errorDeCarga.show();
         }
     }
+
+    public void abrirAdministrar(){
+        try{
+            //Se carga la pantalla y se introduce en el Stage
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/UI_Administrar.fxml"));
+            ventanaAct.setScene(new Scene(root));
+
+            //Se muestra el stage una vez cargado
+            ventanaAct.show();
+        }
+        catch (Exception e) {
+            // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
+            Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
+            errorDeCarga.setTitle("Error carga FXML");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/UI_Administrar.fxml");
+            errorDeCarga.setContentText(e.toString() + "\n\nLa aplicación se cerrará");
+            errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
+            errorDeCarga.show();
+        }
+    }
+
+    public void abrirAdministrarJuego(){
+        try{
+            //Se carga la pantalla y se introduce en el Stage
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/UI_GestionarDatosJuego.fxml"));
+            ventanaAct.setScene(new Scene(root));
+
+            //Se muestra el stage una vez cargado
+            ventanaAct.show();
+        }
+        catch (Exception e) {
+            // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
+            Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
+            errorDeCarga.setTitle("Error carga FXML");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/UI_GestionarDatosJuego.fxml");
+            errorDeCarga.setContentText(e.toString() + "\n\nLa aplicación se cerrará");
+            errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
+            errorDeCarga.show();
+        }
+    }
+
+    public void abrirAdministrarUsuarios(){
+        try{
+            //Se carga la pantalla y se introduce en el Stage
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/UI_GestionarUsuarios.fxml"));
+            ventanaAct.setScene(new Scene(root));
+
+            //Se muestra el stage una vez cargado
+            ventanaAct.show();
+        }
+        catch (Exception e) {
+            // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
+            Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
+            errorDeCarga.setTitle("Error carga FXML");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/UI_GestionarUsuarios.fxml");
+            errorDeCarga.setContentText(e.toString() + "\n\nLa aplicación se cerrará");
+            errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
+            errorDeCarga.show();
+        }
+    }
+
+    public void abrirAdministrarDatosUsuario(){
+        try{
+            //Se carga la pantalla y se introduce en el Stage
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/UI_GestionarDatosUsuario.fxml"));
+            ventanaAct.setScene(new Scene(root));
+
+            //Se muestra el stage una vez cargado
+            ventanaAct.show();
+        }
+        catch (Exception e) {
+            // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
+            Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
+            errorDeCarga.setTitle("Error carga FXML");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/UI_GestionarDatosUsuario.fxml");
+            errorDeCarga.setContentText(e.toString() + "\n\nLa aplicación se cerrará");
+            errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
+            errorDeCarga.show();
+        }
+    }
+
+    public void abrirVentanaAcceso(){
+        try{
+            //Se carga la pantalla y se introduce en el Stage
+            Parent root = FXMLLoader.load(Main.class.getResource("fxml/ventanaAcceso.fxml"));
+            ventanaAct.setScene(new Scene(root));
+
+            //Se muestra el stage una vez cargado
+            ventanaAct.show();
+        }
+        catch (Exception e) {
+            // Si existe algún error al cargar el fxml se indica y se cierra la aplicación
+            Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
+            errorDeCarga.setTitle("Error carga FXML");
+            errorDeCarga.setHeaderText("Error al cargar el archivo FXML: fxml/ventanaAcceso.fxml");
+            errorDeCarga.setContentText(e.toString() + "\n\nLa aplicación se cerrará");
+            errorDeCarga.setOnCloseRequest((handler) -> System.exit(-1));
+            errorDeCarga.show();
+        }
+    }
 }

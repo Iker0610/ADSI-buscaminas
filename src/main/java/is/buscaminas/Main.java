@@ -49,10 +49,14 @@ public class Main extends Application {
         Partida.getPartida().abrirMenuPrincipal();
     }
 
-    // Se selecciona Jugar en el menú principal
-    public static void jugar (){
+    // Se selecciona Jugar en la ventana de acceso
+    public static void jugar (int pDificultad){
         //Parámetros temporales hasta la implementación del login
-        Partida.getPartida().iniciarPartida("???", 1);
+        Partida.getPartida().iniciarPartida("???", pDificultad);
+    }
+    // Se selecciona Jugar en el menú principal
+    public static void seleccionarNivel(){
+        Partida.getPartida().abrirVentanaAcceso();
     }
 
     // Se selecciona Gestionar Cuenta en el menú principal
@@ -62,6 +66,18 @@ public class Main extends Application {
 
     // Se selecciona abrir Logros en el menú principal
     public static void verLogros(){ Partida.getPartida().abrirLogros(); }
+
+    // Se selecciona Administrar
+    public static void administrar(){ Partida.getPartida().abrirAdministrar(); }
+
+    // Se selecciona Administrar Juego
+    public static void administrarJuego(){ Partida.getPartida().abrirAdministrarJuego(); }
+
+    // Se selecciona Administrar Usuario
+    public static void administrarUsuarios(){ Partida.getPartida().abrirAdministrarUsuarios(); }
+
+    // Se selecciona un Usuario para Administrar sus Datos
+    public static void administrarDatosUsuario(){ Partida.getPartida().abrirAdministrarDatosUsuario(); }
 
     ////////////////////////////////////////////////////////////////////////////////////////
 

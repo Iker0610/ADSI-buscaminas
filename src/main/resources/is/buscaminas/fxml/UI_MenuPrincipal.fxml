@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.MenuPrincipalController">
-   <ImageView fx:id="background" fitHeight="400.0" fitWidth="600.0"/>
+   <ImageView fx:id="background" fitHeight="400.0" fitWidth="600.0" />
     <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
         <top>
             <HBox alignment="CENTER" prefHeight="124.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                <ImageView fx:id="title" fitHeight="113.0" fitWidth="578.0"/>
+                <ImageView fx:id="title" fitHeight="113.0" fitWidth="578.0" />
             </HBox>
         </top>
       <center>
@@ -36,6 +36,7 @@
                      <Insets left="150.0" />
                   </GridPane.margin>
                </Button>
+            <Button fx:id="botonAdmin" mnemonicParsing="false" onAction="#pulsarAdmin" prefHeight="42.0" prefWidth="40.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
          </GridPane>
       </center>
       <bottom>
