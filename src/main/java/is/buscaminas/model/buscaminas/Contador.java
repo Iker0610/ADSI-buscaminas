@@ -104,24 +104,4 @@ public class Contador
 		//Post: Se ha parado el contador
 		if (timer != null) timer.cancel(); //Elimina la tarea que se está ejecutando en estos momentos y deshabilita permanentemente el timer
 	}
-
-
-    /*
-    Codigo alternativo empleando los Thread:
-
-    @Override
-    public void run ()
-    {
-        //noinspection InfiniteLoopStatement
-        while (true) {
-            try {
-                Thread.sleep(1000);
-                lObservers.firePropertyChange("seconds", seconds, ++seconds);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-     */
 }
