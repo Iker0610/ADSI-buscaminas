@@ -43,16 +43,16 @@ public class SFXPlayer
 	public void setBackgroundTheme(String pTheme)
 	{
 		if (pTheme != null && !pTheme.equals(backgroundThemeName)){
-			backgroundThemeName = pTheme;
 			if (backgroundThemePlayer != null){
 				// Si se esta ejecutando un tema, se para y se libera la memoria
 				backgroundThemePlayer.stop();
 				backgroundThemePlayer.dispose();
 				backgroundThemePlayer = null;
-				backgroundThemeName   = null;
+				backgroundThemeName = null;
 			}
 			
 			// Se arranca el nuevo tema
+			backgroundThemeName = pTheme;
 			Media backgroundTheme = new Media(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/sfx/themes/" + pTheme + ".mp3").toURI().toString());
 			backgroundThemePlayer = new MediaPlayer(backgroundTheme);
 			backgroundThemePlayer.seek(Duration.ZERO);

@@ -53,7 +53,7 @@ public class MenuAyudaController
 		}
 		
 		// Se pone el tema de fondo:
-		SFXPlayer.getSFXPlayer().setFloatWindowBackgroundTheme("storeTheme");
+		SFXPlayer.getSFXPlayer().setFloatWindowBackgroundTheme("helpTheme");
 	}
 	
 	

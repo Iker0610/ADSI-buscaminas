@@ -19,7 +19,7 @@ public abstract class EstadoDespejable implements IEstadoCasilla
 		{
 			if (((CasillaNum) pCasilla).tieneCeroMinasAdyacentes())     // si tiene 0 minas adyacentes
 			{
-				SFXPlayer.getSFXPlayer().playSFX("waha");
+				SFXPlayer.getSFXPlayer().playSFX("wideClear");
 				return 3;
 			}
 			else{

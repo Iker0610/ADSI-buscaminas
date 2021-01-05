@@ -62,7 +62,7 @@ public class MenuPrincipalController
 		}
 		
 		// Se pone el tema de fondo:
-		SFXPlayer.getSFXPlayer().setBackgroundTheme("marioTheme");
+		SFXPlayer.getSFXPlayer().setBackgroundTheme("mainMenuTheme");
 	}
 	
 	// Métodos

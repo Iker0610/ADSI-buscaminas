@@ -36,7 +36,7 @@ public class TableroController
 				  "-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/fondo/fondo.png); -fx-background-repeat: no-repeat; -fx-background-size: cover, auto; -fx-background-insets:0 0 0 0, 4 0 0 4, 4;");
 		
 		// Se pone el tema de fondo:
-		SFXPlayer.getSFXPlayer().setBackgroundTheme("marioTheme");
+		SFXPlayer.getSFXPlayer().setBackgroundTheme("mainTheme");
 		
 		//Se genera y configura el tablero (incluidos el listener del click inicial)
 		inicializarTablero();

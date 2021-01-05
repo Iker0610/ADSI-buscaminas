@@ -59,7 +59,7 @@ public class VentanaAccesoController
 		dificultad3.setToggleGroup(dificultadGroup);
 		
 		// Se pone el tema de fondo:
-		SFXPlayer.getSFXPlayer().setBackgroundTheme("marioTheme");
+		SFXPlayer.getSFXPlayer().setBackgroundTheme("mainTheme");
 	}
 	
 	
