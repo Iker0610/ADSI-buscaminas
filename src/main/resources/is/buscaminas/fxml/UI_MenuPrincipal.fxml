@@ -1,63 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-
+<?import javafx.scene.layout.*?>
 <AnchorPane xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.MenuPrincipalController">
-   <ImageView fx:id="background" fitHeight="400.0" fitWidth="600.0" />
+    <ImageView fx:id="background" fitHeight="400.0" fitWidth="600.0"/>
     <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
         <top>
             <HBox alignment="CENTER" prefHeight="124.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                <ImageView fx:id="title" fitHeight="113.0" fitWidth="578.0" />
+                <ImageView fx:id="title" fitHeight="113.0" fitWidth="578.0"/>
             </HBox>
         </top>
-      <center>
-         <GridPane prefHeight="182.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-           <columnConstraints>
-               <ColumnConstraints hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="241.0" />
-             <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="129.0" />
-               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-           </columnConstraints>
-           <rowConstraints>
-               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="53.0" minHeight="4.0" prefHeight="5.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES" />
-           </rowConstraints>
-               <Button fx:id="botonJugar" mnemonicParsing="false" onAction="#pulsarJugar" prefHeight="75.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-               <Button fx:id="botonAyuda" mnemonicParsing="false" onAction="#pulsarAyuda" prefHeight="40.0" prefWidth="40.0" GridPane.columnIndex="2">
-                  <GridPane.margin>
-                     <Insets left="150.0" />
-                  </GridPane.margin>
-               </Button>
-            <Button fx:id="botonAdmin" mnemonicParsing="false" onAction="#pulsarAdmin" prefHeight="42.0" prefWidth="40.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-         </GridPane>
-      </center>
-      <bottom>
-         <GridPane prefHeight="103.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-           <columnConstraints>
-             <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="0.0" prefWidth="49.0" />
-               <ColumnConstraints hgrow="SOMETIMES" maxWidth="570.0" minWidth="10.0" prefWidth="330.0" />
-               <ColumnConstraints hgrow="SOMETIMES" maxWidth="570.0" minWidth="10.0" prefWidth="222.0" />
-           </columnConstraints>
-           <rowConstraints>
-             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-             <RowConstraints maxHeight="35.0" minHeight="9.0" prefHeight="30.0" vgrow="SOMETIMES" />
-           </rowConstraints>
-             <Button fx:id="botonVolver" mnemonicParsing="false" onAction="#pulsarVolver" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                   <Button fx:id="botonRanking" mnemonicParsing="false" onAction="#pulsarVerRanking" prefHeight="50.0" prefWidth="40.0" />
-                   <Button fx:id="botonLogros" mnemonicParsing="false" onAction="#pulsarVerLogros" prefHeight="50.0" prefWidth="40.0" />
-                   <Button fx:id="botonGestionarCuenta" mnemonicParsing="false" onAction="#pulsarGestionarCuenta" prefHeight="50.0" prefWidth="40.0" />
-               </HBox>
-         </GridPane>
-      </bottom>
+        <center>
+            <GridPane prefHeight="182.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="241.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="129.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="53.0" minHeight="4.0" prefHeight="5.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <Button fx:id="botonJugar" mnemonicParsing="false" onAction="#pulsarJugar" prefHeight="75.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Button fx:id="botonAyuda" mnemonicParsing="false" onAction="#pulsarAyuda" prefHeight="40.0" prefWidth="40.0" GridPane.columnIndex="2">
+                    <GridPane.margin>
+                        <Insets left="150.0"/>
+                    </GridPane.margin>
+                </Button>
+                <Button fx:id="botonAdmin" mnemonicParsing="false" onAction="#pulsarAdmin" prefHeight="42.0" prefWidth="40.0" GridPane.columnIndex="2" GridPane.halignment="CENTER"/>
+            </GridPane>
+        </center>
+        <bottom>
+            <GridPane prefHeight="103.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="0.0" prefWidth="49.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="570.0" minWidth="10.0" prefWidth="330.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="570.0" minWidth="10.0" prefWidth="222.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="35.0" minHeight="9.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <Button fx:id="botonVolver" mnemonicParsing="false" onAction="#pulsarVolver" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <Button fx:id="botonRanking" mnemonicParsing="false" onAction="#pulsarVerRanking" prefHeight="50.0" prefWidth="40.0"/>
+                    <Button fx:id="botonLogros" mnemonicParsing="false" onAction="#pulsarVerLogros" prefHeight="50.0" prefWidth="40.0"/>
+                    <Button fx:id="botonGestionarCuenta" mnemonicParsing="false" onAction="#pulsarGestionarCuenta" prefHeight="50.0" prefWidth="40.0"/>
+                </HBox>
+            </GridPane>
+        </bottom>
     </BorderPane>
 </AnchorPane>

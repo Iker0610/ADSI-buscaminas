@@ -148,6 +148,16 @@ public class GestorVentanas
 		abrirVentanaPrincipal("ventanaPartidaBase");
 	}
 	
+	public void abrirAdministrar()          {abrirVentanaPrincipal("UI_Administrar");}
+	
+	public void abrirGestionarJuego()       {abrirVentanaPrincipal("UI_GestionarDatosJuego");}
+	
+	public void abrirGestionarUsuarios()    {abrirVentanaPrincipal("UI_GestionarUsuarios");}
+	
+	public void abrirGestionarDatosUsuario(){abrirVentanaPrincipal("UI_GestionarDatosUsuario");}
+	
+	public void abrirSeleccionNivel()       {abrirVentanaPrincipal("ventanaAcceso");}
+	
 	public void mostrarRankingEmergente()
 	{
 		abrirVentanaEmergente("UI_VerRanking", "Ranking");
@@ -157,4 +167,6 @@ public class GestorVentanas
 	{
 		abrirVentanaEmergente("ventanaMenuAyuda", "Ayuda");
 	}
+	
+	
 }
