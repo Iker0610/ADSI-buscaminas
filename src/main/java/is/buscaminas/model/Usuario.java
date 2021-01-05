@@ -2,7 +2,11 @@ package is.buscaminas.model;
 
 
 import is.buscaminas.controller.GestorUsuario;
+import javafx.scene.text.Font;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 
 
@@ -17,12 +21,13 @@ public class Usuario
 	private String tematicaActual;
 	
 	// Constructora y patrón singleton
-	private Usuario(String pEmail, String pNickname, int pNivelInicial, String pTematicaActual, boolean pEsAdmin){
-		email = pEmail;
-		nickname = pNickname;
+	private Usuario(String pEmail, String pNickname, int pNivelInicial, String pTema, boolean pEsAdmin)
+	{
+		email        = pEmail;
+		nickname     = pNickname;
 		nivelInicial = pNivelInicial;
-		tematicaActual = pTematicaActual;
-		esAdmin = pEsAdmin;
+		esAdmin      = pEsAdmin;
+		setTematicaActual(pTema);
 	}
 	
 	public static void create(String pEmail, String pNickname, int pNivelInicial, String pTematicaActual, boolean pEsAdmin) throws IllegalAccessException{
@@ -51,17 +56,29 @@ public class Usuario
 		return nivelInicial;
 	}
 	
-	public String getTematicaActual(){
+	public String getTematicaActual()
+	{
 		return tematicaActual;
 	}
-
-	public boolean esAdmin(){
+	
+	public boolean esAdmin()
+	{
 		return esAdmin;
 	}
 	
 	// Setters
-
-	public void setTematicaActual(String tematicaActual){
-		this.tematicaActual = tematicaActual;
+	
+	public void setTematicaActual(String pTema)
+	{
+		this.tematicaActual = pTema;
+		
+		//Se carga la fuente
+		try{
+			Font.loadFont(new FileInputStream(new File("src/main/resources/is/buscaminas/temas/" + pTema + "/fuente/font.ttf")), 20);
+		}
+		catch (FileNotFoundException e){
+			// Todo Crear emergente
+			e.printStackTrace();
+		}
 	}
 }

@@ -1,8 +1,8 @@
 package is.buscaminas.view.FXMLControllers;
 
-import is.buscaminas.Main;
+
 import is.buscaminas.controller.GestorUsuario;
-import is.buscaminas.model.Usuario;
+import is.buscaminas.controller.GestorVentanas;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -29,7 +29,6 @@ public class InicioController {
     //Constructora
     @FXML
     public void initialize (){
-        GestorUsuario.checkEmailContrasena("a","a","a");
         //Cargar temática
         Image backgroundImage = new Image(new File("src/main/resources/is/buscaminas/inicio/fondoInicio.png").toURI().toString());
         background.setImage(backgroundImage);
@@ -50,10 +49,11 @@ public class InicioController {
             String nombreUser = nombreTextField.getText();
 
             //TODO Login
+            GestorUsuario.checkEmailContrasena("a", "a", nombreUser);
 
 
             // Se abre el menú principal
-            Main.login(Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s",""));
+            GestorVentanas.getGestorVentanas().abrirMenuPrincipal();
 
         }
         else {

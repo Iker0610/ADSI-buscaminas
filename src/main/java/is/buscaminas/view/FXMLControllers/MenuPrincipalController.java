@@ -1,6 +1,7 @@
 package is.buscaminas.view.FXMLControllers;
 
-import is.buscaminas.Main;
+
+import is.buscaminas.controller.GestorVentanas;
 import is.buscaminas.controller.Partida;
 import is.buscaminas.model.Usuario;
 import javafx.fxml.FXML;
@@ -10,7 +11,9 @@ import javafx.scene.image.ImageView;
 
 import java.io.File;
 
-public class MenuPrincipalController {
+
+public class MenuPrincipalController
+{
 
     @FXML private ImageView background;
     @FXML private ImageView title;
@@ -37,21 +40,21 @@ public class MenuPrincipalController {
     }
 
     @FXML public void pulsarJugar (){
-        Main.jugar();
+        Partida.getPartida().iniciarPartida(1);
     }
     @FXML public void pulsarVolver (){
-        Main.iniciarLogin();
+        GestorVentanas.getGestorVentanas().abrirMenuPrincipal();
     }
     @FXML public void pulsarVerRanking (){
-        Partida.getPartida().mostrarRanking();
+        GestorVentanas.getGestorVentanas().mostrarRankingEmergente();
     }
     @FXML public void pulsarVerLogros (){
-        Main.verLogros();
+        GestorVentanas.getGestorVentanas().abrirLogros();
     }
     @FXML public void pulsarGestionarCuenta (){
-        Main.gestionarCuenta();
+        GestorVentanas.getGestorVentanas().abrirGestionarCuenta();
     }
     @FXML public void pulsarAyuda(){
-        //TODO
+        GestorVentanas.getGestorVentanas().mostrarAyudaEmergente();
     }
 }

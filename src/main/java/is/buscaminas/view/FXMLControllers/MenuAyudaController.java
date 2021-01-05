@@ -1,6 +1,7 @@
 package is.buscaminas.view.FXMLControllers;
 
 
+import is.buscaminas.controller.SFXPlayer;
 import is.buscaminas.view.uiElements.VistaAyuda;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,15 +37,18 @@ public class MenuAyudaController {
         //          Se carga la primera página si existe.
         //          Se bloquea el botón para ir a la página anterior.
         //          Si no hay páginas se establece como página actual la 0 y se bloquea el botón de avanzar
-        pagAct = 0;
+        pagAct   = 0;
         pagTotal = getNumPagTotal();
         btnPrev.setDisable(true);
         if (pagTotal <= 1) btnNext.setDisable(true);
-        if (pagTotal > 0) {
+        if (pagTotal > 0){
             pagAct = 1;
             paginacion.setText(pagAct + "/" + pagTotal);
             panelAyuda.cambiarPaginaAyuda(pagAct);
         }
+    
+        // Se pone el tema musical de fondo:
+        SFXPlayer.getSFXPlayer().setBackgroundTheme("storeTheme");
     }
 
     // Metodos

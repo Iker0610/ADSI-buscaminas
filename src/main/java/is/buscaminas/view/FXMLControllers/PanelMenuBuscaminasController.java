@@ -1,5 +1,6 @@
 package is.buscaminas.view.FXMLControllers;
 
+import is.buscaminas.controller.GestorVentanas;
 import is.buscaminas.controller.Partida;
 import is.buscaminas.controller.SFXPlayer;
 import is.buscaminas.model.Usuario;
@@ -25,14 +26,14 @@ public class PanelMenuBuscaminasController {
 
     @FXML
     private void reiniciar (ActionEvent pEvento) { Partida.getPartida().reiniciarPartida(); }
-
+    
     @FXML
-    private void mostrarAyuda (ActionEvent pEvento) { Partida.getPartida().mostrarAyuda(); }
+    private void mostrarAyuda(ActionEvent pEvento){ GestorVentanas.getGestorVentanas().mostrarAyudaEmergente(); }
 
     @FXML
     private void mostrarRanking (ActionEvent pEvento)
     {
-        Partida.getPartida().mostrarRanking();
+        GestorVentanas.getGestorVentanas().mostrarRankingEmergente();
         SFXPlayer.getSFXPlayer().setBackgroundTheme("challengeTheme");
     }
 }

@@ -1,6 +1,7 @@
 package is.buscaminas.view.FXMLControllers;
 
-import is.buscaminas.Main;
+
+import is.buscaminas.controller.GestorVentanas;
 import is.buscaminas.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,7 +10,9 @@ import javafx.scene.image.ImageView;
 
 import java.io.File;
 
-public class LogrosController {
+
+public class LogrosController
+{
 
     @FXML private ImageView background;
     @FXML private Button botonVolver;
@@ -26,7 +29,7 @@ public class LogrosController {
     }
 
     @FXML public void pulsarVolver(){
-        Main.login(Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s",""));
+        GestorVentanas.getGestorVentanas().abrirMenuPrincipal();
     }
 }
 
