@@ -21,12 +21,11 @@
 
     <VistaMarcadas GridPane.columnIndex="0"/>
     <HBox spacing="15.0" GridPane.columnIndex="1" GridPane.valignment="CENTER">
-        <Button fx:id="botonRanking" focusTraversable="false" maxHeight="35" maxWidth="35" minHeight="35" minWidth="35" onAction="#mostrarRanking" />
+        <Button fx:id="botonRanking" focusTraversable="false" maxHeight="35" maxWidth="35" minHeight="35" minWidth="35" onAction="#mostrarRanking"/>
         <VistaEmoji GridPane.columnIndex="1" onAction="#reiniciar" focusTraversable="false"/>
         <Button fx:id="botonAyuda" focusTraversable="false" maxHeight="35" maxWidth="35" minHeight="35" minWidth="35" onAction="#mostrarAyuda"/>
     </HBox>
     <VistaContador GridPane.columnIndex="2"/>
-
 
     <padding>
         <Insets bottom="7.0" left="7.0" right="7.0" top="7.0"/>

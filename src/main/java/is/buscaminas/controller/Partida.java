@@ -41,7 +41,8 @@ public class Partida
     // Login en la aplicacion
     public void iniciarPartida(int pDificultad)
     {
-        dificultad = pDificultad;
+        dificultad    = pDificultad;
+        partidaActiva = true;
         GestorVentanas.getGestorVentanas().abrirPartida();
     }
     
