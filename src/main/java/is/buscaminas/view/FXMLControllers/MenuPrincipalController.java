@@ -2,6 +2,7 @@ package is.buscaminas.view.FXMLControllers;
 
 
 import is.buscaminas.controller.GestorVentanas;
+import is.buscaminas.controller.SFXPlayer;
 import is.buscaminas.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -59,6 +60,9 @@ public class MenuPrincipalController
 			botonAdmin.setOpacity(0.0);
 			
 		}
+		
+		// Se pone el tema de fondo:
+		SFXPlayer.getSFXPlayer().setBackgroundTheme("marioTheme");
 	}
 	
 	// Métodos

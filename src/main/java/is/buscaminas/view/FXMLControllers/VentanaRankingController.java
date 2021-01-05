@@ -58,6 +58,9 @@ public class VentanaRankingController
 		for (int i = 0; i < 3; i++) rankingPorNivel[i] = new VistaRanking();
 		
 		mostrarRanking(Partida.getPartida().getDificultad());
+		
+		// Se pone el tema de fondo:
+		SFXPlayer.getSFXPlayer().setFloatWindowBackgroundTheme("challengeTheme");
 	}
 	
 	
@@ -88,8 +91,8 @@ public class VentanaRankingController
 	public void pulsarAceptar()
 	{
 		Stage stage = (Stage) aceptar.getScene().getWindow();
-		Contador.getContador().continuar(); //Reanudar contador
+		SFXPlayer.getSFXPlayer().stopFloatWindowBackground();
+		if (Partida.getPartida().hayPartidaActiva()) Contador.getContador().continuar();
 		stage.close();
-		SFXPlayer.getSFXPlayer().setBackgroundTheme("marioTheme");
 	}
 }

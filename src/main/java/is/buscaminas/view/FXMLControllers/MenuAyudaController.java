@@ -52,8 +52,8 @@ public class MenuAyudaController
 			panelAyuda.cambiarPaginaAyuda(pagAct);
 		}
 		
-		// Se pone el tema musical de fondo:
-		SFXPlayer.getSFXPlayer().setBackgroundTheme("storeTheme");
+		// Se pone el tema de fondo:
+		SFXPlayer.getSFXPlayer().setFloatWindowBackgroundTheme("storeTheme");
 	}
 	
 	
