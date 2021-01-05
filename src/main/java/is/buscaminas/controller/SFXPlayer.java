@@ -39,29 +39,23 @@ public class SFXPlayer
 	
 	// Métodos
 	
-	// BACKGROUND
-	private void setBackgroundTheme(String pTheme, MediaPlayer pBackground)
-	{
-		if (pBackground != null){
-			// Si se esta ejecutando un tema, se para y se libera la memoria
-			pBackground.stop();
-			pBackground.dispose();
-		}
-		
-		// Se arranca el nuevo tema
-		Media backgroundTheme = new Media(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/sfx/themes/" + pTheme + ".mp3").toURI().toString());
-		pBackground = new MediaPlayer(backgroundTheme);
-		pBackground.seek(Duration.ZERO);
-		pBackground.setCycleCount(MediaPlayer.INDEFINITE);
-		pBackground.play();
-	}
-	
 	// BACKGROUND PARA VENTANAS PRINCIPALES
 	public void setBackgroundTheme(String pTheme)
 	{
 		if (pTheme != null && !pTheme.equals(backgroundThemeName)){
 			backgroundThemeName = pTheme;
-			setBackgroundTheme(pTheme, backgroundThemePlayer);
+			if (backgroundThemePlayer != null){
+				// Si se esta ejecutando un tema, se para y se libera la memoria
+				backgroundThemePlayer.stop();
+				backgroundThemePlayer.dispose();
+			}
+			
+			// Se arranca el nuevo tema
+			Media backgroundTheme = new Media(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/sfx/themes/" + pTheme + ".mp3").toURI().toString());
+			backgroundThemePlayer = new MediaPlayer(backgroundTheme);
+			backgroundThemePlayer.seek(Duration.ZERO);
+			backgroundThemePlayer.setCycleCount(MediaPlayer.INDEFINITE);
+			backgroundThemePlayer.play();
 		}
 	}
 	
@@ -83,7 +77,18 @@ public class SFXPlayer
 		if (pTheme != null && !pTheme.equals(floatWindowBackgroundThemeName)){
 			floatWindowBackgroundThemeName = pTheme;
 			stopBackground();
-			setBackgroundTheme(pTheme, floatWindowBackgroundThemePlayer);
+			if (floatWindowBackgroundThemePlayer != null){
+				// Si se esta ejecutando un tema, se para y se libera la memoria
+				floatWindowBackgroundThemePlayer.stop();
+				floatWindowBackgroundThemePlayer.dispose();
+			}
+			
+			// Se arranca el nuevo tema
+			Media backgroundTheme = new Media(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/sfx/themes/" + pTheme + ".mp3").toURI().toString());
+			floatWindowBackgroundThemePlayer = new MediaPlayer(backgroundTheme);
+			floatWindowBackgroundThemePlayer.seek(Duration.ZERO);
+			floatWindowBackgroundThemePlayer.setCycleCount(MediaPlayer.INDEFINITE);
+			floatWindowBackgroundThemePlayer.play();
 		}
 	}
 	
