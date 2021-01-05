@@ -98,8 +98,7 @@ public class Partida
             
             //Se abre la ventana del ranking
             GestorVentanas.getGestorVentanas().mostrarRankingEmergente();
-            SFXPlayer.getSFXPlayer().stopBackground();
-            SFXPlayer.getSFXPlayer().playSFX("victory");
+            SFXPlayer.getSFXPlayer().playFinalSFX("victory");
         }
         
         //Se para y resetea el contador

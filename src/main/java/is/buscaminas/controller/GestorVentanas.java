@@ -99,7 +99,7 @@ public class GestorVentanas
 			
 			// Se configuran las acciones al cerrar la ventana -> Se reanuda el contador
 			ventanaEmergente.setOnCloseRequest((pHandler)->{
-				SFXPlayer.getSFXPlayer().setBackgroundTheme("marioTheme"); // TODO, ARREGLAR ESTO de los SFX
+				SFXPlayer.getSFXPlayer().stopFloatWindowBackground();
 				if (Partida.getPartida().hayPartidaActiva()) Contador.getContador().continuar();
 			});
 			
