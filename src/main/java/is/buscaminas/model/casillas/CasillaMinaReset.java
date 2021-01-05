@@ -1,4 +1,4 @@
-package is.buscaminas.model.buscaminas.casillas;
+package is.buscaminas.model.casillas;
 
 
 import java.beans.PropertyChangeListener;

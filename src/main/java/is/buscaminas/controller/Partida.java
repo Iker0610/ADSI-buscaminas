@@ -1,7 +1,7 @@
 package is.buscaminas.controller;
 
 
-import is.buscaminas.model.buscaminas.Contador;
+import is.buscaminas.model.Contador;
 import is.buscaminas.model.ranking.Ranking;
 
 import java.beans.PropertyChangeListener;

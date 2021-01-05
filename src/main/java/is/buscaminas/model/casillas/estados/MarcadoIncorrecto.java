@@ -1,7 +1,7 @@
-package is.buscaminas.model.buscaminas.casillas.estados;
+package is.buscaminas.model.casillas.estados;
 
 
-import is.buscaminas.model.buscaminas.casillas.Casilla;
+import is.buscaminas.model.casillas.Casilla;
 import javafx.util.Pair;
 
 

@@ -2,7 +2,7 @@ package is.buscaminas.controller;
 
 
 import is.buscaminas.Main;
-import is.buscaminas.model.buscaminas.Contador;
+import is.buscaminas.model.Contador;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

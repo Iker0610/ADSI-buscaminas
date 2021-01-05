@@ -1,6 +1,6 @@
 package is.buscaminas.view.uiElements;
 
-import is.buscaminas.model.buscaminas.Contador;
+import is.buscaminas.model.Contador;
 
 import java.beans.PropertyChangeListener;
 

@@ -1,17 +1,20 @@
-package is.buscaminas.model.buscaminas.casillas;
+package is.buscaminas.model.casillas;
 
-import is.buscaminas.model.buscaminas.casillas.estados.Despejado;
-import is.buscaminas.model.buscaminas.casillas.estados.IEstadoCasilla;
+
+import is.buscaminas.model.casillas.estados.Despejado;
+import is.buscaminas.model.casillas.estados.IEstadoCasilla;
 
 import java.beans.PropertyChangeListener;
 
-public class CasillaNum extends Casilla {
 
+public class CasillaNum extends Casilla
+{
+    
     //Atributos
     private final int minasAdyacentes;
-
+    
     //Constructora
-    public CasillaNum (int pMinasAdyacentes, PropertyChangeListener pVistaCasilla)
+    public CasillaNum(int pMinasAdyacentes, PropertyChangeListener pVistaCasilla)
     {
         super(pVistaCasilla);
         minasAdyacentes = pMinasAdyacentes;

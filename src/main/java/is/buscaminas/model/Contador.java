@@ -1,4 +1,4 @@
-package is.buscaminas.model.buscaminas;
+package is.buscaminas.model;
 
 
 import java.beans.PropertyChangeEvent;

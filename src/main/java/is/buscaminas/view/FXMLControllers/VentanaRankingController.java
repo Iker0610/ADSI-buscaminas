@@ -3,8 +3,8 @@ package is.buscaminas.view.FXMLControllers;
 
 import is.buscaminas.controller.Partida;
 import is.buscaminas.controller.SFXPlayer;
+import is.buscaminas.model.Contador;
 import is.buscaminas.model.Usuario;
-import is.buscaminas.model.buscaminas.Contador;
 import is.buscaminas.model.ranking.Ranking;
 import is.buscaminas.view.uiElements.VistaRanking;
 import javafx.event.ActionEvent;

@@ -1,8 +1,8 @@
-package is.buscaminas.model.buscaminas.casillas.estados;
+package is.buscaminas.model.casillas.estados;
 
 
 import is.buscaminas.controller.SFXPlayer;
-import is.buscaminas.model.buscaminas.casillas.*;
+import is.buscaminas.model.casillas.*;
 
 
 public abstract class EstadoDespejable implements IEstadoCasilla

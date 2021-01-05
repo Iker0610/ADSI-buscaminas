@@ -1,7 +1,7 @@
 package is.buscaminas.controller;
 
 
-import is.buscaminas.model.buscaminas.casillas.*;
+import is.buscaminas.model.casillas.*;
 import javafx.util.Pair;
 
 import java.beans.PropertyChangeListener;

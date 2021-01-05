@@ -1,8 +1,9 @@
 package is.buscaminas.view.uiElements;
 
+
 import is.buscaminas.controller.Partida;
+import is.buscaminas.model.Contador;
 import is.buscaminas.model.Usuario;
-import is.buscaminas.model.buscaminas.Contador;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
