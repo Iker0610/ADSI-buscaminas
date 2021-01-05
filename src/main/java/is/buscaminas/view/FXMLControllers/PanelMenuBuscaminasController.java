@@ -3,7 +3,6 @@ package is.buscaminas.view.FXMLControllers;
 
 import is.buscaminas.controller.GestorVentanas;
 import is.buscaminas.controller.Partida;
-import is.buscaminas.controller.SFXPlayer;
 import is.buscaminas.model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,6 +46,5 @@ public class PanelMenuBuscaminasController
 	private void mostrarRanking(ActionEvent pEvento)
 	{
 		GestorVentanas.getGestorVentanas().mostrarRankingEmergente();
-		SFXPlayer.getSFXPlayer().setBackgroundTheme("challengeTheme");
 	}
 }

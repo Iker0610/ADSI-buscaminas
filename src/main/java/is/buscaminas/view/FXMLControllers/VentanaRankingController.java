@@ -4,7 +4,6 @@ package is.buscaminas.view.FXMLControllers;
 import is.buscaminas.controller.Partida;
 import is.buscaminas.controller.SFXPlayer;
 import is.buscaminas.model.Usuario;
-import is.buscaminas.model.buscaminas.Contador;
 import is.buscaminas.model.ranking.Ranking;
 import is.buscaminas.view.uiElements.VistaRanking;
 import javafx.event.ActionEvent;
@@ -58,6 +57,9 @@ public class VentanaRankingController
 		for (int i = 0; i < 3; i++) rankingPorNivel[i] = new VistaRanking();
 		
 		mostrarRanking(Partida.getPartida().getDificultad());
+		
+		// Se pone el tema de fondo:
+		SFXPlayer.getSFXPlayer().setFloatWindowBackgroundTheme("challengeTheme");
 	}
 	
 	
@@ -88,8 +90,6 @@ public class VentanaRankingController
 	public void pulsarAceptar()
 	{
 		Stage stage = (Stage) aceptar.getScene().getWindow();
-		Contador.getContador().continuar(); //Reanudar contador
 		stage.close();
-		SFXPlayer.getSFXPlayer().setBackgroundTheme("marioTheme");
 	}
 }
