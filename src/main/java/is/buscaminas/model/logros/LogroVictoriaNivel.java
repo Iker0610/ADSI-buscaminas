@@ -16,12 +16,14 @@ public class LogroVictoriaNivel extends Logro
 	}
 	
 	//El método que comprueba el logro (SIN COMPLETAR)
-	public void comprobarLogro(boolean victoria, int pNivel, String email)
+	public boolean comprobarLogro(boolean victoria, int pNivel, String email)
 	{
+		boolean conseguido=false;
 		if (victoria && nivel == pNivel){      //Si gana y está jugando en el mismo nivel que el logro
-			actualizarAvance();
+			conseguido=actualizarAvance();
 		}
 		//Si gana o pierde en otro nivel da igual y no contabiliza en este logro
 		//Y si pierde en el mismo nivel da igual porque no cuenta las victorias consecutivas
+		return conseguido;
 	}
 }

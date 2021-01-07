@@ -107,7 +107,12 @@ public class GestorLogros
 		//Precondición: este método debe recibir las variables enviadas a su "método superior" y, además, el email del usuario que ha jugado en formato String.
 		//Postcondicián: el logro es actualizado correctamente y, en caso de ser completado, pasarlo a la lista de logrosObtenidos.
 
-		for (Logro logro : logrosRestantes) logro.comprobarLogro(victoria, nivel, email);
+		for (Logro logro : logrosRestantes) {
+			if(logro.comprobarLogro(victoria, nivel, email)){
+				eliminarRestante(logro);
+				eliminarObtenido(logro);
+			}
+		}
 	}
 	
 	//Método para generar los objetos para la interfaz gráfica (JSON).

@@ -38,19 +38,18 @@ public abstract class Logro
 	
 	// Métodos
 	
-	public abstract void comprobarLogro(boolean victoria, int nivel, String email);
+	public abstract boolean comprobarLogro(boolean victoria, int nivel, String email);
 	
-	protected void actualizarAvance()
+	protected boolean actualizarAvance()
 	{
 		// Pre: Que el logro haya comprobado el avance
 		// Post: Se actualiza el avance. Si es igual al objetivo se actualiza la fecha de obtención.
+
+		boolean conseguido=false;
 		if (avance < objetivo){
 			avance++;
 			if (avance == objetivo){      //Si el avance es igual al objetivo
-				GestorLogros gl = GestorLogros.getGestorLogros();
-				gl.eliminarRestante(this);
-				gl.anadirLogroObtenido(this);
-				
+				conseguido=true;
 				// Se establece una fecha de Obtención
 				try{
 					fechaObtencion = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
@@ -68,6 +67,7 @@ public abstract class Logro
 				System.out.println("Error al extraer información de la base de datos");
 			}
 		}
+		return conseguido;
 	}
 	
 	protected void resetearAvance()
