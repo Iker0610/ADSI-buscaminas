@@ -12,7 +12,9 @@ import is.buscaminas.model.logros.LogroVictoriaConsecutiva;
 import is.buscaminas.model.logros.LogroVictoriaNivel;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.NoSuchElementException;
 
 
@@ -91,7 +93,6 @@ public class GestorLogros
 			Usuario usuario = Usuario.getUsuario();
 			String email = usuario.getEmail();
 			//Para hacer este método más modular, se ha optado por dividir en dos submétodos para hacer más fácil el mantenimiento de la aplicación.
-			actualizarLogrosObtenidos(victoria, nivel, email);
 			actualizarLogrosRestantes(victoria, nivel, email);
 		}
 		//En caso de que salte una excepción, ocurrira lo siguiente.
@@ -100,21 +101,12 @@ public class GestorLogros
 		}
 	}
 	
-	//Método para actualizar los logros obtenidos
-	private void actualizarLogrosObtenidos(boolean victoria, int nivel, String email)
-	{
-		//Precondición: este método debe recibir las variables enviadas a su "método superior" y, además, el email del usuario que ha jugado en formato String.
-		//Postcondicián: el logro es actualizado correctamente.
-		
-		for (Logro logro : logrosObtenidos) logro.comprobarLogro(victoria, nivel, email);
-	}
-	
 	//Método para actualizar los logros restantes
 	private void actualizarLogrosRestantes(boolean victoria, int nivel, String email)
 	{
 		//Precondición: este método debe recibir las variables enviadas a su "método superior" y, además, el email del usuario que ha jugado en formato String.
 		//Postcondicián: el logro es actualizado correctamente y, en caso de ser completado, pasarlo a la lista de logrosObtenidos.
-		
+
 		for (Logro logro : logrosRestantes) logro.comprobarLogro(victoria, nivel, email);
 	}
 	
