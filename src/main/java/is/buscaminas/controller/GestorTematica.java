@@ -27,37 +27,38 @@ public class GestorTematica {
     public void cambiarTematica(String pNombreTema) throws SQLException {
         Usuario.getUsuario().setTematicaActual(pNombreTema);
         String mailAct = Usuario.getUsuario().getEmail();
-        GestorDB.getGestorDB().execSQL("UPDATE Usuario SET temaActual = %pNombreTema% WHERE email = %mailAct%");
+        GestorDB.getGestorDB().execSQL("UPDATE Usuario SET temaActual = " + pNombreTema + " WHERE email = " + mailAct);
     }
 
-    public String cargarTemas() throws SQLException {
-        //Obtenemos todos los temas
-        ResultadoSQL rdo1 = GestorDB.getGestorDB().execSELECT("SELECT * FROM Tematica");
-
-        //Obtenemos todos los desbloqueados por el usuario actual
+    public String obtenerTemas() throws SQLException {
+    
+        //Obtenemos todos los desbloqueados por el usuario actual y los metemos en un arraylist
         String mailAct = Usuario.getUsuario().getEmail();
-        ResultadoSQL rdo2 = GestorDB.getGestorDB().execSELECT("SELECT nombreTema FROM Logro WHERE nombre IN (SELECT nombreLogro FROM LogrosUsuario WHERE email = %mailAct% AND fechaObtencion IS NOT NULL");
-
-        //Creamos el JSON y la lista
-        JsonObject temasJSON = new JsonObject();
-        ArrayList temasDesbloq = new ArrayList();
-
-        //Introducimos los temas desbloqueados por el usuario en la lista
-        while (rdo2.next()){
-            temasDesbloq.add(rdo2.getString("nombreTema"));
+        ArrayList<String> temasDesbloq = new ArrayList<>();
+        ResultadoSQL temasUser = GestorDB.getGestorDB().execSELECT("SELECT nombreTema FROM Logro WHERE nombre IN (SELECT nombreLogro FROM LogrosUsuario WHERE email = '" + mailAct + "' AND fechaObtencion IS NOT NULL)");
+    
+        while (temasUser.next()){
+            temasDesbloq.add(temasUser.getString("nombreTema"));
         }
+        temasUser.close();
+    
+        //Obtenemos todos los temas
+        ResultadoSQL allTemas = GestorDB.getGestorDB().execSELECT("SELECT * FROM Tematica");
+    
+        //Creamos el JSON
+        JsonArray listaTemasJson = new JsonArray();
+
         //Introducimos los datos en el JSON.
-        //Estructura del JSON: { "1":[nombreTema,descripcion,desbloqueado?],"2": ... }
-        int i = 1;
-        while(rdo1.next()){
-            JsonArray list = new JsonArray();
-            list.add(rdo1.getString("nombre"));
-            list.add(rdo1.getString("descripcion"));
-            if(temasDesbloq.contains(rdo1.getString("nombre"))) { list.add(true); }
-            else{ list.add(false); }
-            temasJSON.put(Integer.toString(i), list);
-            i++;
+        //Estructura del JSON: [ {nombreTema,descripcion,desbloqueado?},{...}, ... ]
+        while(allTemas.next()){
+            JsonObject temaJson = new JsonObject();
+            temaJson.put("nombre", allTemas.getString("nombre"));
+            temaJson.put("descripcion", allTemas.getString("descripcion"));
+            if(temasDesbloq.contains(allTemas.getString("nombre"))) { temaJson.put("bloqueada", false); }
+            else{ temaJson.put("bloqueada", true); }
+            listaTemasJson.add(temaJson);
         }
-        return temasJSON.toString();
+        allTemas.close();
+        return listaTemasJson.toJson();
     }
 }

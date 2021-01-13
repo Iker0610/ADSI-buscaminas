@@ -1,8 +1,6 @@
 package is.buscaminas.controller;
 
 
-import com.github.cliftonlabs.json_simple.JsonObject;
-
 import java.sql.SQLException;
 
 public class GestorCuentaUsuario {
@@ -20,8 +18,8 @@ public class GestorCuentaUsuario {
         return mGestorCuentaUsuario;
     }
 
-    public String cargarTemas() throws SQLException {
-        return GestorTematica.getGestorTematica().cargarTemas();
+    public String obtenerTemas() throws SQLException {
+        return GestorTematica.getGestorTematica().obtenerTemas();
     }
 
     public void cambiarTematica(String pNombreTema) throws SQLException {
