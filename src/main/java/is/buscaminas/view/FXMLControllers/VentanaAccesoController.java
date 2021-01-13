@@ -1,6 +1,10 @@
 package is.buscaminas.view.FXMLControllers;
 
 
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
+import is.buscaminas.controller.GestorNiveles;
 import is.buscaminas.controller.GestorVentanas;
 import is.buscaminas.controller.Partida;
 import is.buscaminas.controller.SFXPlayer;
@@ -10,8 +14,11 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 
 import java.io.File;
+import java.sql.SQLException;
 
 
 public class VentanaAccesoController
@@ -23,13 +30,7 @@ public class VentanaAccesoController
 	//Atributos FXML
 	
 	@FXML
-	private TextField nombreTextField;
-	@FXML
-	private RadioButton dificultad1;
-	@FXML
-	private RadioButton dificultad2;
-	@FXML
-	private RadioButton dificultad3;
+	private HBox zonaDificultades;
 	@FXML
 	private Button botonJugar;
 	@FXML
@@ -53,15 +54,45 @@ public class VentanaAccesoController
 		botonVolver.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/acceso/botonVolver.png); -fx-background-color: transparent;");
 		botonJugar.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/acceso/botonEntrar.png); -fx-background-color: transparent;");
 		
-		dificultadGroup = new ToggleGroup();
-		dificultad1.setToggleGroup(dificultadGroup);
-		dificultad2.setToggleGroup(dificultadGroup);
-		dificultad3.setToggleGroup(dificultadGroup);
-		
 		// Se pone el tema de fondo:
 		SFXPlayer.getSFXPlayer().setBackgroundTheme("mainTheme");
+		
+		//Se cargan los radio buttons
+		dificultadGroup = new ToggleGroup();
+		cargarNiveles();
 	}
 	
+	// Método para cargar los niveles
+	private void cargarNiveles()
+	{
+		String dificultadPredeternminada = Integer.toString(Usuario.getUsuario().getNivelInicial());
+		
+		try{
+			JsonArray json = Jsoner.deserialize(GestorNiveles.getGestorNiveles().obtenerDatosNiveles(), new JsonArray());
+			for (Object child : json){
+				JsonObject jsonNivel = Jsoner.deserialize((String) child, new JsonObject());
+				String nivel = jsonNivel.get("nivel").toString();
+				RadioButton seleccionNivel = new RadioButton();
+				seleccionNivel.setId(nivel);
+				seleccionNivel.setText(nivel);
+				seleccionNivel.setMnemonicParsing(false);
+				seleccionNivel.setFont(new Font("System Bold", 13));
+				seleccionNivel.setToggleGroup(dificultadGroup);
+				zonaDificultades.getChildren().add(seleccionNivel);
+				if (nivel.equals(dificultadPredeternminada)){
+					seleccionNivel.setSelected(true);
+				}
+			}
+		}
+		catch (SQLException throwables){
+			Alert alertaError = new Alert(Alert.AlertType.ERROR);
+			alertaError.setTitle("Error");
+			alertaError.setHeaderText("No se han podido cargar correctamente los niveles.");
+			alertaError.setContentText("Al cerrar el menú se te devolverá al menú principal.");
+			alertaError.setOnCloseRequest((e)->GestorVentanas.getGestorVentanas().abrirMenuPrincipal());
+			alertaError.show();
+		}
+	}
 	
 	// Métodos
 	
