@@ -67,9 +67,8 @@ public class GestionarCuentaController
 	{
 		VistaTematica nuevoTema = new VistaTematica(pNombre, pDescripcion, pBloqueada);
 		nuevoTema.setId(pNombre);
-		if (pBloqueada) nuevoTema.setMouseTransparent(true);
 		if (pNombre.equals(Usuario.getUsuario().getTematicaActual())) temaSeleccionado = nuevoTema;
-		nuevoTema.setOnMousePressed(this::seleccionarTematica);
+		nuevoTema.setOnMouseClicked(this::seleccionarTematica);
 		
 		return nuevoTema;
 	}
@@ -77,10 +76,14 @@ public class GestionarCuentaController
 	private void seleccionarTematica(MouseEvent pEvento)
 	{
 		VistaTematica nuevoTemaSeleccionado = (VistaTematica) pEvento.getSource();
-		if (nuevoTemaSeleccionado.equals(temaSeleccionado)){
-			temaSeleccionado.setMouseTransparent(false);
+		if (!nuevoTemaSeleccionado.equals(temaSeleccionado)){
+			if (temaSeleccionado != null){
+				temaSeleccionado.setMouseTransparent(false);
+				temaSeleccionado.setStyle("-fx-background-color: white;");
+			}
 			temaSeleccionado = nuevoTemaSeleccionado;
 			temaSeleccionado.setMouseTransparent(true);
+			temaSeleccionado.setStyle("-fx-background-color: blue;");
 		}
 	}
 	

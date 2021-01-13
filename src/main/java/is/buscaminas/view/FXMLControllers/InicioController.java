@@ -64,7 +64,7 @@ public class InicioController
 			String nombreUser = nombreTextField.getText();
 			
 			//TODO Login
-			GestorUsuario.checkEmailContrasena("a", "a", nombreUser);
+			GestorUsuario.checkEmailContrasena("admin@adminBuscaminas.com", "123", nombreUser);
 			
 			
 			// Se abre el menú principal

@@ -16,14 +16,13 @@ public class VistaTematica extends HBox
         
         //Tamaño del botón TODO: METER ESTO EN EL CSS
         setMinHeight(60);
-        setMinWidth(270);
+        setMinWidth(900);
         setMaxHeight(60);
-        setMaxWidth(270);
+        setMaxWidth(900);
         
         // TODO Ponerle CSS, y cambiarlo según el boolean
-        if (!pBloqueada) this.setStyle("-fx-background-color: white;");
-        
-        else this.setStyle("-fx-background-color: grey;");
+        this.setStyle("-fx-background-color: white;");
+        if(pBloqueada) this.setDisable(true);
         
     }
 }

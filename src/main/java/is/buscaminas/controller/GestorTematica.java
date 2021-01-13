@@ -27,7 +27,7 @@ public class GestorTematica {
     public void cambiarTematica(String pNombreTema) throws SQLException {
         Usuario.getUsuario().setTematicaActual(pNombreTema);
         String mailAct = Usuario.getUsuario().getEmail();
-        GestorDB.getGestorDB().execSQL("UPDATE Usuario SET temaActual = " + pNombreTema + " WHERE email = " + mailAct);
+        GestorDB.getGestorDB().execSQL("UPDATE Usuario SET temaActual = '" + pNombreTema + "' WHERE email = '" + mailAct + "'");
     }
 
     public String obtenerTemas() throws SQLException {
