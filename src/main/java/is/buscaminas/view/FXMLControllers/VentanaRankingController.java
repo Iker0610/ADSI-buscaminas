@@ -57,7 +57,7 @@ public class VentanaRankingController
 		rankingPorNivel = new VistaRanking[3];
 		for (int i = 0; i < 3; i++) rankingPorNivel[i] = new VistaRanking();
 		
-		mostrarRanking(Partida.getPartida().getDificultad());
+		mostrarRanking(Partida.getPartida().getNivel());
 		
 		// Se pone el tema de fondo:
 		SFXPlayer.getSFXPlayer().setFloatWindowBackgroundTheme("rankingTheme");

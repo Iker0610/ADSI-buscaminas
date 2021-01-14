@@ -11,14 +11,16 @@ import is.buscaminas.controller.SFXPlayer;
 import is.buscaminas.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
 import java.io.File;
-import java.sql.SQLException;
 
 
 public class VentanaAccesoController
@@ -66,32 +68,22 @@ public class VentanaAccesoController
 	private void cargarNiveles()
 	{
 		String dificultadPredeternminada = Integer.toString(Usuario.getUsuario().getNivelInicial());
-		
-		try{
-			JsonArray json = Jsoner.deserialize(GestorNiveles.getGestorNiveles().obtenerDatosNiveles(), new JsonArray());
-			for (Object child : json){
-				JsonObject jsonNivel = Jsoner.deserialize((String) child, new JsonObject());
-				String nivel = jsonNivel.get("nivel").toString();
-				RadioButton seleccionNivel = new RadioButton();
-				seleccionNivel.setId(nivel);
-				seleccionNivel.setText(nivel);
-				seleccionNivel.setMnemonicParsing(false);
-				seleccionNivel.setFont(new Font("System Bold", 13));
-				seleccionNivel.setToggleGroup(dificultadGroup);
-				zonaDificultades.getChildren().add(seleccionNivel);
-				if (nivel.equals(dificultadPredeternminada)){
-					seleccionNivel.setSelected(true);
-				}
+		JsonArray json = Jsoner.deserialize(GestorNiveles.getGestorNiveles().obtenerDatosNiveles(), new JsonArray());
+		for (Object child : json){
+			JsonObject jsonNivel = Jsoner.deserialize((String) child, new JsonObject());
+			String nivel = jsonNivel.get("nivel").toString();
+			RadioButton seleccionNivel = new RadioButton();
+			seleccionNivel.setId(nivel);
+			seleccionNivel.setText(nivel);
+			seleccionNivel.setMnemonicParsing(false);
+			seleccionNivel.setFont(new Font("System Bold", 13));
+			seleccionNivel.setToggleGroup(dificultadGroup);
+			zonaDificultades.getChildren().add(seleccionNivel);
+			if (nivel.equals(dificultadPredeternminada)){
+				seleccionNivel.setSelected(true);
 			}
 		}
-		catch (SQLException throwables){
-			Alert alertaError = new Alert(Alert.AlertType.ERROR);
-			alertaError.setTitle("Error");
-			alertaError.setHeaderText("No se han podido cargar correctamente los niveles.");
-			alertaError.setContentText("Al cerrar el menú se te devolverá al menú principal.");
-			alertaError.setOnCloseRequest((e)->GestorVentanas.getGestorVentanas().abrirMenuPrincipal());
-			alertaError.show();
-		}
+		
 	}
 	
 	// Métodos
@@ -108,16 +100,17 @@ public class VentanaAccesoController
 			
 			try{
 				numDificultad = Integer.parseInt(dificultad);
+				
+				// Se inicia la partida
+				Partida.getPartida().iniciarPartida(numDificultad);
 			}
 			catch (Exception e){
-				numDificultad = 1;
-				Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "ERROR (introducir dificultad)", ButtonType.YES, ButtonType.NO);
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Error al cargar el nivel seleccionado");
+				alert.setContentText("No se ha podido cargar correctamente los datos del nivel seleccionado.\n Por favor seleccione otro o reinicie la aplicación.");
 				alert.show();
 			}
-			
-			// Se inicia la partida
-			Partida.getPartida().iniciarPartida(numDificultad);
-			
 		}
 		else{
 			// Se le indica al usuario que ha de seleccionar un nombre y una dificultad

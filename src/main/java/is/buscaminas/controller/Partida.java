@@ -20,7 +20,7 @@ public class Partida
     //Atibutos
     private static Partida mPartida;
     private final PropertyChangeSupport lObservers;
-    private int dificultad;
+    private int nivel;
     private boolean partidaActiva;
     
     //Constructora
@@ -39,19 +39,24 @@ public class Partida
     }
     
     // Login en la aplicacion
-    public void iniciarPartida(int pDificultad)
+    public void iniciarPartida(int pNivel)
     {
-        dificultad    = pDificultad;
+        nivel = pNivel;
         partidaActiva = true;
         GestorVentanas.getGestorVentanas().abrirPartida();
     }
     
     //Metodos publicos de la clase para administrar los atributos:
-    public int getDificultad()
+    public String getDatosNivel()
     {
         //Pre:
-        //Post: Devuelve el nivel de dificultad
-        return dificultad;
+        //Post: Devuelve los datos del nievl en formato JSON
+        return GestorNiveles.getGestorNiveles().getDatosNivel(nivel);
+    }
+    
+    public int getNivel()
+    {
+        return nivel;
     }
     
     public boolean hayPartidaActiva()
@@ -94,7 +99,7 @@ public class Partida
         if (pVictoria){
             
             // TODO Arreglar ranking
-            Ranking.getRanking().addJugadorRanking(dificultad, "TODO");
+            Ranking.getRanking().addJugadorRanking(nivel, "TODO");
             
             //Se abre la ventana del ranking
             GestorVentanas.getGestorVentanas().mostrarRankingEmergente();

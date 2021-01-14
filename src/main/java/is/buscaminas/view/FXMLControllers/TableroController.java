@@ -1,6 +1,8 @@
 package is.buscaminas.view.FXMLControllers;
 
 
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
 import is.buscaminas.controller.Partida;
 import is.buscaminas.controller.SFXPlayer;
 import is.buscaminas.controller.Tablero;
@@ -13,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+
+import java.math.BigDecimal;
 
 
 public class TableroController
@@ -109,29 +113,13 @@ public class TableroController
 		//Pre:
 		//Post: Se han añadido las casillas (vista) al tablero (vista)
 		
-		int numColumnas, numFilas;
-		
-		int dificultad = Partida.getPartida().getDificultad();
-		switch (dificultad){
-			
-			case 2:
-				numFilas = 10;
-				numColumnas = 15;
-				break;
-			
-			case 3:
-				numFilas = 12;
-				numColumnas = 25;
-				break;
-			
-			default:
-				numFilas = 7;
-				numColumnas = 10;
-				break;
-		}
+		String datosNivelJSONString = Partida.getPartida().getDatosNivel();
+		JsonObject datosNivelJSON = Jsoner.deserialize(datosNivelJSONString, new JsonObject());
+		int numColumnas = ((BigDecimal) datosNivelJSON.get("nColumnas")).intValue();
+		int numFilas = ((BigDecimal) datosNivelJSON.get("nFilas")).intValue();
 		
 		for (int colum = 0; numColumnas > colum; colum++){
-			for (int row = 0; numFilas > row; row++){ tableroCasillas.add(generarCasilla(), colum, row); }
+			for (int row = 0; numFilas > row; row++) tableroCasillas.add(generarCasilla(), colum, row);
 		}
 	}
 	
