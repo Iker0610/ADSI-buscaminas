@@ -14,6 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
@@ -55,6 +57,7 @@ public class GestionarCuentaController
 		JsonArray listaTemasJson = Jsoner.deserialize(GestorCuentaUsuario.getGestorCuentaUsuario().obtenerTemas(), new JsonArray());
 		for (Object jsonObject : listaTemasJson){
 			JsonObject temaJson = (JsonObject) jsonObject;
+			columnaBotones.setSpacing(10);
 			columnaBotones.getChildren().add(generarBoton((String) temaJson.get("nombre"), (String) temaJson.get("descripcion"), (boolean) temaJson.get("bloqueada")));
 		}
 		
@@ -76,15 +79,13 @@ public class GestionarCuentaController
 	private void seleccionarTematica(MouseEvent pEvento)
 	{
 		VistaTematica nuevoTemaSeleccionado = (VistaTematica) pEvento.getSource();
-		if (!nuevoTemaSeleccionado.equals(temaSeleccionado)){
-			if (temaSeleccionado != null){
-				temaSeleccionado.setMouseTransparent(false);
-				temaSeleccionado.setStyle("-fx-background-color: white;");
-			}
-			temaSeleccionado = nuevoTemaSeleccionado;
-			temaSeleccionado.setMouseTransparent(true);
-			temaSeleccionado.setStyle("-fx-background-color: blue;");
+		if (temaSeleccionado != null){
+			temaSeleccionado.setMouseTransparent(false);
+			temaSeleccionado.setStyle("-fx-background-color: #1f1f1f; -fx-border-color: white; -fx-border-width: 3;");
 		}
+		temaSeleccionado = nuevoTemaSeleccionado;
+		temaSeleccionado.setMouseTransparent(true);
+		temaSeleccionado.setStyle("-fx-background-color: #1f1f1f; -fx-border-color: #f9a602; -fx-border-width: 3;");
 	}
 	
 	@FXML
