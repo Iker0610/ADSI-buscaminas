@@ -53,7 +53,7 @@ public class GestionarCuentaController
 		botonGuardar.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/gestionarCuenta/botonGuardar.png); -fx-background-color: transparent;");
 		botonCambiar.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/gestionarCuenta/botonCambiar.png); -fx-background-color: transparent;");
 		
-		//Cargar Temáticas
+		//Cargar botones para seleccionae temática nueva
 		JsonArray listaTemasJson = Jsoner.deserialize(GestorCuentaUsuario.getGestorCuentaUsuario().obtenerTemas(), new JsonArray());
 		for (Object jsonObject : listaTemasJson){
 			JsonObject temaJson = (JsonObject) jsonObject;
@@ -63,11 +63,11 @@ public class GestionarCuentaController
 		
 	}
 	
-	
-	// Métodos
-	
+	// Se genera un botón (VBox) con los datos de cada temática
 	private VistaTematica generarBoton(String pNombre, String pDescripcion, boolean pBloqueada)
 	{
+		// Pre: Se obtienen los datos de una temática a cargar
+		// Post: Se genera un botón para dicha temática
 		VistaTematica nuevoTema = new VistaTematica(pNombre, pDescripcion, pBloqueada);
 		nuevoTema.setId(pNombre);
 		if (pNombre.equals(Usuario.getUsuario().getTematicaActual())) temaSeleccionado = nuevoTema;
@@ -75,9 +75,11 @@ public class GestionarCuentaController
 		
 		return nuevoTema;
 	}
-	
+
 	private void seleccionarTematica(MouseEvent pEvento)
 	{
+		// Pre: Se ha pulsado sobre un botón
+		// Post: El botón ha cambiado de estilo y se ha guardado el nombre seleccionado
 		VistaTematica nuevoTemaSeleccionado = (VistaTematica) pEvento.getSource();
 		if (temaSeleccionado != null){
 			temaSeleccionado.setMouseTransparent(false);
@@ -105,6 +107,7 @@ public class GestionarCuentaController
 	public void pulsarGuardar() throws SQLException {
 
 		if (temaSeleccionado != null){
+			// Se actualiza el tema seleccionado
 			GestorCuentaUsuario.getGestorCuentaUsuario().cambiarTematica(temaSeleccionado.getId());
 		}
 		//Se abre el menú principal
