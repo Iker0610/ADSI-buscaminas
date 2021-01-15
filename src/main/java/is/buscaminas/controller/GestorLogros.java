@@ -51,43 +51,6 @@ public class GestorLogros
 		return miGestorLogros;
 	}
 	
-	
-	//Método para añadir un logro en la lista logrosObtenidos
-	public void anadirLogroObtenido(Logro l)
-	{
-		//Precondición: el método recibe un objeto de tipo Logro.
-		//Postcondicián: el método añade el logro recibido en la lista logrosObtenidos. No devuelve nada.
-		if (!this.logrosObtenidos.contains(l)){
-			this.logrosObtenidos.add(l);
-		}
-	}
-	
-	//Método para añadir un logro en la lista logrosRestantes
-	public void anadirLogroRestante(Logro l)
-	{
-		//Precondición: el método recibe un objeto de tipo Logro.
-		//Postcondicián: el método añade el logro recibido en la lista logrosRestantes. No devuelve nada.
-		if (!this.logrosRestantes.contains(l)){
-			this.logrosRestantes.add(l);
-		}
-	}
-	
-	//Método para eliminar un logro en la lista logrosObtenidos
-	public void eliminarObtenido(Logro l)
-	{
-		//Precondición: recibe un logro.
-		//Postcondicián: elimina de la lista el logro y, si no está, no hace nada.
-		logrosObtenidos.remove(l);
-	}
-	
-	//Método para eliminar un logro en la lista logrosRestantes
-	public void eliminarRestante(Logro l)
-	{
-		//Precondición: recibe un logro.
-		//Postcondicián: elimina de la lista el logro y, si no está, no hace nada.
-		logrosRestantes.remove(l);
-	}
-	
 	//Este método se ejecuta al finalizar la partida, poniendo al día los logros y comprobar si ha completado alguno.
 	public void actualizarLogros(boolean victoria, int nivel)
 	{
