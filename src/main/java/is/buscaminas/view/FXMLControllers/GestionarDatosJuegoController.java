@@ -1,16 +1,20 @@
 package is.buscaminas.view.FXMLControllers;
 
 
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
+import is.buscaminas.controller.GestorDatosJuego;
+import is.buscaminas.controller.GestorJugadores;
 import is.buscaminas.controller.GestorVentanas;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.SplitMenuButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
+import java.sql.SQLException;
+import java.util.Arrays;
 
 
 public class GestionarDatosJuegoController
@@ -38,15 +42,33 @@ public class GestionarDatosJuegoController
 	//Constructora
 	
 	@FXML
-	public void initialize()
-	{
+	public void initialize(){
 		//Cargar temática
 		Image backgroundImage = new Image(new File("src/main/resources/is/buscaminas/inicio/fondoAdmin.png").toURI().toString());
 		background.setImage(backgroundImage);
 		botonVolver.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonVolver.png); -fx-background-color: transparent;");
 		botonGuardar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonGuardar.png); -fx-background-color: transparent;");
-		
-		//TODO cargar datos (SplitMenu, ayuda, etc)
+
+		//Cargar datos
+		JsonArray lNiveles = Jsoner.deserialize(GestorDatosJuego.getGestorDatosJuego().getNiveles(), new JsonArray());
+
+		for (Object jsonObjectString: lNiveles) {
+			JsonObject niveles = (JsonObject) jsonObjectString;
+			MenuItem nivel = new MenuItem((String) niveles.get("nivel").toString());
+			seleccionNivel.getItems().add(nivel);
+			nivel.setOnAction((e) -> {
+				seleccionNivel.setText(nivel.getText().toString());
+				for (Object datosNivel: lNiveles) {
+					JsonObject datos = (JsonObject) datosNivel;
+					if(datos.get("nivel").equals(seleccionNivel.getText())){
+						columnasTextField.setText(datos.get("nColumnas").toString());
+						filasTextField.setText(datos.get("nFilas").toString());
+						numMinasTextField.setText(datos.get("dificultad").toString());
+					}
+				}
+			});
+		}
+		//TODO cargar datos (ayuda)
 		
 	}
 	
