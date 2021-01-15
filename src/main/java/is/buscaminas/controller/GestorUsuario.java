@@ -5,11 +5,16 @@ import is.buscaminas.model.Usuario;
 import is.buscaminas.model.db.GestorDB;
 import is.buscaminas.model.db.ResultadoSQL;
 
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import java.sql.SQLException;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+
+
+import java.util.Properties;
+import java.sql.SQLException;
+
 
 public class GestorUsuario
 {
@@ -32,7 +37,7 @@ public class GestorUsuario
 	    return miGestorUsuario;
     }
 	// Métodos
-    public static void checkEmailContrasena(String pEmail, String pContra, String pNickname){
+    public void checkEmailContrasena(String pEmail, String pContra, String pNickname){
         // TODO ARREGLAR Y TERMINAR DE IMPLEMENTAR
         try {
             Usuario.create(pEmail, pNickname, 1, "mario", true);
@@ -41,23 +46,39 @@ public class GestorUsuario
         }
     }
 
-    private void mandarEmail(String pAsunto, String pDestinatario, String pTexto){
+    private void mandarEmail(String pDestinatario, String pAsunto, String pTexto){
 	    //Configuracion del proveedor
-        //TODO
         Properties prop = new Properties();
-        prop.put("mail.smtp.auth", true);
-        prop.put("mail.smtp.starttls.enable", "true");
-        prop.put("mail.smtp.host", "smtp.mailtrap.io");
-        prop.put("mail.smtp.port", "25");
-        prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "587");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.starttls.enable", "true"); //TLS
 
         //Configuracion de sesion
-        Session session = Session.getInstance(prop, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("alwayslate.noreply@gmail.com", "ADSI1234");
-            }
-        });
+        Session session = Session.getInstance(prop,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("alwayslate.noreply@gmail.com", "ADSI1234");
+                    }
+                });
+
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("alwayslate.noreply@gmail.com"));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse(pDestinatario)
+            );
+            message.setSubject(pAsunto);
+            message.setText(pTexto);
+
+            Transport.send(message);
+
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     public void recuperarContra(String pEmail){

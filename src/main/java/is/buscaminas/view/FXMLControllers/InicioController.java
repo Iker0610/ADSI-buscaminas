@@ -64,7 +64,7 @@ public class InicioController
 			String nombreUser = nombreTextField.getText();
 			
 			//TODO Login
-			GestorUsuario.checkEmailContrasena("a", "a", nombreUser);
+			GestorUsuario.getGestorUsuario().checkEmailContrasena("a", "a", nombreUser);
 			
 			
 			// Se abre el menú principal
@@ -82,9 +82,8 @@ public class InicioController
 	}
 	
 	@FXML
-	public void recuperarContrasena()
-	{
-		//TODO
+	public void recuperarContrasena(){
+		GestorUsuario.getGestorUsuario().recuperarContra(mailRecuperacionTextField.getText());
 	}
 	
 	@FXML
