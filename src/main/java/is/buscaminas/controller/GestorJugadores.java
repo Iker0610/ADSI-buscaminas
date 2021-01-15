@@ -39,11 +39,6 @@ public class GestorJugadores {
 
     public void eliminar(String pUsuario) throws SQLException {
         GestorDB.getGestorDB().execSQL("DELETE FROM Usuario WHERE email = '" + pUsuario + "'");
-        ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT contrasena FROM UsuarioEmail WHERE email = '" + pUsuario + "'");
-        if (resultado.next()) {
-            //Si es UsuarioEmail
-            GestorDB.getGestorDB().execSQL("DELETE FROM UsuarioEmail WHERE email = '" + pUsuario + "'");
-        }
         mostrarMensajeEliminar();
     }
 

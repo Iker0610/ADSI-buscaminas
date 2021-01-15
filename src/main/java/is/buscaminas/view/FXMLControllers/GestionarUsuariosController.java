@@ -86,6 +86,7 @@ public class GestionarUsuariosController
 	private void pulsarEliminar() throws SQLException {
 		try{
 			GestorJugadores.getGestorJugadores().eliminar(seleccionUsuario.getText());
+			initialize();
 		}
 		catch (SQLException e){
 			// Si existe algún error al eliminar un usuario y se cierra la aplicación
