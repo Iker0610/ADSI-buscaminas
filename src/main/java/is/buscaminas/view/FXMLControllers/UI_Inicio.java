@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 
 
-public class InicioController
+public class UI_Inicio
 {
 	// Atributos
 	

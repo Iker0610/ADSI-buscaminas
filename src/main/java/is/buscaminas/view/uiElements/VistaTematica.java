@@ -29,7 +29,7 @@ public class VistaTematica extends VBox
         setMaxWidth(400);
 
         // Ajustamos la posición y estilo del botón
-        this.setPadding(new Insets(3,0 ,0 ,10));;
+        this.setPadding(new Insets(3,0 ,0 ,10));
         this.setStyle("-fx-background-color: #1f1f1f; -fx-border-color: white; -fx-border-width: 3;");
 
         // Si la temática está bloqueada no se podrá sleccionar

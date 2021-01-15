@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 
-public class PanelMenuBuscaminasController
+public class UI_PanelMenuBuscaminas
 {
 	// Atributos
 	

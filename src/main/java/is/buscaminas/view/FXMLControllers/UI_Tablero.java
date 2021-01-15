@@ -15,7 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 
-public class TableroController
+public class UI_Tablero
 {
 	//Atributos FXML
 	

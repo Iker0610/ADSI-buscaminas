@@ -5,59 +5,54 @@ import is.buscaminas.controller.GestorVentanas;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
 
 
-public class GestionarUsuariosController
+public class UI_GestionarDatosUsuario
 {
 	// Atributos
 	
 	@FXML
-	private Button botonModificar;
+	private TextField emailTextField;
 	@FXML
-	private Button botonEliminar;
+	private TextField contrasenaTextField;
+	@FXML
+	private SplitMenuButton seleccionNivelInicial;
 	@FXML
 	private Button botonVolver;
 	@FXML
-	private SplitMenuButton seleccionUsuario;
+	private Button botonGuardar;
 	@FXML
 	private ImageView background;
 	
 	
-	//Constructora
+	// Constructora
 	
 	@FXML
-	private void initialize()
+	public void initialize()
 	{
+		//Cargar temática
 		Image backgroundImage = new Image(new File("src/main/resources/is/buscaminas/inicio/fondoAdmin.png").toURI().toString());
 		background.setImage(backgroundImage);
-		botonModificar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonModificar.png); -fx-background-color: transparent;");
-		botonEliminar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonEliminar.png); -fx-background-color: transparent;");
 		botonVolver.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonVolver.png); -fx-background-color: transparent;");
+		botonGuardar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonGuardar.png); -fx-background-color: transparent;");
+		
+		//TODO cargar datos (SplitMenu, mail, etc)
 	}
 	
 	
 	// Métodos
 	
 	@FXML
-	private void pulsarModificar()
+	public void pulsarGuardar()
 	{
-		//TODO pasar usuario
-		GestorVentanas.getGestorVentanas().abrirGestionarDatosUsuario();
+		//TODO Guardar datos introducidos
 	}
 	
 	@FXML
-	private void pulsarEliminar()
-	{
-		//TODO
-	}
-	
-	@FXML
-	private void pulsarVolver()
-	{
-		GestorVentanas.getGestorVentanas().abrirAdministrar();
-	}
+	public void pulsarVolver(){ GestorVentanas.getGestorVentanas().abrirAdministrar(); }
 }

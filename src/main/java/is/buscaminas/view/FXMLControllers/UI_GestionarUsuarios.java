@@ -5,54 +5,59 @@ import is.buscaminas.controller.GestorVentanas;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitMenuButton;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
 
 
-public class GestionarDatosUsuarioController
+public class UI_GestionarUsuarios
 {
 	// Atributos
 	
 	@FXML
-	private TextField emailTextField;
+	private Button botonModificar;
 	@FXML
-	private TextField contrasenaTextField;
-	@FXML
-	private SplitMenuButton seleccionNivelInicial;
+	private Button botonEliminar;
 	@FXML
 	private Button botonVolver;
 	@FXML
-	private Button botonGuardar;
+	private SplitMenuButton seleccionUsuario;
 	@FXML
 	private ImageView background;
 	
 	
-	// Constructora
+	//Constructora
 	
 	@FXML
-	public void initialize()
+	private void initialize()
 	{
-		//Cargar temática
 		Image backgroundImage = new Image(new File("src/main/resources/is/buscaminas/inicio/fondoAdmin.png").toURI().toString());
 		background.setImage(backgroundImage);
+		botonModificar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonModificar.png); -fx-background-color: transparent;");
+		botonEliminar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonEliminar.png); -fx-background-color: transparent;");
 		botonVolver.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonVolver.png); -fx-background-color: transparent;");
-		botonGuardar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonGuardar.png); -fx-background-color: transparent;");
-		
-		//TODO cargar datos (SplitMenu, mail, etc)
 	}
 	
 	
 	// Métodos
 	
 	@FXML
-	public void pulsarGuardar()
+	private void pulsarModificar()
 	{
-		//TODO Guardar datos introducidos
+		//TODO pasar usuario
+		GestorVentanas.getGestorVentanas().abrirGestionarDatosUsuario();
 	}
 	
 	@FXML
-	public void pulsarVolver(){ GestorVentanas.getGestorVentanas().abrirAdministrar(); }
+	private void pulsarEliminar()
+	{
+		//TODO
+	}
+	
+	@FXML
+	private void pulsarVolver()
+	{
+		GestorVentanas.getGestorVentanas().abrirAdministrar();
+	}
 }
