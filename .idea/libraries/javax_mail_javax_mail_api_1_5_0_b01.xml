@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="javax.mail:javax.mail-api:1.5.0-b01" type="repository">
+    <properties maven-id="javax.mail:javax.mail-api:1.5.0-b01" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/javax/mail/javax.mail-api/1.5.0-b01/javax.mail-api-1.5.0-b01.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

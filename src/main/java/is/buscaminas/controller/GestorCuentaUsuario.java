@@ -17,12 +17,6 @@ public class GestorCuentaUsuario {
         return mGestorCuentaUsuario;
     }
 
-    /*
-    public JSONObject cargarTemas(){
-        return GestorTematica.getGestorTematica().cargarTemas();
-    }
-    */
-
     public void cambiarTematica(String pNombreTema){
         GestorTematica.getGestorTematica().cambiarTematica(pNombreTema);
     }
