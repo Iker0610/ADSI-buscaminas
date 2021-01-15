@@ -61,9 +61,6 @@ public class TableroController
 		tableroCasillas.setVgap(1);
 		tableroCasillas.setHgap(1);
 		
-		// Se resetea el tablero:
-		Tablero.getTablero().iniciarTablero();
-		
 		//Se crea el evento que se ejecutará al despejar por primera vez una casilla (antes de despejarla en el modelo)
 		EventHandler<MouseEvent> primerClick = new EventHandler<>()
 		{

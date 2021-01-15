@@ -38,11 +38,16 @@ public class Partida
         return mPartida;
     }
     
-    // Login en la aplicacion
     public void iniciarPartida(int pNivel)
     {
         nivel = pNivel;
         partidaActiva = true;
+        inicializarTablero();
+    }
+    
+    public void inicializarTablero()
+    {
+        Tablero.getTablero().iniciarTablero();
         GestorVentanas.getGestorVentanas().abrirPartida();
     }
     
@@ -79,7 +84,7 @@ public class Partida
             finalizarPartida(false);
         }
         partidaActiva = true;
-        GestorVentanas.getGestorVentanas().abrirPartida();
+        inicializarTablero();
     }
     
     public void finalizarPartida(boolean pVictoria)
