@@ -10,12 +10,16 @@ import is.buscaminas.model.logros.DatosLogro;
 import is.buscaminas.model.logros.Logro;
 import is.buscaminas.model.logros.LogroVictoriaConsecutiva;
 import is.buscaminas.model.logros.LogroVictoriaNivel;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 public class GestorLogros
