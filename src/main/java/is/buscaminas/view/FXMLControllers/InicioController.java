@@ -57,18 +57,27 @@ public class InicioController
 	@FXML
 	public void pulsarAceptar()
 	{
-		// Si se introduce un nombre y TODO login correcto
+		// Si se introduce un nombre y
 		if (!nombreTextField.getText().equals("")){
 			
 			// Guardamos el nombre de jugador
 			String nombreUser = nombreTextField.getText();
 			
-			//TODO Login
-			GestorUsuario.getGestorUsuario().checkEmailContrasena("a", "a", nombreUser);
-			
-			
-			// Se abre el menú principal
-			GestorVentanas.getGestorVentanas().abrirMenuPrincipal();
+
+			boolean correcto=false;
+
+			try {
+				GestorUsuario.getGestorUsuario().checkEmailContrasena("a", "a", nombreUser);
+				// Se abre el menú principal
+				GestorVentanas.getGestorVentanas().abrirMenuPrincipal();
+			} catch (Exception e) {
+
+			}
+
+
+
+
+
 			
 		}
 		else{
