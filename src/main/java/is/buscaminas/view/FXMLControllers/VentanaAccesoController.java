@@ -85,6 +85,7 @@ public class VentanaAccesoController
 			}
 			
 			// Se inicia la partida
+			SFXPlayer.getSFXPlayer().playSFX("gameIntro");
 			Partida.getPartida().iniciarPartida(numDificultad);
 			
 		}
