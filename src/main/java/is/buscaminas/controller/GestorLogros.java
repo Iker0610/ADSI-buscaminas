@@ -113,8 +113,8 @@ public class GestorLogros
 
 		for (Logro logro : logrosRestantes) {
 			if(logro.comprobarLogro(victoria, nivel, email)){
-				eliminarRestante(logro);
-				eliminarObtenido(logro);
+				logrosObtenidos.add(logro);
+				logrosRestantes.remove(logro);
 			}
 		}
 	}
