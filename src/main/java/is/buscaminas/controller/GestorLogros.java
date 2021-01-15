@@ -101,7 +101,7 @@ public class GestorLogros
 		}
 		//En caso de que salte una excepción, ocurrira lo siguiente.
 		catch (NoSuchElementException e){
-			System.out.println("No se ha encontrado");
+			e.printStackTrace();
 		}
 	}
 	
@@ -170,17 +170,23 @@ public class GestorLogros
 	}
 	
 	//Caso de uso Cargar Logros
-	public void cargarLogros(String email) throws SQLException
+	public void cargarLogros(String email)
 	{
 		//Precondición: recibe el email del jugador en formato String.
 		//Postcondicián: se cargan todos los logros en memoria. El email será necesario para saber que logros ha obtenido dicho jugador. No devuelve nada.
-		GestorDB gestorDB = GestorDB.getGestorDB();
-		String sql = "SELECT * FROM LogrosUsuario INNER JOIN LogroUsuario ON Logro.Nombre = LogroUsuario.NombreLogro";
-		ResultadoSQL res = gestorDB.execSELECT(sql);
-		while (res.next()){      //NO ENTIENDO MUY BIEN COMO FUNCIONAN LOS MÉTODOS DE RESULTADOSQL
-			DatosLogro datos = getDatosLogro(res);
-			//Para que no afecte a la modularidad, se ha añadido un método privado para que el método cargarLogros no se ocupe también de crearlos, haciendo que este proceso sea más sostenible.
-			generarLogro(datos);
+		try {
+			reset();
+			GestorDB gestorDB = GestorDB.getGestorDB();
+			String sql = "SELECT * FROM LogrosUsuario INNER JOIN LogroUsuario ON Logro.Nombre = LogroUsuario.NombreLogro";
+			ResultadoSQL res = gestorDB.execSELECT(sql);
+			while (res.next()) {
+				DatosLogro datos = getDatosLogro(res);
+				//Para que no afecte a la modularidad, se ha añadido un método privado para que el método cargarLogros no se ocupe también de crearlos, haciendo que este proceso sea más sostenible.
+				generarLogro(datos);
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
 		}
 	}
 	
