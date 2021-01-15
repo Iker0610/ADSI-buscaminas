@@ -14,6 +14,7 @@ public class SFXPlayer
 	// Atributos
 	
 	private static SFXPlayer mSFXPlayer;
+	private String temaActual;
 	private MediaPlayer backgroundThemePlayer;
 	private String backgroundThemeName;
 	private MediaPlayer floatWindowBackgroundThemePlayer;
@@ -22,7 +23,7 @@ public class SFXPlayer
 	
 	private SFXPlayer()
 	{
-		this.backgroundThemePlayer            = null;
+		this.backgroundThemePlayer = null;
 		this.floatWindowBackgroundThemePlayer = null;
 		this.efectPlayer                      = null;
 	}
@@ -42,7 +43,11 @@ public class SFXPlayer
 	// BACKGROUND PARA VENTANAS PRINCIPALES
 	public void setBackgroundTheme(String pTheme)
 	{
-		if (pTheme != null && !pTheme.equals(backgroundThemeName)){
+		// Se obtiene el tema actual del Usuario
+		String temaDelUsuario = Usuario.getUsuario().getTematicaActual();
+		
+		// Se comprueba que el fondo sea distinto al que está puesto.
+		if (pTheme != null && (!pTheme.equals(backgroundThemeName) || !temaDelUsuario.equals(temaActual))){
 			if (backgroundThemePlayer != null){
 				// Si se esta ejecutando un tema, se para y se libera la memoria
 				backgroundThemePlayer.stop();
@@ -52,8 +57,9 @@ public class SFXPlayer
 			}
 			
 			// Se arranca el nuevo tema
+			temaActual = temaDelUsuario;
 			backgroundThemeName = pTheme;
-			Media backgroundTheme = new Media(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/sfx/themes/" + pTheme + ".mp3").toURI().toString());
+			Media backgroundTheme = new Media(new File("src/main/resources/is/buscaminas/temas/" + temaDelUsuario.toLowerCase().replaceAll("\\s", "") + "/sfx/themes/" + pTheme + ".mp3").toURI().toString());
 			backgroundThemePlayer = new MediaPlayer(backgroundTheme);
 			backgroundThemePlayer.seek(Duration.ZERO);
 			backgroundThemePlayer.setCycleCount(MediaPlayer.INDEFINITE);
@@ -76,19 +82,27 @@ public class SFXPlayer
 	
 	public void setFloatWindowBackgroundTheme(String pTheme)
 	{
-		if (pTheme != null && !pTheme.equals(floatWindowBackgroundThemeName)){
-			floatWindowBackgroundThemeName = pTheme;
-			stopBackground();
+		// Se obtiene el tema actual del Usuario
+		String temaDelUsuario = Usuario.getUsuario().getTematicaActual();
+		
+		// Se comprueba que el fondo sea distinto al que está puesto.
+		if (pTheme != null && (!pTheme.equals(floatWindowBackgroundThemeName) || !temaDelUsuario.equals(temaActual))){
+			
 			if (floatWindowBackgroundThemePlayer != null){
 				// Si se esta ejecutando un tema, se para y se libera la memoria
 				floatWindowBackgroundThemePlayer.stop();
 				floatWindowBackgroundThemePlayer.dispose();
 				floatWindowBackgroundThemePlayer = null;
-				floatWindowBackgroundThemeName   = null;
+				floatWindowBackgroundThemeName = null;
 			}
 			
+			// Se para el tema anterior
+			stopBackground();
+			
 			// Se arranca el nuevo tema
-			Media backgroundTheme = new Media(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/sfx/themes/" + pTheme + ".mp3").toURI().toString());
+			temaActual = temaDelUsuario;
+			floatWindowBackgroundThemeName = pTheme;
+			Media backgroundTheme = new Media(new File("src/main/resources/is/buscaminas/temas/" + temaDelUsuario.toLowerCase().replaceAll("\\s", "") + "/sfx/themes/" + pTheme + ".mp3").toURI().toString());
 			floatWindowBackgroundThemePlayer = new MediaPlayer(backgroundTheme);
 			floatWindowBackgroundThemePlayer.seek(Duration.ZERO);
 			floatWindowBackgroundThemePlayer.setCycleCount(MediaPlayer.INDEFINITE);

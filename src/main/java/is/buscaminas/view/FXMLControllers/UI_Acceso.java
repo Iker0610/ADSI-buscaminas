@@ -116,6 +116,7 @@ public class UI_Acceso
 			}
 			
 			// Se inicia la partida
+			SFXPlayer.getSFXPlayer().playSFX("gameIntro");
 			Partida.getPartida().iniciarPartida(numDificultad);
 			
 		}
