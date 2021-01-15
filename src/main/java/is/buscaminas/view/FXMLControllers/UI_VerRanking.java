@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import java.io.File;
 
 
-public class VentanaRankingController
+public class UI_VerRanking
 {
 	// Atributos
 	

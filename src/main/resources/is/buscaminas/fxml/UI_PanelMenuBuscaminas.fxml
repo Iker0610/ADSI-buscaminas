@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <GridPane fx:id="background" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" hgap="5.0"
           style=" -fx-background-insets:0 0 0 0, 4 0 0 4, 4;" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.2-internal"
-          fx:controller="is.buscaminas.view.FXMLControllers.PanelMenuBuscaminasController">
+          fx:controller="is.buscaminas.view.FXMLControllers.UI_PanelMenuBuscaminas">
     <columnConstraints>
         <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" percentWidth="25.0"/>
         <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES"/>

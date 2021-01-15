@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 
 
-public class AdministrarController
+public class UI_Administrar
 {
 	// Atributos
 	

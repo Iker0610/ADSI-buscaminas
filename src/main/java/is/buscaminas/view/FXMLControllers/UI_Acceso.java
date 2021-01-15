@@ -21,7 +21,7 @@ import java.io.File;
 import java.sql.SQLException;
 
 
-public class VentanaAccesoController
+public class UI_Acceso
 {
 	//Atributos normales
 	

@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 import java.io.File;
 
 
-public class MenuAyudaController
+public class UI_MenuAyuda
 {
 	// Atributos
 	

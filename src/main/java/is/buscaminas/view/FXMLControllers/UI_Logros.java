@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 
 
-public class LogrosController
+public class UI_Logros
 {
 	// Atributos
 	

@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 
 
-public class MenuPrincipalController
+public class UI_MenuPrincipal
 {
 	// Atributos
 	

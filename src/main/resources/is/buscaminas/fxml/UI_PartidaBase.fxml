@@ -5,7 +5,7 @@
             style="-fx-background-color: '#c0c0c0'; -fx-border-color: '#777777'; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/10.0.2-internal">
 
     <top>
-        <fx:include source="panelMenuBuscaminas.fxml" BorderPane.alignment="CENTER"/>
+        <fx:include source="UI_PanelMenuBuscaminas.fxml" BorderPane.alignment="CENTER"/>
     </top>
 
     <center>

@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 
 
-public class GestionarDatosJuegoController
+public class UI_GestionarDatosJuego
 {
 	// Atributos
 	
