@@ -145,7 +145,7 @@ public class GestorVentanas
 	
 	public void abrirPartida()
 	{
-		abrirVentanaPrincipal("ventanaPartidaBase");
+		abrirVentanaPrincipal("UI_PartidaBase");
 	}
 	
 	public void abrirAdministrar()
@@ -170,7 +170,7 @@ public class GestorVentanas
 	
 	public void abrirSeleccionNivel()
 	{
-		abrirVentanaPrincipal("ventanaAcceso");
+		abrirVentanaPrincipal("UI_Acceso");
 	}
 	
 	public void mostrarRankingEmergente()
@@ -180,6 +180,6 @@ public class GestorVentanas
 	
 	public void mostrarAyudaEmergente()
 	{
-		abrirVentanaEmergente("ventanaMenuAyuda", "Ayuda");
+		abrirVentanaEmergente("UI_MenuAyuda", "Ayuda");
 	}
 }
