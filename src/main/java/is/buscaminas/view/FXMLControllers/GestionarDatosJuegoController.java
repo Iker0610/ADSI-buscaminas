@@ -53,22 +53,17 @@ public class GestionarDatosJuegoController
 		JsonArray lNiveles = Jsoner.deserialize(GestorDatosJuego.getGestorDatosJuego().getNiveles(), new JsonArray());
 
 		for (Object jsonObjectString: lNiveles) {
-			JsonObject niveles = (JsonObject) jsonObjectString;
-			MenuItem nivel = new MenuItem((String) niveles.get("nivel").toString());
+			JsonObject NivelJson = Jsoner.deserialize((String) jsonObjectString, new JsonObject());
+			MenuItem nivel = new MenuItem((String) NivelJson.get("nivel").toString());
 			seleccionNivel.getItems().add(nivel);
 			nivel.setOnAction((e) -> {
 				seleccionNivel.setText(nivel.getText().toString());
-				for (Object datosNivel: lNiveles) {
-					JsonObject datos = (JsonObject) datosNivel;
-					if(datos.get("nivel").equals(seleccionNivel.getText())){
-						columnasTextField.setText(datos.get("nColumnas").toString());
-						filasTextField.setText(datos.get("nFilas").toString());
-						numMinasTextField.setText(datos.get("dificultad").toString());
-					}
-				}
+				columnasTextField.setText(NivelJson.get("nColumnas").toString());
+				filasTextField.setText(NivelJson.get("nFilas").toString());
+				numMinasTextField.setText(NivelJson.get("dificultad").toString());
 			});
 		}
-		//TODO cargar datos (ayuda)
+		//TODO MENUAYUDA
 		
 	}
 	
@@ -78,7 +73,7 @@ public class GestionarDatosJuegoController
 	@FXML
 	public void pulsarGuardar()
 	{
-		//TODO Guardar datos introducidos
+		GestorDatosJuego.getGestorDatosJuego().guardarDatos(seleccionNivel.getText(),columnasTextField.getText(),filasTextField.getText(),ayudaTextArea.getText());
 	}
 	
 	@FXML

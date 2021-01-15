@@ -2,6 +2,7 @@ package is.buscaminas.controller;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
+import is.buscaminas.model.MenuAyuda;
 import is.buscaminas.model.db.GestorDB;
 import is.buscaminas.model.db.ResultadoSQL;
 
@@ -35,4 +36,8 @@ public class GestorDatosJuego {
 
         return GestorNiveles.getGestorNiveles().obtenerDatosNiveles();
     }
+    public void guardarDatos(String pNivel, String pColum, String nFilas, String pMensaje){
+
+    }
+
 }
