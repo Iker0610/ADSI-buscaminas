@@ -84,7 +84,19 @@ public class GestionarUsuariosController
 	
 	@FXML
 	private void pulsarEliminar() throws SQLException {
-		GestorJugadores.getGestorJugadores().eliminar(seleccionUsuario.getText());
+		try{
+			GestorJugadores.getGestorJugadores().eliminar(seleccionUsuario.getText());
+		}
+		catch (SQLException e){
+			// Si existe algún error al eliminar un usuario y se cierra la aplicación
+			Alert errorDeCarga = new Alert(Alert.AlertType.ERROR);
+			errorDeCarga.setTitle("Error eliminar usuario");
+			errorDeCarga.setHeaderText("Error al eliminar un usuario");
+			errorDeCarga.setContentText(e.toString() + Arrays.toString(e.getStackTrace()) + "\n\nLa aplicación se cerrará");
+			errorDeCarga.setOnCloseRequest((handler)->System.exit(-1));
+			errorDeCarga.show();
+		}
+
 	}
 	
 	@FXML
