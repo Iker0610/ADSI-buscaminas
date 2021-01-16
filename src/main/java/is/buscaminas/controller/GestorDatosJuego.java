@@ -41,9 +41,7 @@ public class GestorDatosJuego {
                 int dificultad = Integer.parseInt(pDificultad);
                 int colum = Integer.parseInt(pColum);
                 int filas = Integer.parseInt(nFilas);
-                if (dificultadAdecuada(dificultad, filas, colum)) {
                     resultadoN = GestorNiveles.getGestorNiveles().guardarDatos(nivel, dificultad, colum, filas);
-                }
             }
             else{
                 mostrarNoNumerico();
@@ -72,15 +70,6 @@ public class GestorDatosJuego {
         } catch (NumberFormatException nfe){
             return false;
         }
-    }
-    private boolean dificultadAdecuada(int pDificultad, int pFilas, int pColum){
-        if (pDificultad<pFilas*pColum){
-            return true;
-        }
-        else{
-            return false;
-        }
-
     }
     private void mostrarMensajeError(){
         Alert errorDeActualizacion = new Alert(Alert.AlertType.ERROR);

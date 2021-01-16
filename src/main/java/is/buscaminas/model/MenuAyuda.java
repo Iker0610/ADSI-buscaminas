@@ -15,14 +15,12 @@ public class MenuAyuda {
 
     private void setMensaje(String pMensaje) {
         try {
-            FileWriter ayuda = null;
             PrintWriter pw = null;
-            ayuda = new FileWriter("src/main/resources/is/buscaminas/MenuAyuda/Ayuda.txt", true);
+            FileWriter ayuda = new FileWriter("src/main/resources/is/buscaminas/MenuAyuda/Ayuda.txt");
             BufferedWriter bw = new BufferedWriter(ayuda);
             bw.write("");
             bw.write(pMensaje);
             bw.close();
-            cargarMensaje();
         }
         catch (IOException e){
             Alert errorDeActualizacion = new Alert(Alert.AlertType.ERROR);
@@ -33,7 +31,8 @@ public class MenuAyuda {
     }
     public boolean guardarMensaje(String pMensaje){
         setMensaje(pMensaje);
-        if(mensaje == pMensaje){
+        cargarMensaje();
+        if(mensaje.equals(pMensaje)){
             return true;
         }
         else{
