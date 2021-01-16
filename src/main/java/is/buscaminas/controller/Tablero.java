@@ -1,11 +1,14 @@
 package is.buscaminas.controller;
 
 
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
 import is.buscaminas.model.casillas.*;
 import javafx.util.Pair;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -62,24 +65,20 @@ public class Tablero
 		//      - Se ha guardado el número de minas
 		//      - Se ha guardado el número de casillas sin minas
 		
-		int dificultad = Partida.getPartida().getDificultad();
-		switch (dificultad){
-			
-			case 2:
-				matrizCasillas = new Casilla[10][15];
-				break;
-			
-			case 3:
-				matrizCasillas = new Casilla[12][25];
-				break;
-			
-			default:
-				matrizCasillas = new Casilla[7][10];
-				break;
-		}
-		numMinas            = matrizCasillas[0].length * dificultad;
-		casillasPorDespejar = (matrizCasillas.length * matrizCasillas[0].length) - numMinas;
-		numMinasPorMarcar   = numMinas;
+		
+		// Se obtienen los datoss del nivel mediante el JSON
+		String datosNivelJSONString = Partida.getPartida().getDatosNivel();
+		JsonObject datosNivelJSON = Jsoner.deserialize(datosNivelJSONString, new JsonObject());
+		int numColumnas = ((BigDecimal) datosNivelJSON.get("nColumnas")).intValue();
+		int numFilas = ((BigDecimal) datosNivelJSON.get("nFilas")).intValue();
+		
+		// Se genera la matriz:
+		matrizCasillas = new Casilla[numFilas][numColumnas];
+		
+		// Se cargan los datos relacionados
+		numMinas = ((BigDecimal) datosNivelJSON.get("dificultad")).intValue();
+		casillasPorDespejar = (numFilas * numColumnas) - numMinas;
+		numMinasPorMarcar = numMinas;
 	}
 	
 	//----------------------------------------------
@@ -312,7 +311,7 @@ public class Tablero
 					break;
 				
 				case 6: // Resetea el tablero
-					GestorVentanas.getGestorVentanas().abrirPartida();
+					Partida.getPartida().inicializarTablero();
 					break;
 			}   //Se ignoran el resto de casos
 		}
@@ -381,7 +380,7 @@ public class Tablero
 							break;
 						
 						case 6: // Resetea el tablero
-							GestorVentanas.getGestorVentanas().abrirPartida();
+							Partida.getPartida().inicializarTablero();
 							break;
 					}
 				}

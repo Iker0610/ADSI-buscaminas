@@ -1,32 +1,26 @@
 package is.buscaminas.view.uiElements;
 
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Pane;
 
-import java.io.File;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 
-public class VistaAyuda extends Pane {
+
+public class VistaAyuda extends VBox {
 
     // La Clase que muestra las páginas de ayuda
-    public VistaAyuda ()
+    public VistaAyuda (String pTexto)
     {
         super();
-        setPrefSize(820, 460);
-        //Ponemos la primera imagen
-        cambiarPaginaAyuda(1);
-    }
 
-    public void cambiarPaginaAyuda (int pPag)
-    {
-        //Pre: un numero
-        //Post: Se carga la pagina correspondiente a ese numero
+        //Cargamos el texto en un Label
+        this.getChildren().add(new Label(pTexto));
 
-        //cargamos la imagen
-        Image imagenCasilla = new Image(new File("src/main/resources/is/buscaminas/temas/mario/ayuda/ayudaPag" + pPag + ".png").toURI().toString());
-        BackgroundSize backgroundSize = new BackgroundSize(820, 460, false, false, false, false);
-        setBackground(new Background(new BackgroundImage(imagenCasilla, null, null, null, backgroundSize)));
+        // Ajustamos el tamaño del texto (VBox)
+        setMinHeight(250);
+        setMinWidth(400);
+        setMaxHeight(250);
+        setMaxWidth(400);
+
+        //TODO setStyle????
     }
 }
