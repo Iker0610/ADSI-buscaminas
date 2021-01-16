@@ -11,6 +11,8 @@ import is.buscaminas.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -24,7 +26,7 @@ public class UI_MenuAyuda
 	@FXML private Button botonSalir;
 	@FXML private ImageView background;
 	@FXML private VBox zonaTexto;
-	@FXML private Label ayudaTexto;
+	@FXML private TextArea textoAyuda;
 
 
 	
@@ -41,7 +43,9 @@ public class UI_MenuAyuda
 		SFXPlayer.getSFXPlayer().setFloatWindowBackgroundTheme("helpTheme");
 
 		JsonObject menu = Jsoner.deserialize(GestorDatosJuego.getGestorDatosJuego().getMensajeAyuda(), new JsonObject());
-		ayudaTexto.setText(menu.get("mensaje").toString());
+		textoAyuda.setEditable(false);
+		textoAyuda.setWrapText(true);
+		textoAyuda.setText(menu.get("mensaje").toString());
 
 	}
 	

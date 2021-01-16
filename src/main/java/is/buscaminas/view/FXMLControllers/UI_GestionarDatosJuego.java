@@ -69,6 +69,7 @@ public class UI_GestionarDatosJuego
 		}
 		JsonObject menu = Jsoner.deserialize(GestorDatosJuego.getGestorDatosJuego().getMensajeAyuda(), new JsonObject());
 		ayudaTextArea.setText(menu.get("mensaje").toString());
+		ayudaTextArea.setWrapText(true);
 		
 	}
 	
