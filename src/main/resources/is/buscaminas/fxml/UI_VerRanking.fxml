@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane maxHeight="793.0" prefHeight="731.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.VentanaRankingController">
+<AnchorPane maxHeight="793.0" prefHeight="731.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.UI_VerRanking">
     <ImageView fx:id="background" fitHeight="850.0" fitWidth="540.0"/>
     <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="540.0">
         <top>

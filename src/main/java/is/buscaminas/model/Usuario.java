@@ -74,7 +74,7 @@ public class Usuario
 		
 		//Se carga la fuente
 		try{
-			Font.loadFont(new FileInputStream(new File("src/main/resources/is/buscaminas/temas/" + pTema + "/fuente/font.ttf")), 20);
+			Font.loadFont(new FileInputStream(new File("src/main/resources/is/buscaminas/temas/" + tematicaActual.toLowerCase().replaceAll("\\s", "") + "/fuente/font.ttf")), 20);
 		}
 		catch (FileNotFoundException e){
 			// Todo Crear emergente
