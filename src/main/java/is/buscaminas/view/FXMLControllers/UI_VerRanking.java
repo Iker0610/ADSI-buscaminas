@@ -1,13 +1,12 @@
 package is.buscaminas.view.FXMLControllers;
 
 
+import is.buscaminas.controller.GestorRanking;
 import is.buscaminas.controller.Partida;
 import is.buscaminas.controller.SFXPlayer;
 import is.buscaminas.model.Contador;
 import is.buscaminas.model.Usuario;
-import is.buscaminas.model.ranking.Ranking;
 import is.buscaminas.view.uiElements.VistaRanking;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -16,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.sql.SQLException;
 
 
 public class UI_VerRanking
@@ -23,6 +23,8 @@ public class UI_VerRanking
 	// Atributos
 	
 	VistaRanking[] rankingPorNivel;
+	private boolean personal;
+	private boolean porNiveles;
 	
 	@FXML
 	private Button aceptar;
@@ -48,36 +50,74 @@ public class UI_VerRanking
 		Image titleImage = new Image(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/ranking/titulo.png").toURI().toString());
 		title.setImage(titleImage);
 		aceptar.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/ranking/aceptar.gif); -fx-background-repeat: no-repeat; -fx-background-size: cover, auto; -fx-background-color: transparent;");
-		//TODO ALTERNAR POR NIVEL-ABSOLUTO
 		porNivel.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/ranking/clasificarPorNivel.png); -fx-background-color: transparent;");
-		//TODO ALTERNAR GLOBAL-PERSONAL
 		personalGlobal.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/ranking/verRankingPersonal.png); -fx-background-color: transparent;");
-		
-		//
-		rankingPorNivel = new VistaRanking[3];
-		for (int i = 0; i < 3; i++) rankingPorNivel[i] = new VistaRanking();
-		
-		mostrarRanking(Partida.getPartida().getNivel());
 		
 		// Se pone el tema de fondo:
 		SFXPlayer.getSFXPlayer().setFloatWindowBackgroundTheme("rankingTheme");
+
+		personal = false;
+		porNiveles = false;
 	}
+
 	
 	
 	// Métodos
-	
+
 	@FXML
-	public void cambiarVistaRanking(ActionEvent event)
-	{
-		int dificultad = Integer.parseInt(((Button) event.getSource()).getText().split(" ")[1]);
-		mostrarRanking(dificultad);
+	public void pulsarPorNiveles() throws SQLException {
+		if (porNiveles) {
+			if (personal) {
+				String jsonNiveles = GestorRanking.getGestorRanging().obtenerRankingPersonal();
+			}
+			else {
+				String jsonNiveles = GestorRanking.getGestorRanging().obtenerRankingGlobal();
+			}
+			porNiveles = false;
+			porNivel.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/ranking/clasificarPorNivel.png); -fx-background-color: transparent;");
+		}
+		else {
+			if (personal) {
+				String jsonNiveles = GestorRanking.getGestorRanging().clasificarPorNivelPersonal();
+			}
+			else {
+				String jsonNiveles = GestorRanking.getGestorRanging().clasificarPorNivel();
+			}
+			porNiveles = true;
+			porNivel.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/ranking/verRankingAbsoluto.png); -fx-background-color: transparent;");
+		}
+		//mostrarRanking(jsonNiveles);
+	}
+
+	@FXML
+	public void pulsarPersonalGlobal() throws SQLException {
+		if (personal) {
+			if (porNiveles) {
+				String jsonNiveles = GestorRanking.getGestorRanging().clasificarPorNivel();
+			}
+			else {
+				String jsonNiveles = GestorRanking.getGestorRanging().obtenerRankingGlobal();
+			}
+			personal = false;
+			personalGlobal.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/ranking/verRankingGlobal.png); -fx-background-color: transparent;");
+		}
+		else {
+			if (porNiveles) {
+				String jsonNiveles = GestorRanking.getGestorRanging().clasificarPorNivelPersonal();
+			}
+			else {
+				String jsonNiveles = GestorRanking.getGestorRanging().obtenerRankingPersonal();
+			}
+			personal = true;
+			personalGlobal.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/ranking/VerRankingPersonal.png); -fx-background-color: transparent;");
+		}
+		//mostrarRanking(jsonNiveles);
 	}
 	
-	private void mostrarRanking(int pDificultad)
+	private void mostrarRanking(String ranking)
 	{
 		clean();
-		zonaRanking.getChildren().add(rankingPorNivel[pDificultad - 1]);
-		Ranking.getRanking().obtenerRanking(pDificultad);
+
 	}
 	
 	private void clean()
