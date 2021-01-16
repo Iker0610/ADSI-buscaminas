@@ -71,9 +71,13 @@ public class GestionarDatosJuegoController
 	// Métodos
 	
 	@FXML
-	public void pulsarGuardar()
-	{
-		GestorDatosJuego.getGestorDatosJuego().guardarDatos(seleccionNivel.getText(),columnasTextField.getText(),filasTextField.getText(),ayudaTextArea.getText());
+	public void pulsarGuardar() throws SQLException {
+		try{
+			GestorDatosJuego.getGestorDatosJuego().guardarDatos(seleccionNivel.getText(),numMinasTextField.getText(),columnasTextField.getText(),filasTextField.getText(),ayudaTextArea.getText());
+		}
+		catch (SQLException e){
+
+		}
 	}
 	
 	@FXML
