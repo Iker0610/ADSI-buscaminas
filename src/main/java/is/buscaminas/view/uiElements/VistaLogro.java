@@ -4,12 +4,10 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
-import javax.swing.text.LabelView;
-
 
 public class VistaLogro extends HBox {
 
-    public VistaLogro(String pNombreLogro, String pDescripcion, int pAvance, int pObjetivo, String pObtencion, String pNombreTema)
+    public VistaLogro(String pNombreLogro, String pDescripcion, String pAvance, String pObjetivo, String pObtencion, String pNombreTema)
     {
         super();
 
@@ -19,15 +17,23 @@ public class VistaLogro extends HBox {
         this.getChildren().add(nombreLabel);
 
         //Cargamos la descripcion
-        Label descripcionLabel = new Label(pDescripcion);
-        descripcionLabel.setStyle("-fx-text-fill: white;");
-        this.getChildren().add(descripcionLabel);
+        if(pDescripcion!=null) {
+            Label descripcionLabel = new Label(pDescripcion);
+            descripcionLabel.setStyle("-fx-text-fill: white;");
+            this.getChildren().add(descripcionLabel);
+        }
 
         //
         Label avanceLabel = new Label("Avance: " + pAvance + "/" + pObjetivo);
 
         //
-        Label temaLabel = new Label(pNombreTema);
+        if(pNombreTema!=null) {
+            Label temaLabel = new Label(pNombreTema);
+        }
+
+        if(pObtencion!=null){
+            Label fechaObtencion= new Label(pObtencion);
+        }
 
         // Ajustamos el tamaño de la vista
         setMinHeight(45);
@@ -37,7 +43,7 @@ public class VistaLogro extends HBox {
 
         // Ajustamos la posición y estilo del botón
         this.setPadding(new Insets(3,0 ,0 ,10));
-        if (pAvance >= pObjetivo){ this.setStyle("-fx-background-color: #1f1f1f; -fx-border-color: green; -fx-border-width: 3;"); }
+        if (Integer.parseInt(pAvance) >= Integer.parseInt(pObjetivo)){ this.setStyle("-fx-background-color: #1f1f1f; -fx-border-color: green; -fx-border-width: 3;"); }
         else { this.setStyle("-fx-background-color: #1f1f1f; -fx-border-color: red; -fx-border-width: 3;"); }
     }
 }
