@@ -2,6 +2,7 @@ package is.buscaminas.controller;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
+import is.buscaminas.model.MenuAyuda;
 import is.buscaminas.model.db.GestorDB;
 import is.buscaminas.model.db.ResultadoSQL;
 import javafx.scene.control.Alert;
@@ -26,22 +27,33 @@ public class GestorDatosJuego {
 
         return GestorNiveles.getGestorNiveles().obtenerDatosNiveles();
     }
+
+    public String getMensajeAyuda(){
+        MenuAyuda menu = new MenuAyuda();
+        menu.cargarMensaje();
+        return menu.mostrarDatosAyuda();
+    }
     public void guardarDatos(String pNivel,String pDificultad, String pColum, String nFilas, String pMensaje) throws SQLException {
         try {
-            if (esNumerico(pNivel) && esNumerico(pDificultad) && esNumerico(pColum) && esNumerico(nFilas)) {
+            Boolean resultadoN = true;
+            if (esNumerico(pDificultad) && esNumerico(pColum) && esNumerico(nFilas)) {
                 int nivel = Integer.parseInt(pNivel);
                 int dificultad = Integer.parseInt(pDificultad);
                 int colum = Integer.parseInt(pColum);
                 int filas = Integer.parseInt(nFilas);
                 if (dificultadAdecuada(dificultad, filas, colum)) {
-                    Boolean resultado = GestorNiveles.getGestorNiveles().guardarDatos(nivel, dificultad, colum, filas);
-                    if(resultado){
-                        //TODO actualizar ayuda
-                    }
-                    else{
-                        mostrarMensajeError();
-                    }
+                    resultadoN = GestorNiveles.getGestorNiveles().guardarDatos(nivel, dificultad, colum, filas);
                 }
+            }
+            else{
+                mostrarNoNumerico();
+            }
+            MenuAyuda menuAyuda = new MenuAyuda();
+            boolean resultadoM = menuAyuda.guardarMensaje(pMensaje);
+            if (resultadoN && resultadoM) {
+                mostrarMensajeGuardar();
+            } else {
+                mostrarMensajeError();
             }
         }
         catch (SQLException e){
@@ -58,11 +70,6 @@ public class GestorDatosJuego {
             Integer.parseInt(pCadena);
             return true;
         } catch (NumberFormatException nfe){
-            // Si existe algún error al cargar los datos se indica y se cierra la aplicación
-            Alert noNumerico= new Alert(Alert.AlertType.ERROR);
-            noNumerico.setTitle("No numerico");
-            noNumerico.setHeaderText("Por favor introduce los datos en el formato correcto.");
-            noNumerico.show();
             return false;
         }
     }
@@ -80,6 +87,18 @@ public class GestorDatosJuego {
         errorDeActualizacion.setTitle("Error actualización datos");
         errorDeActualizacion.setHeaderText("Ha ocurrido un error al actualizar los datos");
         errorDeActualizacion.show();
+    }
+    private void mostrarMensajeGuardar(){
+        Alert datosGuardados = new Alert(Alert.AlertType.CONFIRMATION);
+        datosGuardados.setTitle("Datos atualizados");
+        datosGuardados.setHeaderText("Los datos se han actualizado correctamente");
+        datosGuardados.show();
+    }
+    private void mostrarNoNumerico(){
+        Alert noNumerico= new Alert(Alert.AlertType.ERROR);
+        noNumerico.setTitle("No numerico");
+        noNumerico.setHeaderText("Por favor introduce los datos en el formato correcto.");
+        noNumerico.show();
     }
 
 }

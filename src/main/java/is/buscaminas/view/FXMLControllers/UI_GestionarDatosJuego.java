@@ -62,8 +62,13 @@ public class UI_GestionarDatosJuego
 				filasTextField.setText(NivelJson.get("nFilas").toString());
 				numMinasTextField.setText(NivelJson.get("dificultad").toString());
 			});
+			seleccionNivel.setText(nivel.getText().toString());
+			columnasTextField.setText(NivelJson.get("nColumnas").toString());
+			filasTextField.setText(NivelJson.get("nFilas").toString());
+			numMinasTextField.setText(NivelJson.get("dificultad").toString());
 		}
-		//TODO MENUAYUDA
+		JsonObject menu = Jsoner.deserialize(GestorDatosJuego.getGestorDatosJuego().getMensajeAyuda(), new JsonObject());
+		ayudaTextArea.setText(menu.get("mensaje").toString());
 		
 	}
 	

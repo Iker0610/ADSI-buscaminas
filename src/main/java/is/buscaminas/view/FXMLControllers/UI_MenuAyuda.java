@@ -1,12 +1,16 @@
 package is.buscaminas.view.FXMLControllers;
 
 
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
+import is.buscaminas.controller.GestorDatosJuego;
 import is.buscaminas.controller.Partida;
 import is.buscaminas.controller.SFXPlayer;
 import is.buscaminas.model.Contador;
 import is.buscaminas.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -20,6 +24,8 @@ public class UI_MenuAyuda
 	@FXML private Button botonSalir;
 	@FXML private ImageView background;
 	@FXML private VBox zonaTexto;
+	@FXML private Label ayudaTexto;
+
 
 	
 	// Construtora
@@ -34,7 +40,8 @@ public class UI_MenuAyuda
 		// Se pone el tema de fondo:
 		SFXPlayer.getSFXPlayer().setFloatWindowBackgroundTheme("helpTheme");
 
-		// TODO Cargar texto de ayuda
+		JsonObject menu = Jsoner.deserialize(GestorDatosJuego.getGestorDatosJuego().getMensajeAyuda(), new JsonObject());
+		ayudaTexto.setText(menu.get("mensaje").toString());
 
 	}
 	
