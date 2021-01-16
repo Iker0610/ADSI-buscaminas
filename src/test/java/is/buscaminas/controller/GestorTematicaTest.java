@@ -25,7 +25,7 @@ class GestorTematicaTest {
             String nombreLogro = logro.getString("nombre");
             logro.close();
 
-            // El nuevo usuario tendrá desbloqueada unicamente la temática de Mario
+            // El nuevo usuario tendrá desbloqueada la temática de Mario y la básica ya que esta la tienen todos los usuarios al pasar el login
             GestorDB.getGestorDB().execSQL("INSERT INTO LogrosUsuario (email, nombreLogro, fechaObtencion, avance) VALUES ('pruebaTemas','" + nombreLogro + "','01/01/2001',3);");
 
             // Cargamos el nuevo usuario en la clase Usuario
@@ -79,10 +79,10 @@ class GestorTematicaTest {
             // Obtenemos los temas de dicho Usuario
             String json = GestorTematica.getGestorTematica().obtenerTemas();
 
-            //El nuevo Usuario solo tendrá desbloqueada la temática de Mario, por lo que la estructura esperada del Json es la siguiente:
+            //El nuevo Usuario tendrá desbloqueada la temática de Mario y la Básica, por lo que la estructura esperada del Json es la siguiente:
             String datos =  "[{\"descripcion\":\"Tema basado en el nuevo juego multijugador de Among Us.\",\"bloqueada\":true,\"nombre\":\"Among Us\"}," +
                             "{\"descripcion\":\"Tema basado en la famosa franquicia de Nintendo Mario Bros.\",\"bloqueada\":false,\"nombre\":\"Mario\"}," +
-                            "{\"descripcion\":\"Tema basico desbloqueado para todos los usuarios.\",\"bloqueada\":true,\"nombre\":\"Basico\"}]";
+                            "{\"descripcion\":\"Tema basico desbloqueado para todos los usuarios.\",\"bloqueada\":false,\"nombre\":\"Basico\"}]";
 
             //Comprobamos si los datos obtenidos y los esperados son iguales
             assertEquals(json,datos);
