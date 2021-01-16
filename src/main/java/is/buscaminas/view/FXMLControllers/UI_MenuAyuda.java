@@ -31,6 +31,9 @@ public class UI_MenuAyuda
 		background.setImage(backgroundImage);
 		botonSalir.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/ayuda/botonSalir.png); -fx-background-color: transparent;");
 
+		// Se pone el tema de fondo:
+		SFXPlayer.getSFXPlayer().setFloatWindowBackgroundTheme("helpTheme");
+
 		// TODO Cargar texto de ayuda
 
 	}
