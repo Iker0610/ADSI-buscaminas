@@ -76,7 +76,7 @@ public class UI_MenuPrincipal
 	@FXML
 	public void pulsarVolver()
 	{
-		GestorVentanas.getGestorVentanas().abrirMenuPrincipal();
+		GestorVentanas.getGestorVentanas().abrirLogin();
 	}
 	
 	@FXML
