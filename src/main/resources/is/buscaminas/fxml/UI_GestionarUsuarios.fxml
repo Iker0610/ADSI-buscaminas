@@ -1,55 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.GestionarUsuariosController">
-    <ImageView fx:id="background" fitHeight="400.0" fitWidth="600.0" />
+<?import javafx.scene.text.Font?>
+<AnchorPane prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.UI_GestionarUsuarios">
+    <ImageView fx:id="background" fitHeight="400.0" fitWidth="600.0"/>
     <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
         <bottom>
             <GridPane BorderPane.alignment="CENTER">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 </rowConstraints>
-                <Button fx:id="botonVolver" mnemonicParsing="false" onAction="#pulsarVolver" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                <Button fx:id="botonVolver" onAction="#pulsarVolver" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1"/>
             </GridPane>
         </bottom>
         <center>
             <GridPane BorderPane.alignment="CENTER">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 </rowConstraints>
                 <Label text="Seleccionar un usuario:" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
                     <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="14.0"/>
                     </font>
                     <GridPane.margin>
-                        <Insets bottom="5.0" />
+                        <Insets bottom="5.0"/>
                     </GridPane.margin>
                 </Label>
-                <SplitMenuButton fx:id="seleccionUsuario" mnemonicParsing="false" text="Usuario" GridPane.columnIndex="2" GridPane.valignment="BOTTOM" />
-                <Button fx:id="botonModificar" mnemonicParsing="false" onAction="#pulsarModificar" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <Button fx:id="botonEliminar" mnemonicParsing="false" onAction="#pulsarEliminar" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                <SplitMenuButton fx:id="seleccionUsuario" mnemonicParsing="false" text="Usuario" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1"/>
+                        <MenuItem mnemonicParsing="false" text="Action 2"/>
+                    </items>
+                </SplitMenuButton>
+                <Button fx:id="botonModificar" onAction="#pulsarModificar" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                <Button fx:id="botonEliminar" onAction="#pulsarEliminar" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP"/>
             </GridPane>
         </center>
     </BorderPane>

@@ -311,7 +311,7 @@ public class Tablero
 					break;
 				
 				case 6: // Resetea el tablero
-					GestorVentanas.getGestorVentanas().abrirPartida();
+					Partida.getPartida().inicializarTablero();
 					break;
 			}   //Se ignoran el resto de casos
 		}
@@ -380,7 +380,7 @@ public class Tablero
 							break;
 						
 						case 6: // Resetea el tablero
-							GestorVentanas.getGestorVentanas().abrirPartida();
+							Partida.getPartida().inicializarTablero();
 							break;
 					}
 				}
