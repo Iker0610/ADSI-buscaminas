@@ -1,5 +1,6 @@
 package is.buscaminas.controller;
 
+
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import is.buscaminas.model.Usuario;
@@ -8,90 +9,148 @@ import is.buscaminas.model.db.ResultadoSQL;
 
 import java.sql.SQLException;
 
-public class GestorRanking {
+
+public class GestorRanking
+{
 
     private static GestorRanking mGestorRanking;
 
-    private GestorRanking(){}
+    private GestorRanking()
+    {
+    }
 
-    public static GestorRanking getGestorRanging(){
-        if (mGestorRanking == null) {
+    public static GestorRanking getGestorRanging()
+    {
+        if (mGestorRanking == null){
             mGestorRanking = new GestorRanking();
         }
         return mGestorRanking;
     }
 
-    public String obtenerRankingGlobal() throws SQLException {
+    public String obtenerRankingGlobal() throws SQLException
+    {
+		/*
+		[while]
+		Puntero -> null
+		Objeto ->  new JsonObject(); #618576571x00
+		Puntero -> 618576571x00
 
-        JsonObject ranking = new JsonObject();
-        JsonObject fila = new JsonObject();
-        JsonArray filas = new JsonArray();
+		Puntero.put(nickname) -> 618576571x00 -> nickname = nickname
+
+		------------
+		Garbage colector -> puntero solo existe en el while, hemos salido del while -> Es inutil -> borrar
+		------------
+
+		Puntero -> null
+		Objeto ->  new JsonObject(); #618576571x00
+		Puntero -> 618576571x00
+
+		Puntero.put(nickname) -> 618576571x00 -> nickname = nickname
+
+		 */
+        JsonObject rankingJson = new JsonObject();
+        JsonArray listadoRanking = new JsonArray();
         ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("Select nickname,nivel,puntuacion from Ranking order by puntuacion");
-        while (resultado.next()) {
+        while (resultado.next()){
+            JsonObject elementoRankingJson = new JsonObject();
             String nickname = resultado.getString("nickname");
             int nivel = resultado.getInt("nivel");
             int puntuacion = resultado.getInt("puntuacion");
-            fila.put("nickname",nickname);
-            fila.put("nivel",nivel);
-            fila.put("puntuacion",puntuacion);
-            filas.add(fila);
+            elementoRankingJson.put("nickname", nickname);
+            elementoRankingJson.put("nivel", nivel);
+            elementoRankingJson.put("puntuacion", puntuacion);
+            listadoRanking.add(elementoRankingJson);
         }
-        ranking.put("ranking",filas);
-        return ranking.toJson();
+        resultado.close();
+        rankingJson.put("ranking", listadoRanking);
+        return rankingJson.toJson();
     }
 
-    public String obtenerRankingPersonal() throws SQLException {
-
-        JsonObject ranking = new JsonObject();
-        JsonObject fila = new JsonObject();
-        JsonArray filas = new JsonArray();
-        Usuario usuarioActual = Usuario.getUsuario();
-        String email = usuarioActual.getEmail();
-        ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("Select nickname,nivel,puntuacion from Ranking where email = " + email + " order by puntuacion");
-        while (resultado.next()) {
+    public String obtenerRankingPersonal() throws SQLException
+    {
+        JsonObject rankingJson = new JsonObject();
+        JsonArray listadoRankingJson = new JsonArray();
+        String email = Usuario.getUsuario().getEmail();
+        ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("Select nickname,nivel,puntuacion from Ranking where email = '" + email + "' order by puntuacion");
+        while (resultado.next()){
+            JsonObject elementoRankinJson = new JsonObject();
             String nickname = resultado.getString("nickname");
             int nivel = resultado.getInt("nivel");
             int puntuacion = resultado.getInt("puntuacion");
-            fila.put("nickname",nickname);
-            fila.put("nivel",nivel);
-            fila.put("puntuacion",puntuacion);
-            filas.add(fila);
+            elementoRankinJson.put("nickname", nickname);
+            elementoRankinJson.put("nivel", nivel);
+            elementoRankinJson.put("puntuacion", puntuacion);
+            listadoRankingJson.add(elementoRankinJson);
         }
-        ranking.put("ranking",filas);
-        return ranking.toJson();
+        resultado.close();
+        rankingJson.put("ranking", listadoRankingJson);
+        return rankingJson.toJson();
     }
 
-    public String clasificarPorNivel() throws SQLException {
+    public String clasificarPorNivel() throws SQLException
+    {
+        // Se hacen las consultas en la BD
+        ResultadoSQL resultadoNiveles = GestorDB.getGestorDB().execSELECT("SELECT nivel FROM Nivel");
 
-        ResultadoSQL niveles = GestorDB.getGestorDB().execSELECT("SELECT nivel FROM Nivel");
-        ResultadoSQL ranking = GestorDB.getGestorDB().execSELECT("SELECT nivel,nickname,puntuacion FROM Ranking ORDER BY nivel ASC, puntuacion DESC");
-        JsonObject rankingNiveles = new JsonObject();
-        JsonArray arrayFinal = new JsonArray();
-        JsonArray arrayPuntuaciones = new JsonArray();
-        JsonObject nickYPuntuacion = new JsonObject();
-        JsonObject nivelPuntuaciones = new JsonObject();
-        while (niveles.next()) {
-            int nivel = niveles.getInt("nivel");
-            while (ranking.next() && nivel == ranking.getInt("nivel")) {
-                String nickname = ranking.getString("nickname");
-                int puntuacion = ranking.getInt("puntuacion");
-                nickYPuntuacion.put("nickname",nickname);
-                nickYPuntuacion.put("puntuacion",puntuacion);
-                arrayPuntuaciones.add(nickYPuntuacion);
-            }
-            nivelPuntuaciones.put("nivel",nivel);
-            nivelPuntuaciones.put("puntuaciones",arrayPuntuaciones);
-            arrayFinal.add(nivelPuntuaciones);
+        JsonObject rankingClasificadoPorNiveles = new JsonObject();
+        while (resultadoNiveles.next()){
+            String nivel = resultadoNiveles.getString("nivel");
+            rankingClasificadoPorNiveles.put(nivel, new JsonArray());
         }
-        rankingNiveles.put("rankingNiveles",arrayFinal);
-        return rankingNiveles.toJson();
+        resultadoNiveles.close();
+
+        ResultadoSQL resultadoRankingPorNivel = GestorDB.getGestorDB().execSELECT("SELECT nivel,nickname,puntuacion FROM Ranking ORDER BY nivel ASC, puntuacion DESC");
+
+        while (resultadoRankingPorNivel.next()){
+            JsonObject nuevoRegistroRanking = new JsonObject();
+            String nivelElementoRanking = Integer.toString(resultadoRankingPorNivel.getInt("nivel"));
+            nuevoRegistroRanking.put("nickname", resultadoRankingPorNivel.getString("nickname"));
+            nuevoRegistroRanking.put("nivel", nivelElementoRanking);
+            nuevoRegistroRanking.put("puntuacion", resultadoRankingPorNivel.getString("puntuacion"));
+
+            ((JsonArray) rankingClasificadoPorNiveles.get(nivelElementoRanking)).add(nuevoRegistroRanking);
+        }
+        resultadoRankingPorNivel.close();
+
+        return rankingClasificadoPorNiveles.toJson();
     }
 
-    public void registrarPuntuacion(int pPuntuacion, int pNivel) throws SQLException {
-        Usuario usuarioActual = Usuario.getUsuario();
-        String nickname = usuarioActual.getNickname();
-        String email = usuarioActual.getEmail();
-        GestorDB.getGestorDB().execSQL("INSERT INTO Ranking (nivel, email, puntuacion, nickname) VALUES (" +pNivel+ "," +email+ "," +pPuntuacion+ "," +nickname+ ")");
+
+    public String clasificarPorNivelPersonal() throws SQLException
+    {
+
+        // Se hacen las consultas en la BD
+        ResultadoSQL resultadoNiveles = GestorDB.getGestorDB().execSELECT("SELECT nivel FROM Nivel");
+
+        JsonObject rankingClasificadoPorNiveles = new JsonObject();
+        while (resultadoNiveles.next()){
+            String nivel = resultadoNiveles.getString("nivel");
+            rankingClasificadoPorNiveles.put(nivel, new JsonArray());
+        }
+        resultadoNiveles.close();
+
+        String email = Usuario.getUsuario().getEmail();
+        ResultadoSQL resultadoRankingPorNivel = GestorDB.getGestorDB().execSELECT("SELECT nivel,nickname,puntuacion FROM Ranking where email = '" + email + "' ORDER BY nivel ASC, puntuacion DESC");
+
+        while (resultadoRankingPorNivel.next()){
+            JsonObject nuevoRegistroRanking = new JsonObject();
+            String nivelElementoRanking = Integer.toString(resultadoRankingPorNivel.getInt("nivel"));
+            nuevoRegistroRanking.put("nickname", resultadoRankingPorNivel.getString("nickname"));
+            nuevoRegistroRanking.put("nivel", nivelElementoRanking);
+            nuevoRegistroRanking.put("puntuacion", resultadoRankingPorNivel.getString("puntuacion"));
+
+            ((JsonArray) rankingClasificadoPorNiveles.get(nivelElementoRanking)).add(nuevoRegistroRanking);
+        }
+        resultadoRankingPorNivel.close();
+
+        return rankingClasificadoPorNiveles.toJson();
+    }
+
+    public void registrarPuntuacion(int pPuntuacion, int pNivel) throws SQLException
+    {
+        String nickname = Usuario.getUsuario().getNickname();
+        String email = Usuario.getUsuario().getEmail();
+        GestorDB.getGestorDB().execSQL("INSERT INTO Ranking (nivel, email, puntuacion, nickname) VALUES (" + pNivel + ",'" + email + "'," + pPuntuacion + ",'" + nickname + "')");
     }
 }
 
