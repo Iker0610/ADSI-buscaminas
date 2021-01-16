@@ -9,7 +9,7 @@
     <ImageView fx:id="background" fitHeight="850.0" fitWidth="540.0" />
     <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="540.0">
         <top>
-            <VBox prefHeight="169.0" prefWidth="540.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="vBoxCabecera" prefHeight="169.0" prefWidth="540.0" BorderPane.alignment="CENTER">
                 <HBox alignment="CENTER" prefHeight="86.0" prefWidth="540.0">
                     <ImageView fx:id="title" fitHeight="95.0" fitWidth="372.0" />
                 </HBox>
