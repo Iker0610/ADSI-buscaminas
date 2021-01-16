@@ -2,7 +2,6 @@ package is.buscaminas.controller;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
-import is.buscaminas.model.MenuAyuda;
 import is.buscaminas.model.db.GestorDB;
 import is.buscaminas.model.db.ResultadoSQL;
 import javafx.scene.control.Alert;
@@ -23,17 +22,6 @@ public class GestorDatosJuego {
 
     }
 
-    public String mostrarDatosJuego() throws SQLException {
-        ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT  FROM Usuario");
-        JsonArray lEmailsJSON = new JsonArray();
-        while(resultado.next()){
-            JsonObject json = new JsonObject();
-            json.put("email", resultado.getString("email"));
-            lEmailsJSON.add(json);
-        }
-        resultado.close();
-        return lEmailsJSON.toJson();
-    }
     public String getNiveles() {
 
         return GestorNiveles.getGestorNiveles().obtenerDatosNiveles();
@@ -46,7 +34,13 @@ public class GestorDatosJuego {
                 int colum = Integer.parseInt(pColum);
                 int filas = Integer.parseInt(nFilas);
                 if (dificultadAdecuada(dificultad, filas, colum)) {
-                    GestorNiveles.getGestorNiveles().guardarDatos(nivel, dificultad, colum, filas);
+                    Boolean resultado = GestorNiveles.getGestorNiveles().guardarDatos(nivel, dificultad, colum, filas);
+                    if(resultado){
+                        //TODO actualizar ayuda
+                    }
+                    else{
+                        mostrarMensajeError();
+                    }
                 }
             }
         }
@@ -80,6 +74,12 @@ public class GestorDatosJuego {
             return false;
         }
 
+    }
+    private void mostrarMensajeError(){
+        Alert errorDeActualizacion = new Alert(Alert.AlertType.ERROR);
+        errorDeActualizacion.setTitle("Error actualización datos");
+        errorDeActualizacion.setHeaderText("Ha ocurrido un error al actualizar los datos");
+        errorDeActualizacion.show();
     }
 
 }
