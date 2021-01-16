@@ -1,41 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<AnchorPane maxHeight="793.0" prefHeight="731.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.UI_VerRanking">
-    <ImageView fx:id="background" fitHeight="850.0" fitWidth="540.0"/>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="793.0" prefHeight="731.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.VentanaRankingController">
+    <ImageView fx:id="background" fitHeight="850.0" fitWidth="540.0" />
     <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="540.0">
         <top>
             <VBox prefHeight="169.0" prefWidth="540.0" BorderPane.alignment="CENTER">
                 <HBox alignment="CENTER" prefHeight="86.0" prefWidth="540.0">
-                    <ImageView fx:id="title" fitHeight="95.0" fitWidth="372.0"/>
+                    <ImageView fx:id="title" fitHeight="95.0" fitWidth="372.0" />
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="45.0" prefWidth="540.0" spacing="27.0">
-                    <Button fx:id="porNivel" mnemonicParsing="false" prefHeight="30.0" prefWidth="180.0"/>
-                    <Button fx:id="personalGlobal" mnemonicParsing="false" prefHeight="30.0" prefWidth="180.0"/>
+                    <Button fx:id="porNivel" mnemonicParsing="false" prefHeight="30.0" prefWidth="180.0" />
+                    <Button fx:id="personalGlobal" mnemonicParsing="false" prefHeight="30.0" prefWidth="180.0" />
                 </HBox>
             </VBox>
         </top>
         <center>
-            <StackPane fx:id="zonaRanking" prefHeight="555.0" prefWidth="540.0" BorderPane.alignment="CENTER"/>
+            <StackPane fx:id="zonaRanking" BorderPane.alignment="CENTER" />
         </center>
         <bottom>
-            <HBox alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="540.0" BorderPane.alignment="BOTTOM_CENTER">
+            <HBox alignment="BOTTOM_CENTER" prefHeight="81.0" prefWidth="540.0" BorderPane.alignment="BOTTOM_CENTER">
                 <opaqueInsets>
-                    <Insets/>
+                    <Insets />
                 </opaqueInsets>
                 <padding>
-                    <Insets bottom="20.0"/>
+                    <Insets bottom="20.0" />
                 </padding>
                 <Button fx:id="aceptar" mnemonicParsing="false" onAction="#pulsarAceptar" prefHeight="30.0" prefWidth="90.0" style="-fx-background-image: url(is/buscaminas/temas/mario/assets/ranking/aceptar.gif);                         -fx-background-repeat: no-repeat;                         -fx-background-size: cover, auto;                         -fx-background-color: transparent;">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="14.0" />
                     </font>
                 </Button>
             </HBox>
         </bottom>
+      <left>
+         <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+      </left>
+      <right>
+         <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+      </right>
     </BorderPane>
 </AnchorPane>

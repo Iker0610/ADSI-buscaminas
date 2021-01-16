@@ -29,10 +29,10 @@ public class VistaRanking extends GridPane implements PropertyChangeListener {
         for (int i = 1; i <= 10; i++) {
             int size = 61;
             Pane numPosicion = new Pane();
-            numPosicion.setMinHeight(size);
-            numPosicion.setMinWidth(size);
-            numPosicion.setMaxHeight(size);
-            numPosicion.setMaxWidth(size);
+            numPosicion.setMinHeight(60);
+            numPosicion.setMinWidth(440);
+            numPosicion.setMaxHeight(60);
+            numPosicion.setMaxWidth(440);
 
             Image imagenPosicion = new Image(new File("src/main/resources/is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s","") + "/assets/ranking/" + i + ".png").toURI().toString());
             BackgroundSize backgroundSize = new BackgroundSize(size, size, false, false, false, false);
