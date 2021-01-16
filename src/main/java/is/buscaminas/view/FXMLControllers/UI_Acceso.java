@@ -54,7 +54,7 @@ public class UI_Acceso
 		botonVolver.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/acceso/botonVolver.png); -fx-background-color: transparent;");
 		botonJugar.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/acceso/botonEntrar.png); -fx-background-color: transparent;");
 		
-		// Se pone el tema de fondo:
+		// Se pone el tema de fondo
 		SFXPlayer.getSFXPlayer().setBackgroundTheme("mainTheme");
 		
 		//Se cargan los radio buttons

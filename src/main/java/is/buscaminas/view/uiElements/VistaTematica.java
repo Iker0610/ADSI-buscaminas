@@ -12,12 +12,12 @@ public class VistaTematica extends VBox
     {
         super();
 
-        // Cargamos el título y ajustamos el estilo (blanco)
+        // Cargamos el título y ajustamos el estilo
         Label nombreLabel = new Label(pNombre);
         nombreLabel.setStyle("-fx-text-fill: white;");
         this.getChildren().add(nombreLabel);
 
-        // Cargamos la descripción y ajustamos el estilo (blanco)
+        // Cargamos la descripción y ajustamos el estilo
         Label descripcionLabel = new Label(pDescripcion);
         descripcionLabel.setStyle("-fx-text-fill: white;");
         this.getChildren().add(descripcionLabel);

@@ -86,10 +86,7 @@ public class UI_MenuPrincipal
 	}
 	
 	@FXML
-	public void pulsarVerLogros()
-	{
-		GestorVentanas.getGestorVentanas().abrirLogros();
-	}
+	public void pulsarVerLogros() {	GestorVentanas.getGestorVentanas().abrirLogros(); }
 	
 	@FXML
 	public void pulsarGestionarCuenta()

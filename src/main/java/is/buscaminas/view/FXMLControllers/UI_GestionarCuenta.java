@@ -53,7 +53,7 @@ public class UI_GestionarCuenta
 		botonGuardar.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/gestionarCuenta/botonGuardar.png); -fx-background-color: transparent;");
 		botonCambiar.setStyle("-fx-background-image: url(is/buscaminas/temas/" + Usuario.getUsuario().getTematicaActual().toLowerCase().replaceAll("\\s", "") + "/assets/gestionarCuenta/botonCambiar.png); -fx-background-color: transparent;");
 		
-		//Cargar botones para seleccionae temática nueva
+		//Cargar botones para seleccionar temática nueva
 		JsonArray listaTemasJson = Jsoner.deserialize(GestorCuentaUsuario.getGestorCuentaUsuario().obtenerTemas(), new JsonArray());
 		for (Object jsonObject : listaTemasJson){
 			JsonObject temaJson = (JsonObject) jsonObject;
@@ -62,12 +62,12 @@ public class UI_GestionarCuenta
 		}
 		
 	}
-	
-	// Se genera un botón (VBox) con los datos de cada temática
+
 	private VistaTematica generarBoton(String pNombre, String pDescripcion, boolean pBloqueada)
 	{
 		// Pre: Se obtienen los datos de una temática a cargar
-		// Post: Se genera un botón para dicha temática
+		// Post: Se genera un botón (VBox) para dicha temática
+
 		VistaTematica nuevoTema = new VistaTematica(pNombre, pDescripcion, pBloqueada);
 		nuevoTema.setId(pNombre);
 		if (pNombre.equals(Usuario.getUsuario().getTematicaActual())) temaSeleccionado = nuevoTema;
@@ -80,6 +80,7 @@ public class UI_GestionarCuenta
 	{
 		// Pre: Se ha pulsado sobre un botón
 		// Post: El botón ha cambiado de estilo y se ha guardado el nombre seleccionado
+
 		VistaTematica nuevoTemaSeleccionado = (VistaTematica) pEvento.getSource();
 		if (temaSeleccionado != null){
 			temaSeleccionado.setMouseTransparent(false);
