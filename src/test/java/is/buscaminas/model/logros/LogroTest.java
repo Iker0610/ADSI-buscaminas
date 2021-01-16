@@ -1,5 +1,8 @@
 package is.buscaminas.model.logros;
 
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
 import is.buscaminas.controller.GestorLogros;
 import is.buscaminas.controller.GestorUsuario;
 import is.buscaminas.model.Usuario;
@@ -17,7 +20,7 @@ class LogroTest {
     @org.junit.jupiter.api.Test
     void comprobarLogro() {
         try {
-            GestorUsuario.checkEmailContrasena("Jon", "123", "jortuzar");
+            GestorUsuario.getGestorUsuario().checkEmailContrasena("Jon", "123", "jortuzar");
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGRO VALUES('3 seguidas','Ganar 3 partidas seguidas en el nivel 1','VictoriaConsecutiva',3,'Among us',1)");
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','3 seguidas','',1)");
             ResultadoSQL res;
@@ -78,8 +81,14 @@ class LogroTest {
             fecha=new SimpleDateFormat("dd/MM/yyyy").format(new Date());
             res.next();
             assertEquals(fecha,res.getString("fechaObtencion"));
+
+            //Eliminar todos los registros de las bases de datos
+            GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROSUSUARIOS");
+            GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROS");
         }
         catch(SQLException e){
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -87,6 +96,7 @@ class LogroTest {
     @org.junit.jupiter.api.Test
     void actualizarAvance() {
         try {
+            GestorUsuario.getGestorUsuario().checkEmailContrasena("Jon", "123", "jortuzar");
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGRO VALUES('3 victorias Nvl 1','Ganar 3 partidas en el nivel 1','VictoriaNivel',3,'Among us',1)");
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('"+Usuario.getUsuario().getEmail()+"','3 victorias Nvl 1','',0)");
             GestorLogros.getGestorLogros().cargarLogros(Usuario.getUsuario().getEmail());
@@ -110,8 +120,14 @@ class LogroTest {
             res=GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='"+Usuario.getUsuario().getEmail()+"' AND NOMBRELOGRO='3 victorias Nvl 1'");
             res.next();
             assertEquals(3,res.getInt("avance"));
+
+            //Eliminar todos los registros de las bases de datos
+            GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROSUSUARIOS");
+            GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROS");
         }
         catch(SQLException e){
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -119,6 +135,7 @@ class LogroTest {
     @org.junit.jupiter.api.Test
     void resetearAvance() {
         try{
+            GestorUsuario.getGestorUsuario().checkEmailContrasena("Jon", "123", "jortuzar");
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGRO VALUES('3 seguidas','Ganar 3 partidas seguidas','VictoriaConsecutiva',3,'Among us',1)");
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('"+Usuario.getUsuario().getEmail()+"','3 seguidas','',2)");
             GestorLogros.getGestorLogros().cargarLogros(Usuario.getUsuario().getEmail());
@@ -132,13 +149,74 @@ class LogroTest {
             res=GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL="+Usuario.getUsuario().getEmail()+"' AND NOMBRELOGRO='3 seguidas'");
             res.next();
             assertEquals(0,res.getInt("avance"));
+
+            //Eliminar todos los registros de las bases de datos
+            GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROSUSUARIOS");
+            GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROS");
         }
         catch(SQLException e){
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @org.junit.jupiter.api.Test
     void getDatosLogro() {
+        try {
+            GestorUsuario.getGestorUsuario().checkEmailContrasena("Jon", "123", "jortuzar");
+            GestorDB.getGestorDB().execSQL("INSERT INTO LOGROS VALUES('4 seguidas','Ganar 4 partidas seguidas','VictoriaConsecutiva',4,'Minecraft',1)");
+            GestorDB.getGestorDB().execSQL("INSERT INTO LOGROS VALUES('3 seguidas','Ganar 3 partidas seguidas','VictoriaConsecutiva',3,'Among us',1)");
+            GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','4 seguidas','',0");
+            GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','3 seguidas','" + new SimpleDateFormat("dd/MM/yyyy").format(new Date()) + "',3");
+            String res=null;
+            JsonObject datos=null;
+            JsonArray logrosObtenidos,logrosRestantes;
+
+            //Logros sin cargar
+            logrosObtenidos=new JsonArray();
+            logrosRestantes=new JsonArray();
+            res=GestorLogros.getGestorLogros().getLogros();
+            Jsoner.deserialize(res,datos);
+            Jsoner.deserialize((String) datos.get("logrosObtenidos"),logrosObtenidos);
+            Jsoner.deserialize((String) datos.get("logrosRestantes"),logrosRestantes);
+            assertEquals(new JsonArray(),logrosObtenidos);
+            assertEquals(new JsonArray(),logrosRestantes);
+
+            //Con los logros cargados
+            GestorLogros.getGestorLogros().cargarLogros(Usuario.getUsuario().getEmail());
+            res=GestorLogros.getGestorLogros().getLogros();
+            Jsoner.deserialize(res,datos);
+            Jsoner.deserialize((String) datos.get("logrosObtenidos"),logrosObtenidos);
+            Jsoner.deserialize((String) datos.get("logrosRestantes"),logrosRestantes);
+            //PRIMERO LOGROS OBTENIDOS
+            String logro=(String) logrosObtenidos.get(0);
+            JsonObject datosLogro=null;
+            Jsoner.deserialize(logro,datosLogro);
+            assertEquals("3 seguidas",datosLogro.get("nombre"));
+            assertEquals("Ganar 3 partidas seguidas",datosLogro.get("descripcion"));
+            assertEquals(3,datosLogro.get("objetivo"));
+            assertEquals(3,datosLogro.get("avance"));
+            assertEquals(new SimpleDateFormat("dd/MM/yyyy").format(new Date()),datosLogro.get("fechaObtencion"));
+            assertEquals("Among us",datosLogro.get("nombreTema"));
+            //SEGUNDO LOGROS RESTANTES
+            logro=(String) logrosRestantes.get(0);
+            Jsoner.deserialize(logro,datosLogro);
+            assertEquals("4 seguidas",datosLogro.get("nombre"));
+            assertEquals("Ganar 4 partidas seguidas",datosLogro.get("descripcion"));
+            assertEquals(4,datosLogro.get("objetivo"));
+            assertEquals(0,datosLogro.get("avance"));
+            assertEquals("",datosLogro.get("fechaObtencion"));
+            assertEquals("Minecraft",datosLogro.get("nombreTema"));
+
+            //Eliminar todos los registros de las bases de datos
+            GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROSUSUARIOS");
+            GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROS");
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
