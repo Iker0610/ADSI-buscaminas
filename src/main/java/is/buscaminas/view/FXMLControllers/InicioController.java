@@ -67,7 +67,7 @@ public class InicioController
 			boolean correcto=false;
 
 			try {
-				GestorUsuario.getGestorUsuario().checkEmailContrasena("a", "a", nombreUser);
+				GestorUsuario.getGestorUsuario().checkEmailContrasena(mailTextField.getText(), contrasenaTextField.getText(), nombreUser);
 				// Se abre el menú principal
 				GestorVentanas.getGestorVentanas().abrirMenuPrincipal();
 			} catch (Exception e) {
@@ -98,6 +98,13 @@ public class InicioController
 	@FXML
 	public void loginRedSocial()
 	{
-		//TODO
+		try {
+			GestorUsuario.getGestorUsuario().checkEmail(nombreTextField.getText());
+			// Se abre el menú principal
+			GestorVentanas.getGestorVentanas().abrirMenuPrincipal();
+		} catch (Exception e) {
+
+		}
+
 	}
 }

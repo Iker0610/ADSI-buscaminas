@@ -13,8 +13,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="com.github.cliftonlabs:json-simple:3.1.1" level="project" />
     <orderEntry type="library" name="sqlite-jdbc-3.31.1" level="project" />
     <orderEntry type="library" name="com.sun.mail:javax.mail:1.5.0-b01" level="project" />
+    <orderEntry type="library" name="com.google.api-client:google-api-client:1.31.2" level="project" />
+    <orderEntry type="library" name="com.google.api-client:google-api-client-extensions:1.6.0-beta" level="project" />
+    <orderEntry type="library" name="com.google.oauth-client:google-oauth-client-jetty:1.31.4" level="project" />
+    <orderEntry type="library" name="com.github.cliftonlabs:json-simple:3.1.1" level="project" />
   </component>
 </module>
