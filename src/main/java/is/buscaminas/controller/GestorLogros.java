@@ -6,20 +6,13 @@ import com.github.cliftonlabs.json_simple.JsonObject;
 import is.buscaminas.model.Usuario;
 import is.buscaminas.model.db.GestorDB;
 import is.buscaminas.model.db.ResultadoSQL;
-import is.buscaminas.model.logros.DatosLogro;
 import is.buscaminas.model.logros.Logro;
 import is.buscaminas.model.logros.LogroVictoriaConsecutiva;
 import is.buscaminas.model.logros.LogroVictoriaNivel;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 import java.sql.SQLException;
-import java.sql.SQLOutput;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 
 public class GestorLogros
@@ -73,9 +66,9 @@ public class GestorLogros
 	{
 		//Precondición: este método debe recibir las variables enviadas a su "método superior" y, además, el email del usuario que ha jugado en formato String.
 		//Postcondicián: el logro es actualizado correctamente y, en caso de ser completado, pasarlo a la lista de logrosObtenidos.
-
-		for (Logro logro : logrosRestantes) {
-			if(logro.comprobarLogro(victoria, nivel, email)){
+		
+		for (Logro logro : logrosRestantes){
+			if (logro.comprobarLogro(victoria, nivel, email)){
 				logrosObtenidos.add(logro);
 				logrosRestantes.remove(logro);
 			}
@@ -137,68 +130,49 @@ public class GestorLogros
 	{
 		//Precondición: recibe el email del jugador en formato String.
 		//Postcondicián: se cargan todos los logros en memoria. El email será necesario para saber que logros ha obtenido dicho jugador. No devuelve nada.
-		try {
+		try{
 			reset();
 			GestorDB gestorDB = GestorDB.getGestorDB();
 			String sql = "SELECT * FROM LogrosUsuario INNER JOIN LogroUsuario ON Logro.Nombre = LogroUsuario.NombreLogro";
 			ResultadoSQL res = gestorDB.execSELECT(sql);
-			while (res.next()) {
-				DatosLogro datos = getDatosLogro(res);
+			while (res.next()){
 				//Para que no afecte a la modularidad, se ha añadido un método privado para que el método cargarLogros no se ocupe también de crearlos, haciendo que este proceso sea más sostenible.
-				generarLogro(datos);
+				generarLogro(res);
 			}
 		}
-		catch(SQLException e){
+		catch (SQLException e){
 			e.printStackTrace();
 		}
 	}
 	
-	//Método para obtener un objeto de tipo DatosLogro que contenga todos los atributos necesarios que requiera cada Logro cargado en memoria
-	private DatosLogro getDatosLogro(ResultadoSQL res)
-	{
-		//Precondición: el método recibe el resultado de la encuesta realizada en lenguaje SQL.
-		//Postcondicián: se devuelve un objeto de clase DatosLogros que se compone por los atributos primitivos de los logros.
-		DatosLogro dl = null;
-		try{
-			String fecha = res.getString("fechaObtencion");
-			String nombreLogro = res.getString("nombreLogro");
-			String desc = res.getString("descripcion");
-			int avance = res.getInt("avance");
-			String tipo = res.getString("tipo");
-			String nombreTema = res.getString("nombreTema");
-			int objetivo = res.getInt("objetivo");
-			int nivel = res.getInt("nivel");
-			dl = new DatosLogro(nombreLogro, desc, fecha, avance, nombreTema, objetivo, tipo, nivel);
-		}
-		catch (SQLException e){
-			System.out.println("Error al extraer de la base de datos");
-		}
-		return dl;
-	}
-	
 	//Submétodo para crear los logros
-	private void generarLogro(DatosLogro datos)
+	private void generarLogro(ResultadoSQL resultado)
 	{
 		//Precondición: el método recibe el objeto de clase DatosLogro para poder crear los logros con los atributos que este contiene.
 		//Postcondicián: el método genera cada logro según del tipo que sea correctamente.
-		String tipo = datos.getTipo();
-		if (tipo.equals("VictoriaConsecutiva")){
-			LogroVictoriaConsecutiva lvc = new LogroVictoriaConsecutiva(datos.getNombreLogro(), datos.getDescripcion(), datos.getAvance(), datos.getObjetivo(), datos.getFecha(), datos.getNombreTema());
-			if (datos.getAvance() >= datos.getObjetivo()){
-				this.logrosObtenidos.add(lvc);
+		try{
+			String tipo = resultado.getString("tipo");
+			if (tipo.equals("VictoriaConsecutiva")){
+				LogroVictoriaConsecutiva lvc = new LogroVictoriaConsecutiva(resultado.getString("nombreLogro"), resultado.getString("descripcion"), resultado.getInt("avance"), resultado.getInt("objetivo"), resultado.getString("fechaObtencion"), resultado.getString("nombreTema"));
+				if (resultado.getInt("avance") >= resultado.getInt("objetivo")){
+					this.logrosObtenidos.add(lvc);
+				}
+				else{
+					this.logrosRestantes.add(lvc);
+				}
 			}
-			else{
-				this.logrosRestantes.add(lvc);
+			else if (tipo.equals("VictoriaNivel")){
+				LogroVictoriaNivel lvn = new LogroVictoriaNivel(resultado.getString("nombreLogro"), resultado.getString("descripcion"), resultado.getInt("avance"), resultado.getInt("objetivo"), resultado.getString("fechaObtencion"), resultado.getString("nombreTema"), resultado.getInt("nivel"));
+				if (resultado.getInt("avance") >= resultado.getInt("objetivo")){
+					this.logrosObtenidos.add(lvn);
+				}
+				else{
+					this.logrosRestantes.add(lvn);
+				}
 			}
 		}
-		else if (tipo.equals("VictoriaNivel")){
-			LogroVictoriaNivel lvn = new LogroVictoriaNivel(datos.getNombreLogro(), datos.getDescripcion(), datos.getAvance(), datos.getObjetivo(), datos.getFecha(), datos.getNombreTema(), datos.getNivel());
-			if (datos.getAvance() >= datos.getObjetivo()){
-				this.logrosObtenidos.add(lvn);
-			}
-			else{
-				this.logrosRestantes.add(lvn);
-			}
+		catch (SQLException e){
+			System.out.println("Error al extraer de la base de datos");
 		}
 	}
 	
