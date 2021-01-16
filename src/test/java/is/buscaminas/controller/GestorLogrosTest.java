@@ -29,7 +29,7 @@ class GestorLogrosTest {
     void actualizarLogros() {
         try {
             ResultadoSQL res;
-            GestorUsuario.getGestorUsuario().checkEmailContrasena("Jon", "123", "jortuzar");
+            Usuario.create("usuario1@ejemplo.com", "123", 1,"Mario",false);
 
             //Caso de prueba: lista de logrosObtenidos vacía y logrosRestantes con 1 elemento y pierde
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGRO VALUES('3 seguidas','Ganar 3 partidas seguidas','VictoriaConsecutiva',3,'Among us',1)");
@@ -101,7 +101,7 @@ class GestorLogrosTest {
     @Test
     void getLogros() {
         try {
-            GestorUsuario.getGestorUsuario().checkEmailContrasena("Jon", "123", "jortuzar");
+            Usuario.create("usuario1@ejemplo.com", "123", 1,"Mario",false);
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGROS VALUES('4 seguidas','Ganar 4 partidas seguidas','VictoriaConsecutiva',4,'Minecraft',1)");
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGROS VALUES('3 seguidas','Ganar 3 partidas seguidas','VictoriaConsecutiva',3,'Among us',1)");
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','4 seguidas','',0");
@@ -150,9 +150,7 @@ class GestorLogrosTest {
             GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROSUSUARIOS");
             GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROS");
         }
-        catch(SQLException e){
-            e.printStackTrace();
-        } catch (Exception e) {
+        catch(Exception e){
             e.printStackTrace();
         }
     }
@@ -160,7 +158,7 @@ class GestorLogrosTest {
     @Test
     void cargarLogros() {
         try {
-            GestorUsuario.getGestorUsuario().checkEmailContrasena("Jon", "123", "jortuzar");
+            Usuario.create("usuario1@ejemplo.com", "123", 1,"Mario",false);
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','3 seguidas','',0");
             GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','3 seguidas','" + new SimpleDateFormat("dd/MM/yyyy").format(new Date()) + "',3");
             String res;
