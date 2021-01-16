@@ -83,32 +83,46 @@ public class GestorJugadores {
     }
 
     public void guardar(String pEmail, String pContrasena, int pNivel) throws SQLException {
-        //Comprobamos que no haya ya un usuario con ese email
-        ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT * FROM Usuario WHERE email = '" + pEmail + "'");
-        if (resultado.next()) {
-            mostrarUsuarioExistente();
-        } else {
-            //comprobar que el email introducido es válido
-            Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-            Matcher mather = pattern.matcher(pEmail);
-            if (mather.find() == true) {
-                //Se actualizan los datos en Usuario
-                GestorDB.getGestorDB().execSQL("UPDATE Usuario SET email = '" + pEmail + "', nivelInicial = '" + pNivel + "' WHERE email = '" + usuarioSeleccionado + "'");
-                if (pContrasena != "") {
-                    //Si es UsuarioEmail
-                    GestorDB.getGestorDB().execSQL("UPDATE UsuarioEmail SET email = '" + pEmail + "', contrasena = '" + pContrasena + "' WHERE email = '" + usuarioSeleccionado + "'");
-                }
-                guardarUsuarioSeleccionado(pEmail);
-                mostrarDatosActualizados();
-            } else {
-                Alert emailNoValido = new Alert(Alert.AlertType.INFORMATION);
-                emailNoValido.setTitle("Email no válido");
-                emailNoValido.setHeaderText("Por favor introduzca un email válido. Por ejemplo: ejemplo@email.com");
-                emailNoValido.show();
+        //Si no se ha cambiado el email
+        if(usuarioSeleccionado.equals(pEmail)){
+            //Se actualizan los datos en Usuario
+            GestorDB.getGestorDB().execSQL("UPDATE Usuario SET nivelInicial = '" + pNivel + "' WHERE email = '" + usuarioSeleccionado + "'");
+            if (pContrasena != "") {
+                //Si es UsuarioEmail
+                GestorDB.getGestorDB().execSQL("UPDATE UsuarioEmail SET email = '" + pEmail + "', contrasena = '" + pContrasena + "' WHERE email = '" + usuarioSeleccionado + "'");
             }
+            guardarUsuarioSeleccionado(pEmail);
+            mostrarDatosActualizados();
         }
-        resultado.close();
+        else{
+            //Comprobamos que no haya ya un usuario con ese email
+            ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT * FROM Usuario WHERE email = '" + pEmail + "'");
+            if (resultado.next()) {
+                mostrarUsuarioExistente();
+            } else {
+                //comprobar que el email introducido es válido
+                Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+                Matcher mather = pattern.matcher(pEmail);
+                if (mather.find() == true) {
+                    //Se actualizan los datos en Usuario
+                    GestorDB.getGestorDB().execSQL("UPDATE Usuario SET email = '" + pEmail + "', nivelInicial = '" + pNivel + "' WHERE email = '" + usuarioSeleccionado + "'");
+                    if (pContrasena != "") {
+                        //Si es UsuarioEmail
+                        GestorDB.getGestorDB().execSQL("UPDATE UsuarioEmail SET email = '" + pEmail + "', contrasena = '" + pContrasena + "' WHERE email = '" + usuarioSeleccionado + "'");
+                    }
+                    guardarUsuarioSeleccionado(pEmail);
+                    mostrarDatosActualizados();
+                } else {
+                    Alert emailNoValido = new Alert(Alert.AlertType.INFORMATION);
+                    emailNoValido.setTitle("Email no válido");
+                    emailNoValido.setHeaderText("Por favor introduzca un email válido. Por ejemplo: ejemplo@email.com");
+                    emailNoValido.show();
+                }
+            }
+            resultado.close();
+        }
+
 
     }
 

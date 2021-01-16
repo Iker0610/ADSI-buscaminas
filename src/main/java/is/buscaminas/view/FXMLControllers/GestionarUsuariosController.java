@@ -44,7 +44,6 @@ public class GestionarUsuariosController
 		botonModificar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonModificar.png); -fx-background-color: transparent;");
 		botonEliminar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonEliminar.png); -fx-background-color: transparent;");
 		botonVolver.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonVolver.png); -fx-background-color: transparent;");
-
 		//Carga de datos
 		try{
 			JsonArray jsonArray = Jsoner.deserialize(GestorJugadores.getGestorJugadores().mostrarUsuarios(), new JsonArray());
@@ -86,7 +85,7 @@ public class GestionarUsuariosController
 	private void pulsarEliminar() throws SQLException {
 		try{
 			GestorJugadores.getGestorJugadores().eliminar(seleccionUsuario.getText());
-			initialize();
+			GestorVentanas.getGestorVentanas().abrirGestionarUsuarios();
 		}
 		catch (SQLException e){
 			// Si existe algún error al eliminar un usuario y se cierra la aplicación
