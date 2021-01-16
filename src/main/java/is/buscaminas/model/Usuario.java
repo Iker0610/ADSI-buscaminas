@@ -31,9 +31,7 @@ public class Usuario
 	}
 	
 	public static void create(String pEmail, String pNickname, int pNivelInicial, String pTematicaActual, boolean pEsAdmin) throws IllegalAccessException{
-		Class<?> caller = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass();
-		if (caller.equals(GestorUsuario.class)) mUsuario = new Usuario(pEmail, pNickname, pNivelInicial, pTematicaActual, pEsAdmin);
-		else throw new IllegalAccessException();
+		mUsuario = new Usuario(pEmail, pNickname, pNivelInicial, pTematicaActual, pEsAdmin);
 	}
 	
 	public static Usuario getUsuario() throws NoSuchElementException{

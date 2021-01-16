@@ -67,30 +67,20 @@ public class UI_Acceso
 	{
 		String dificultadPredeternminada = Integer.toString(Usuario.getUsuario().getNivelInicial());
 		
-		try{
-			JsonArray json = Jsoner.deserialize(GestorNiveles.getGestorNiveles().obtenerDatosNiveles(), new JsonArray());
-			for (Object child : json){
-				JsonObject jsonNivel = Jsoner.deserialize((String) child, new JsonObject());
-				String nivel = jsonNivel.get("nivel").toString();
-				RadioButton seleccionNivel = new RadioButton();
-				seleccionNivel.setId(nivel);
-				seleccionNivel.setText(nivel);
-				seleccionNivel.setMnemonicParsing(false);
-				seleccionNivel.setFont(new Font("System Bold", 13));
-				seleccionNivel.setToggleGroup(dificultadGroup);
-				zonaDificultades.getChildren().add(seleccionNivel);
-				if (nivel.equals(dificultadPredeternminada)){
-					seleccionNivel.setSelected(true);
-				}
+		JsonArray json = Jsoner.deserialize(GestorNiveles.getGestorNiveles().obtenerDatosNiveles(), new JsonArray());
+		for (Object child : json){
+			JsonObject jsonNivel = Jsoner.deserialize((String) child, new JsonObject());
+			String nivel = jsonNivel.get("nivel").toString();
+			RadioButton seleccionNivel = new RadioButton();
+			seleccionNivel.setId(nivel);
+			seleccionNivel.setText(nivel);
+			seleccionNivel.setMnemonicParsing(false);
+			seleccionNivel.setFont(new Font("System Bold", 13));
+			seleccionNivel.setToggleGroup(dificultadGroup);
+			zonaDificultades.getChildren().add(seleccionNivel);
+			if (nivel.equals(dificultadPredeternminada)){
+				seleccionNivel.setSelected(true);
 			}
-		}
-		catch (SQLException throwables){
-			Alert alertaError = new Alert(Alert.AlertType.ERROR);
-			alertaError.setTitle("Error");
-			alertaError.setHeaderText("No se han podido cargar correctamente los niveles.");
-			alertaError.setContentText("Al cerrar el menú se te devolverá al menú principal.");
-			alertaError.setOnCloseRequest((e)->GestorVentanas.getGestorVentanas().abrirMenuPrincipal());
-			alertaError.show();
 		}
 	}
 	
