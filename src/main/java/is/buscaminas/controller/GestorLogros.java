@@ -133,7 +133,7 @@ public class GestorLogros
 		try{
 			reset();
 			GestorDB gestorDB = GestorDB.getGestorDB();
-			String sql = "SELECT * FROM LogrosUsuario INNER JOIN Logro ON Logro.Nombre = LogrosUsuario.NombreLogro";
+			String sql = "SELECT * FROM LogrosUsuario INNER JOIN Logro ON Logro.Nombre = LogrosUsuario.NombreLogro WHERE LogrosUsuario.email='"+email+"'";
 			ResultadoSQL res = gestorDB.execSELECT(sql);
 			while (res.next()){
 				//Para que no afecte a la modularidad, se ha añadido un método privado para que el método cargarLogros no se ocupe también de crearlos, haciendo que este proceso sea más sostenible.
