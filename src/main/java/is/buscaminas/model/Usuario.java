@@ -79,4 +79,9 @@ public class Usuario
 			e.printStackTrace();
 		}
 	}
+	
+	// Logout
+	public void logOut(){
+		mUsuario = null;
+	}
 }

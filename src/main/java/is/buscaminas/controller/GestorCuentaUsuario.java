@@ -1,6 +1,9 @@
 package is.buscaminas.controller;
 
 
+import is.buscaminas.model.Usuario;
+import is.buscaminas.model.db.GestorDB;
+
 import java.sql.SQLException;
 
 public class GestorCuentaUsuario {
@@ -27,6 +30,11 @@ public class GestorCuentaUsuario {
     }
 
     public void cambiarContrasena(String pNuevaContra){
-        //TODO
+        String email=Usuario.getUsuario().getEmail();
+        try {
+            GestorDB.getGestorDB().execSQL("UPDATE UsuarioEmail SET Contrasena = '"+ pNuevaContra +"' WHERE Email = '"+ email +"'");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

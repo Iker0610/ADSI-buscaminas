@@ -48,7 +48,7 @@ public class UI_Inicio
 		Image titleImage = new Image(new File("src/main/resources/is/buscaminas/inicio/buscaminas.png").toURI().toString());
 		title.setImage(titleImage);
 		botonEntrar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonEntrar.png); -fx-background-color: transparent;");
-		botonRedSocial.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonRedSocial.png); -fx-background-color: transparent;");
+		botonRedSocial.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonGoogle.png); -fx-background-color: transparent;");
 		botonRecuperar.setStyle("-fx-background-image: url(is/buscaminas/inicio/botonRecuperar.png); -fx-background-color: transparent;");
 	}
 	
@@ -57,26 +57,28 @@ public class UI_Inicio
 	@FXML
 	public void pulsarAceptar()
 	{
-		// Si se introduce un nombre y TODO login correcto
-		if (!nombreTextField.getText().equals("")){
+		// Si se introduce un nombre y
+		if (!nombreTextField.getText().equals("")&&!mailTextField.getText().equals("")&&!contrasenaTextField.getText().equals("")){
 			
 			// Guardamos el nombre de jugador
 			String nombreUser = nombreTextField.getText();
 			
-			//TODO Login
-			GestorUsuario.checkEmailContrasena("admin@adminBuscaminas.com", "123", nombreUser);
+			boolean correcto = false;
 			
-			
-			// Se abre el menú principal
-			GestorVentanas.getGestorVentanas().abrirMenuPrincipal();
-			
+			try{
+				GestorUsuario.getGestorUsuario().checkEmailContrasena(mailTextField.getText(), contrasenaTextField.getText(), nombreUser);
+				// Se abre el menú principal
+				GestorVentanas.getGestorVentanas().abrirMenuPrincipal();
+			}
+			catch (Exception e){
+			}
 		}
 		else{
 			// Se le indica al usuario que ha de seleccionar un nombre y una dificultad
 			Alert alerta = new Alert(Alert.AlertType.WARNING);
 			alerta.setTitle("Datos incorrectos");
 			alerta.setHeaderText(null);
-			alerta.setContentText("Error al iniciar sesión");
+			alerta.setContentText("Hay campos vacíos. Asegúrese de haber introducido un nickname, un correo electrónico y una contraseña.");
 			alerta.show();
 		}
 	}
@@ -84,12 +86,29 @@ public class UI_Inicio
 	@FXML
 	public void recuperarContrasena()
 	{
-		//TODO
+		GestorUsuario.getGestorUsuario().recuperarContra(mailRecuperacionTextField.getText());
 	}
-	
+
 	@FXML
 	public void loginRedSocial()
 	{
-		//TODO
+		// Si se introduce un nombre
+		if (!nombreTextField.getText().equals("")) {
+			try {
+				GestorUsuario.getGestorUsuario().checkEmail(nombreTextField.getText());
+				// Se abre el menú principal
+				GestorVentanas.getGestorVentanas().abrirMenuPrincipal();
+			} catch (Exception e) {
+
+			}
+		}
+		else{
+			// Se le indica al usuario que ha de seleccionar un nombre y una dificultad
+			Alert alerta = new Alert(Alert.AlertType.WARNING);
+			alerta.setTitle("Datos incorrectos");
+			alerta.setHeaderText(null);
+			alerta.setContentText("Introduzca un nickname, por favor");
+			alerta.show();
+		}
 	}
 }
