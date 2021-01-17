@@ -126,7 +126,7 @@ public class Tablero
 		//      - Habrá una MinaReset si hay más de 1 mina.
 		//      - Habrá una Mina 50% si hay más de 2 minas.
 		
-		int numMinas = this.numMinas - 2;
+		int numMinas = this.numMinas;
 		int fila, columna;
 		Random random = new Random();
 		
