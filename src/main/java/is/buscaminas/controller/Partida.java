@@ -39,6 +39,8 @@ public class Partida
 	
 	public void iniciarPartida(int pNivel)
 	{
+		// Pre:
+		// Post: Se inicia una partida del nivel indicado. Se incializa un tablero.
 		nivel = pNivel;
 		partidaActiva = true;
 		inicializarTablero();
@@ -46,6 +48,9 @@ public class Partida
 	
 	public void inicializarTablero()
 	{
+		// Pre:
+		// Post: Se inicializa un tablero y se abre la interfaz del tablero.
+		
 		Tablero.getTablero().iniciarTablero();
 		GestorVentanas.getGestorVentanas().abrirPartida();
 	}
@@ -79,6 +84,9 @@ public class Partida
 	
 	public void reiniciarPartida()
 	{
+		// Pre: Ha existido una partida previamente y el nivel está setteado
+		// Post: En caso de que la partida no haya concluido, se da por perdida.
+		//			Una vez la partida se ha finalziado se inicia una partida totalmente nueva del mismo nivel
 		if (partidaActiva){
 			finalizarPartida(false);
 		}
