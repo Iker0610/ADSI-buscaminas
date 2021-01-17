@@ -94,9 +94,8 @@ public class GestorJugadores {
             GestorDB.getGestorDB().execSQL("UPDATE Usuario SET nivelInicial = '" + pNivel + "' WHERE email = '" + usuarioSeleccionado + "'");
             if (pContrasena != "") {
                 //Si es UsuarioEmail
-                GestorDB.getGestorDB().execSQL("UPDATE UsuarioEmail SET email = '" + pEmail + "', contrasena = '" + pContrasena + "' WHERE email = '" + usuarioSeleccionado + "'");
+                GestorDB.getGestorDB().execSQL("UPDATE UsuarioEmail SET contrasena = '" + pContrasena + "' WHERE email = '" + usuarioSeleccionado + "'");
             }
-            guardarUsuarioSeleccionado(pEmail);
             mostrarDatosActualizados();
         }
         else{
