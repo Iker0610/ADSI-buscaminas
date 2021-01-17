@@ -2,6 +2,8 @@ package is.buscaminas.controller;
 
 
 import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
 import is.buscaminas.model.Nivel;
 import is.buscaminas.model.db.GestorDB;
 import is.buscaminas.model.db.ResultadoSQL;
@@ -77,8 +79,19 @@ public class GestorNiveles
 	
 	public String getDatosNivel(int pNivel)
 	{
-		// Pre: El nivel existe.
+		// Pre: Un nivel existe.
 		// Post: Se devuelve un JSON con los datos del nivel solicitado.
 		return lNiveles.get(--pNivel).conseguirDatosNivel();
+	}
+
+	public String getNiveles(){
+		//Pre:
+		//Post: devuelve un JsonArray con los niveles existentes.
+		JsonArray lNivelesJSON = new JsonArray();
+		for (Nivel nivel : lNiveles){
+			JsonObject json = Jsoner.deserialize(nivel.getNivel(), new JsonObject());
+			lNivelesJSON.add(json);
+		}
+		return lNivelesJSON.toJson();
 	}
 }

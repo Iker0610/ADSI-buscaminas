@@ -14,6 +14,8 @@ public class MenuAyuda {
     public void MenuAyuda(){}
 
     private void setMensaje(String pMensaje) {
+        //Pre: un String con el nuevo mensaje.
+        //Post: se ha actualizado el mensaje en el txt.
         try {
             PrintWriter pw = null;
             FileWriter ayuda = new FileWriter("src/main/resources/is/buscaminas/MenuAyuda/Ayuda.txt");
@@ -30,6 +32,8 @@ public class MenuAyuda {
         }
     }
     public boolean guardarMensaje(String pMensaje){
+        //Pre: un String con el nuevo mensaje.
+        //Post: se ha actualiado el mensaje del txt correctamente.
         setMensaje(pMensaje);
         cargarMensaje();
         if(mensaje.equals(pMensaje)){
@@ -40,11 +44,15 @@ public class MenuAyuda {
         }
     }
     public String mostrarDatosAyuda(){
+        //Pre:
+        //Post: devuelve un Json con el mensaje.
         JsonObject json = new JsonObject();
         json.put("mensaje",mensaje);
         return json.toJson();
     }
     public void cargarMensaje(){
+        //Pre:
+        //Post: se carga el mensaje del txt en la variable mensaje.
         try {
             mensaje = "";
             String cadena = "";
