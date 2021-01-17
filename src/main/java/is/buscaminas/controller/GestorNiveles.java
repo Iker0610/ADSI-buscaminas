@@ -37,6 +37,8 @@ public class GestorNiveles
 	
 	private void cargarNiveles()
 	{
+		// Pre:
+		// Post: Se cargan todos los datos de los niveles desde la base de datos. Se crea un objeto nivel por cada tupla en la tabla Nivel.
 		try{
 			ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT * FROM Nivel");
 			while (resultado.next()){
@@ -59,12 +61,15 @@ public class GestorNiveles
 	
 	public boolean guardarDatos(int pNivel, int pDificultad, int pNColumnas, int pNFilas) throws SQLException
 	{
+		// Pre: que el Nivel exista
+		// Post: Si los datos cumplen las RI, el nivel se actualiza en memoria y en la BD
 		Nivel nivel = lNiveles.get(pNivel - 1);
 		return nivel.actualizarDatos(pDificultad, pNColumnas, pNFilas);
 	}
 	
 	public String obtenerDatosNiveles()
 	{
+		// Post: Se obtiene un array con objetos JSON, cada objeto JSON corresponde a un nivel.
 		JsonArray lNivelesJSON = new JsonArray();
 		for (Nivel nivel : lNiveles) lNivelesJSON.add(nivel.conseguirDatosNivel());
 		return lNivelesJSON.toJson();
@@ -72,6 +77,8 @@ public class GestorNiveles
 	
 	public String getDatosNivel(int pNivel)
 	{
+		// Pre: El nivel existe.
+		// Post: Se devuelve un JSON con los datos del nivel solicitado.
 		return lNiveles.get(--pNivel).conseguirDatosNivel();
 	}
 }

@@ -32,9 +32,12 @@ public class Nivel
 	
 	public boolean actualizarDatos(int pDificultad, int pNColumnas, int pNFilas) throws SQLException
 	{
-		boolean datosCorrectos;
+		// Pre:
+		// Post: Si los nuevos datos cumplen las reglas de integridad, se actualiza el objeto y los datos correspondientes en la BD
 		
-		datosCorrectos = pNColumnas > 0 & pNColumnas <= 50 & pNFilas > 0 & pNColumnas <= 50 & pDificultad > 0 & pDificultad < pNColumnas * pNFilas;
+		// Se comprueba que el número de filas y columnas sea mayor que cero y menor o igual a 50
+		// Se comprueba que la dificultad sea mayor que 0 y  menor que el producto del número de filas y columnas.
+		boolean datosCorrectos = pNColumnas > 0 & pNColumnas <= 50 & pNFilas > 0 & pNColumnas <= 50 & pDificultad > 0 & pDificultad < pNColumnas * pNFilas;
 		
 		if (datosCorrectos){
 			// Se actualizan en la BD
@@ -54,6 +57,9 @@ public class Nivel
 	
 	public String conseguirDatosNivel()
 	{
+		// Pre:
+		// Post: Se devuelve un JSON del formato indicado en la documentación del proyecto con los datos del nivel.
+		
 		JsonObject json = new JsonObject();
 		json.put("nivel", nivel);
 		json.put("dificultad", dificultad);
