@@ -171,52 +171,61 @@ public class GestorUsuario
 	}
 	
 	/*------------------------------------------------------------------------------------------------------*/
-	
-	private void mandarEmail(String pDestinatario, String pAsunto, String pTexto)
-	{
+
+	private void mandarEmail(String pDestinatario, String pAsunto, String pTexto) {
 		//Configuracion del proveedor
-		Properties prop = new Properties();
-		prop.put("mail.smtp.host", "smtp.gmail.com");
-		prop.put("mail.smtp.port", "587");
-		prop.put("mail.smtp.auth", "true");
-		prop.put("mail.smtp.starttls.enable", "true"); //TLS
-		
+		String remitente="alwayslate.noreply@gmail.com";
+		String destinatario =pDestinatario;
+		String asunto=pAsunto;
+		String cuerpo=pTexto;
+		String clave="ADSI1234";
+		Properties props = System.getProperties();
+		props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
+		props.put("mail.smtp.user", remitente);
+		props.put("mail.smtp.clave", clave);    //La clave de la cuenta
+		props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
+		props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
+		props.put("mail.smtp.port", "587"); //El puerto SMTP seguro de Google
+
 		//Configuracion de sesion
-		Session session = Session.getInstance(prop, new javax.mail.Authenticator()
-		{
-			protected PasswordAuthentication getPasswordAuthentication()
-			{
-				return new PasswordAuthentication("alwayslate.noreply@gmail.com", "ADSI1234");
-			}
-		});
-		
-		try{
-			
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("alwayslate.noreply@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(pDestinatario));
-			message.setSubject(pAsunto);
-			message.setText(pTexto);
-			
-			Transport.send(message);
-			
-			
-		}
-		catch (MessagingException e){
+		Session session = Session.getDefaultInstance(props);
+		MimeMessage message = new MimeMessage(session);
+
+		try {
+
+			message.setFrom(new InternetAddress(remitente));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));   //Se podrían añadir varios de la misma manera
+			message.setSubject(asunto);
+			message.setText(cuerpo);
+			Transport transport = session.getTransport("smtp");
+			transport.connect("smtp.gmail.com", remitente, clave);
+			transport.sendMessage(message, message.getAllRecipients());
+			transport.close();
+
+
+		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void recuperarContra(String pEmail)
-	{
-		try{
-			ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT Contrasena FROM UsuarioEmail WHERE Email = '" + pEmail + "'");
+
+	public void recuperarContra(String pEmail) {
+		try {
+			ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT * FROM UsuarioEmail WHERE Email = '" + pEmail + "'");
 			res.next();
-			String contra = res.getString("Contrasena");
-			this.mandarEmail("Recuperacion Contraseña Buscaminas", "pEmail", "Su contraseña es: " + contra);
-		}
-		catch (SQLException throwables){
-			throwables.printStackTrace();
+			String contra = res.getString("contrasena");
+			res.close();
+			this.mandarEmail(pEmail, "Recuperacion Contraseña Buscaminas", "Su contraseña es: " + contra);
+			Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+			alerta.setTitle("Contraseña Recuperada");
+			alerta.setHeaderText(null);
+			alerta.setContentText("Se le ha enviado un email con su contraseña");
+			alerta.show();
+		} catch (SQLException throwables) {
+			Alert alerta = new Alert(Alert.AlertType.ERROR);
+			alerta.setTitle("Email Incorrecta");
+			alerta.setHeaderText(null);
+			alerta.setContentText("Este email no está registrado");
+			alerta.show();
 		}
 	}
 	
