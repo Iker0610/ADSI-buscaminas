@@ -24,7 +24,8 @@ class CasillaMinaResetTest
 	@Test
 	public void testCambioDeEstado()
 	{
-		// Caso de prueba
+		// Estos casos de prueba comprueban el funcionamiento de código antiguo.
+		// Además están implicitos en los casos de prueba definidos para esta funcionalidad: 3.1.X.Y
 		
 		// La casilla está oculta
 		casillaMinaResetTest.cambiarEstado(new Oculto());
@@ -73,7 +74,7 @@ class CasillaMinaResetTest
 		Pair<Boolean, Boolean> resultadoCasilla;
 		
 		//////////////////////////////////////////////////////////////////////////////////////
-		// Caso de prueba 3.2.1.1
+		// Caso de prueba 3.1.1.1
 		
 		// La casilla está oculta y se marca
 		resultadoCasilla = casillaMinaResetTest.marcar();
@@ -88,10 +89,11 @@ class CasillaMinaResetTest
 		assertTrue(resultadoCasilla.getKey());
 		assertTrue(resultadoCasilla.getValue());
 		
-		//////////////////////////////////////////////////////////////////////////////////////
-		// Caso de prueba 3.2.2.1
 		
-		// La casilla está marcada se pone en modo interrogación
+		//////////////////////////////////////////////////////////////////////////////////////
+		// Caso de prueba 3.1.1.2
+		
+		// La casilla está marcada se pone en estado interrogación
 		resultadoCasilla = casillaMinaResetTest.marcar();
 		
 		// Se comprueba que al observer se le indica el estado correcto.
@@ -107,14 +109,84 @@ class CasillaMinaResetTest
 		assertTrue(resultadoCasilla.getKey());
 		assertFalse(resultadoCasilla.getValue());
 		
-		////////////////////////////////////////////////////////////////////////////////////////
-		// Caso de prueba 3.2.2.1
 		
-		// La casilla está en modo interrogación y se pone en modo Oculta
+		////////////////////////////////////////////////////////////////////////////////////////
+		// Caso de prueba 3.1.1.3
+		
+		// La casilla está en estado interrogación y se pone en estado Oculta
 		resultadoCasilla = casillaMinaResetTest.marcar();
 		
 		// Se comprueba que al observer se le indica el estado correcto.
 		assertEquals("Oculto", estadoCasillaTestString);
+		
+		// Se comprueba que el método estaMarcada localiza el estado correctamente
+		assertFalse(casillaMinaResetTest.estaMarcada());
+		
+		// Se comprueba que el resultado devuelto es acorde a la documentación:
+		// (0,X) -> No se ha modificado nada (por conveniencia, siempre devolveremos FALSE en el segundo bit del par)
+		// (1,0) -> Se ha desmarcado una casilla
+		// (1,1) -> Se ha marcado una casilla
+		assertFalse(resultadoCasilla.getKey());
+		assertFalse(resultadoCasilla.getValue());
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////
+		// Caso de prueba 3.1.1.4
+		
+		// Se pone la casilla en estado Despejado
+		casillaMinaResetTest.cambiarEstado(new Despejado());
+		
+		// La casilla está en estado Despejado y se mantiene en estado Despejado
+		resultadoCasilla = casillaMinaResetTest.marcar();
+		
+		// Se comprueba que al observer se le indica el estado correcto.
+		assertEquals("Despejado", estadoCasillaTestString);
+		
+		// Se comprueba que el método estaMarcada localiza el estado correctamente
+		assertTrue(casillaMinaResetTest.estaMarcada());
+		
+		// Se comprueba que el resultado devuelto es acorde a la documentación:
+		// (0,X) -> No se ha modificado nada (por conveniencia, siempre devolveremos FALSE en el segundo bit del par)
+		// (1,0) -> Se ha desmarcado una casilla
+		// (1,1) -> Se ha marcado una casilla
+		assertFalse(resultadoCasilla.getKey());
+		assertFalse(resultadoCasilla.getValue());
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////
+		// Caso de prueba 3.1.1.5
+		
+		// Se pone la casilla en estado Despejado
+		casillaMinaResetTest.cambiarEstado(new MinaMostrada());
+		
+		// La casilla está en estado MinaMostrada y se mantiene en estado MinaMostrada
+		resultadoCasilla = casillaMinaResetTest.marcar();
+		
+		// Se comprueba que al observer se le indica el estado correcto.
+		assertEquals("MinaMostrada", estadoCasillaTestString);
+		
+		// Se comprueba que el método estaMarcada localiza el estado correctamente
+		assertTrue(casillaMinaResetTest.estaMarcada());
+		
+		// Se comprueba que el resultado devuelto es acorde a la documentación:
+		// (0,X) -> No se ha modificado nada (por conveniencia, siempre devolveremos FALSE en el segundo bit del par)
+		// (1,0) -> Se ha desmarcado una casilla
+		// (1,1) -> Se ha marcado una casilla
+		assertFalse(resultadoCasilla.getKey());
+		assertFalse(resultadoCasilla.getValue());
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////
+		// Caso de prueba 3.1.1.6
+		
+		// Se pone la casilla en estado MarcadoIncorrecto
+		casillaMinaResetTest.cambiarEstado(new MarcadoIncorrecto());
+		
+		// La casilla está en estado MarcadoIncorrecto y se mantiene en estado MarcadoIncorrecto
+		resultadoCasilla = casillaMinaResetTest.marcar();
+		
+		// Se comprueba que al observer se le indica el estado correcto.
+		assertEquals("MarcadoIncorrecto", estadoCasillaTestString);
 		
 		// Se comprueba que el método estaMarcada localiza el estado correctamente
 		assertFalse(casillaMinaResetTest.estaMarcada());
@@ -143,32 +215,32 @@ class CasillaMinaResetTest
 		 *  6 = Se resetea el tablero (no la partida, por tanto tampoco el contador)
 		 */
 		
-		// La casilla está oculta
+		// Caso de prueba 3.1.2.1: La casilla está oculta
 		casillaMinaResetTest.cambiarEstado(new Oculto());
 		assertEquals(6, casillaMinaResetTest.despejar());
 		assertEquals("Despejado", estadoCasillaTestString);
 		
-		// La casilla está marcada
+		// Caso de prueba 3.1.2.2: La casilla está marcada
 		casillaMinaResetTest.cambiarEstado(new Marcado());
 		assertEquals(0, casillaMinaResetTest.despejar());
 		assertEquals("Marcado", estadoCasillaTestString);
 		
-		// La casilla está en Interrogación
+		// Caso de prueba 3.1.2.3: La casilla está en Interrogación
 		casillaMinaResetTest.cambiarEstado(new Interrogacion());
 		assertEquals(6, casillaMinaResetTest.despejar());
 		assertEquals("Despejado", estadoCasillaTestString);
 		
-		// La casilla está despejada
+		// Caso de prueba 3.1.2.4: La casilla está despejada
 		casillaMinaResetTest.cambiarEstado(new Despejado());
 		assertEquals(0, casillaMinaResetTest.despejar());
 		assertEquals("Despejado", estadoCasillaTestString);
 		
-		// La casilla está Mostrada
+		// Caso de prueba 3.1.2.5: La casilla está Mostrada
 		casillaMinaResetTest.cambiarEstado(new MinaMostrada());
 		assertEquals(0, casillaMinaResetTest.despejar());
 		assertEquals("MinaMostrada", estadoCasillaTestString);
 		
-		// La casilla está en estado Marcado Incorrecto
+		// Caso de prueba 3.1.2.6: La casilla está en estado Marcado Incorrecto
 		// (en principio no se deberia dar este caso, por lo que el resuktado es irrelevante)
 		casillaMinaResetTest.cambiarEstado(new MarcadoIncorrecto());
 		assertEquals(0, casillaMinaResetTest.despejar());
@@ -178,7 +250,8 @@ class CasillaMinaResetTest
 	@Test
 	public void testConversionCasillaTempACasillaMina50()
 	{
-		// Caso de prueba
+		// Este caso de prueba comprueba el funcionamiento de código antiguo.
+		// No debería cambiar pues no ha sido afectado.
 		
 		// Se crea una casilla temp
 		estadoCasillaTestString = null;
