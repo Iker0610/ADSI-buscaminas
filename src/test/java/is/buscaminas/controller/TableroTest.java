@@ -36,7 +36,7 @@ class TableroTest
 	@BeforeEach
 	void setUp() throws SQLException
 	{
-		// Se obtienen los datos del nivek
+		// Se obtienen los datos del nivel
 		ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT * FROM nivel WHERE nivel =" + nivel);
 		if (resultado.next()){
 			numFilas = resultado.getInt("nFilas");
@@ -66,6 +66,8 @@ class TableroTest
 	@Test
 	void generarCasillasTablero()
 	{
+		// CASO DE PRUEBA 3
+		
 		// El tablero se ha generado ya en el setUp
 		//	Siendo la primera casilla maracada la (0,0)
 		
@@ -82,7 +84,6 @@ class TableroTest
 			}
 		}
 		
-		
 		assertEquals(numMinasTotal, numMinasGeneradas);
 		assertEquals(1, numMinas50Generadas);
 		assertEquals(1, numMinasResetGeneradas);
@@ -91,10 +92,14 @@ class TableroTest
 	@Test
 	void despejarCasillaMina50()
 	{
+		// CASO DE PRUEBA 3.3.1.2
+		
+		// Variables para comprobar los datos
 		CasillaMina50 mina50 = null;
 		int columnaMina50 = -1, filaMina50 = -1;
 		int f = 0, c = 0;
 		
+		// Se busca la posición de la mina50, y se guarda el objeto y las coordenadas
 		while (f < numFilas && mina50 == null){
 			while (c < numColumnas && mina50 == null){
 				if (Tablero.getTablero().matrizCasillas[f][c] instanceof CasillaMina50){
@@ -108,6 +113,8 @@ class TableroTest
 				}
 			}
 		}
+		
+		// Se comprueba que hemos obtenido la mina
 		assertNotNull(mina50);
 		assertNotEquals(-1, filaMina50);
 		assertNotEquals(-1, columnaMina50);
@@ -129,6 +136,8 @@ class TableroTest
 	@Test
 	void despejarCasillaMinaReset() throws InterruptedException
 	{
+		// CASO DE PRUEBA 3.3.1.1
+		
 		CasillaMinaReset minaReset = null;
 		int columnaMinaReset = -1, filaMinaReset = -1;
 		int f = 0, c = 0;
