@@ -124,27 +124,56 @@ public class GestorUsuario
 	// Métodos
 	public void checkEmailContrasena(String pEmail, String pContra, String pNickname) throws Exception
 	{
+		System.out.println(pEmail);
+		System.out.println(pContra);
+		System.out.println(pNickname);
 		try{
-			ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT * FROM UsuarioEmail NATURAL JOIN Usuario WHERE Email = '" + pEmail + "'");
-			if (res.next()){
-				res.next();
-				String tema = res.getString("temaActual");
-				String contra = res.getString("contrasena");
-				int niv = res.getInt("nivelInicial");
-				boolean admin = res.getBoolean("esAdmin");
-				if (contra.equals(pContra)){ //Si existe y la contrasena es correcta
-					Usuario.create(pEmail, pNickname, niv, tema, admin);
-					//GestorLogros.getGestorLogros().cargarLogros(pEmail);
-				}
-				else{//Si existe pero la contrasena es incorrecta
-					Alert alerta = new Alert(Alert.AlertType.ERROR);
-					alerta.setTitle("Contraseña Incorrecta");
+			ResultadoSQL res1 = GestorDB.getGestorDB().execSELECT("SELECT * FROM Usuario WHERE Email = '" + pEmail + "'");
+			if (res1.next()){
+				res1.close();
+				ResultadoSQL res2 = GestorDB.getGestorDB().execSELECT("SELECT * FROM UsuarioEmail WHERE Email = '" + pEmail + "'");
+				if (!res2.next()){
+					res2.close();
+					Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+					alerta.setTitle("Registro");
 					alerta.setHeaderText(null);
-					alerta.setContentText("La contraseña es incorrecta, prueba de nuevo");
-					alerta.show();
-					throw new Exception();
+					alerta.setContentText("La última vez iniciaste sesión con Google. ¿Quieres añadir una contraseña?");
+					Optional<ButtonType> result = alerta.showAndWait();
+
+					if (result.get() == ButtonType.OK){ //El usuario quiere añadir una contraseña
+						GestorDB.getGestorDB().execSQL("INSERT INTO UsuarioEmail (Email, Contrasena) VALUES ('" + pEmail + "', '"+ pContra +"')");
+						Usuario.create(pEmail, pNickname, 1, "Basico", false);
+						GestorLogros.getGestorLogros().cargarLogros(pEmail);
+					}
+					else{
+						throw new Exception();
+					}
 				}
-				
+				else {
+					ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT * FROM Usuario NATURAL JOIN UsuarioEmail WHERE Email = '" + pEmail + "'");
+					System.out.println("Se mete en el if");
+					String tema = res.getString("temaActual");
+					System.out.println("el tema es: " + tema);
+					String contra = res.getString("contrasena");
+					System.out.println("la contrasena es: " + contra);
+					int niv = res.getInt("nivelInicial");
+					boolean admin = res.getBoolean("esAdmin");
+					res.close();
+					System.out.println("Se cierra la conexion");
+					if (contra.equals(pContra)) { //Si existe y la contrasena es correcta
+						Usuario.create(pEmail, pNickname, niv, tema, admin);
+						System.out.println("Se crea el usuario");
+						GestorLogros.getGestorLogros().cargarLogros(pEmail);
+						System.out.println("Se cargan los logros");
+					} else {//Si existe pero la contrasena es incorrecta
+						Alert alerta = new Alert(Alert.AlertType.ERROR);
+						alerta.setTitle("Contraseña Incorrecta");
+						alerta.setHeaderText(null);
+						alerta.setContentText("La contraseña es incorrecta, prueba de nuevo");
+						alerta.show();
+						throw new Exception();
+					}
+				}
 			}
 			else{ //El usuario no existe
 				Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
@@ -237,7 +266,7 @@ public class GestorUsuario
 			String email = obtenerEmailRedSocial(accessToken);
 			/*-------------------------------------------------------------*/
 			
-			ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT * FROM Usuario WHERE Email = '" + email + "'");
+			ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT * FROM Usuario NATURAL JOIN UsuarioEmail WHERE Email = '" + email + "'");
 			if (res.next()){
 				String tema = res.getString("temaActual");
 				int niv = res.getInt("nivelInicial");
@@ -268,5 +297,7 @@ public class GestorUsuario
 		
 		
 	}
-	
+	public void cambiarContrasena(String pNuevaContra){
+
+	}
 }
