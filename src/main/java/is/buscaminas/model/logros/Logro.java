@@ -70,7 +70,15 @@ public abstract class Logro
 		return conseguido;
 	}
 	
-	protected void resetearAvance()	{avance = 0;}
+	protected void resetearAvance()	{
+		avance = 0;
+		try {
+			GestorDB.getGestorDB().execSQL("UPDATE LogrosUsuario SET avance=" + avance + " WHERE email='" + Usuario.getUsuario().getEmail() + "' AND nombreLogro='" + nombre + "'");
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
 	
 	//Método que devuelve un elemento para la interfaz gráfica con los datos del logro en formato primitivo.
 	public String getDatosLogro()
