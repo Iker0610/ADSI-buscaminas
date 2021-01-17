@@ -20,13 +20,13 @@ public class GestorNiveles
 	
 	// Constructora y carga de datos
 	
-	private GestorNiveles() throws SQLException
+	private GestorNiveles()
 	{
 		lNiveles = new ArrayList<>();
 		cargarNiveles();
 	}
 	
-	public static GestorNiveles getGestorNiveles() throws SQLException
+	public static GestorNiveles getGestorNiveles()
 	{
 		if (mGestorNiveles == null) mGestorNiveles = new GestorNiveles();
 		return mGestorNiveles;
@@ -35,17 +35,22 @@ public class GestorNiveles
 	
 	// Patrón Singleton
 	
-	private void cargarNiveles() throws SQLException
+	private void cargarNiveles()
 	{
-		ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT * FROM Nivel");
-		while (resultado.next()){
-			int nombreNivel = resultado.getInt("nivel");
-			int dificultad = resultado.getInt("dificultad");
-			int nColumnas = resultado.getInt("nColumnas");
-			int nFilas = resultado.getInt("nFilas");
-			
-			Nivel nivel = new Nivel(nombreNivel, dificultad, nColumnas, nFilas);
-			lNiveles.add(nombreNivel - 1, nivel);
+		try{
+			ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT * FROM Nivel");
+			while (resultado.next()){
+				int nombreNivel = resultado.getInt("nivel");
+				int dificultad = resultado.getInt("dificultad");
+				int nColumnas = resultado.getInt("nColumnas");
+				int nFilas = resultado.getInt("nFilas");
+				
+				Nivel nivel = new Nivel(nombreNivel, dificultad, nColumnas, nFilas);
+				lNiveles.add(nombreNivel - 1, nivel);
+			}
+		}
+		catch (SQLException throwables){
+			cargarNiveles();
 		}
 	}
 	
@@ -63,5 +68,10 @@ public class GestorNiveles
 		JsonArray lNivelesJSON = new JsonArray();
 		for (Nivel nivel : lNiveles) lNivelesJSON.add(nivel.conseguirDatosNivel());
 		return lNivelesJSON.toJson();
+	}
+	
+	public String getDatosNivel(int pNivel)
+	{
+		return lNiveles.get(--pNivel).conseguirDatosNivel();
 	}
 }
