@@ -61,4 +61,9 @@ public class Nivel
 		json.put("nFilas", nFilas);
 		return json.toJson();
 	}
+	public String getNivel(){
+		JsonObject json = new JsonObject();
+		json.put("nivel",nivel);
+		return json.toJson();
+	}
 }

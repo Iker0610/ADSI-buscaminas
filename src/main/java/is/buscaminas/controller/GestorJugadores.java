@@ -26,6 +26,8 @@ public class GestorJugadores {
     }
 
     public String mostrarUsuarios() throws SQLException {
+        //Pre:
+        //Post: devuelve un Json con los emails de los usuarios registrados.
         ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT email FROM Usuario");
         JsonArray lEmailsJSON = new JsonArray();
         while (resultado.next()) {
@@ -38,11 +40,14 @@ public class GestorJugadores {
     }
 
     public void eliminar(String pUsuario) throws SQLException {
+        //Pre: un string con el email de un usuario.
+        //Post: se ha eliminado ese usuario de la base de datos.
         GestorDB.getGestorDB().execSQL("DELETE FROM Usuario WHERE email = '" + pUsuario + "'");
         mostrarMensajeEliminar();
     }
 
     private void mostrarMensajeEliminar() {
+        //Se muestra una alert indicando que se ha borrado a un usuario.
         Alert usuarioEliminado = new Alert(Alert.AlertType.CONFIRMATION);
         usuarioEliminado.setTitle("Usuario eliminado");
         usuarioEliminado.setHeaderText("El usuario ha sido eliminado con éxito");
@@ -50,10 +55,14 @@ public class GestorJugadores {
     }
 
     public void guardarUsuarioSeleccionado(String pUsuario) {
+        //Pre: el email del usuario seleccionado.
+        //Post: se guarda el email del usuario seleccionado.
         usuarioSeleccionado = pUsuario;
     }
 
     public String getDatosUsuario() throws SQLException {
+        //Pre:
+        //Post: devuelve un Json con los datos del usuario seleccioando.
         ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT contrasena FROM UsuarioEmail WHERE email = '" + usuarioSeleccionado + "'");
         JsonObject datos = new JsonObject();
         if (resultado.next()) {
@@ -70,16 +79,8 @@ public class GestorJugadores {
         return datos.toJson();
     }
 
-    public String getNiveles() throws SQLException {
-        ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT nivel FROM Nivel");
-        JsonArray lnivelesJSON = new JsonArray();
-        while (resultado.next()) {
-            JsonObject json = new JsonObject();
-            json.put("nivel", resultado.getString("nivel"));
-            lnivelesJSON.add(json);
-        }
-        resultado.close();
-        return lnivelesJSON.toJson();
+    public String getNiveles(){
+        return GestorNiveles.getGestorNiveles().getNiveles();
     }
 
     public void guardar(String pEmail, String pContrasena, int pNivel) throws SQLException {
