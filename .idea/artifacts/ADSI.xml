@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ADSI">
+    <output-path>$PROJECT_DIR$/.out/artifacts/ADSI</output-path>
+    <root id="archive" name="ADSI.jar">
+      <element id="module-output" name="ADSI-buscaminas" />
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="activation-1.1" />
+        <element id="library" level="project" name="com.google.api-client:google-api-client-gson:1.31.2" />
+        <element id="library" level="project" name="com.google.oauth-client:google-oauth-client-jetty:1.31.4" />
+        <element id="library" level="project" name="com.google.oauth-client:google-oauth-client:1.31.4" />
+        <element id="library" level="project" name="com.sun.mail:javax.mail:1.5.0-b01" />
+        <element id="library" level="project" name="javax.mail-1.5.0-b01" />
+        <element id="library" level="project" name="json-simple-3.1.1" />
+        <element id="library" level="project" name="sqlite-jdbc-3.31.1" />
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
