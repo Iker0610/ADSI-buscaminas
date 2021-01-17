@@ -298,6 +298,17 @@ public class GestorUsuario
 		
 	}
 	public void cambiarContrasena(String pNuevaContra){
+		String email = Usuario.getUsuario().getEmail();
+		ResultadoSQL res = null;
+		try {
+			res = GestorDB.getGestorDB().execSELECT("SELECT * FROM UsuarioEmail WHERE Email = '"+ email +"'");
 
+			if (res.next()){
+				res.close();
+				GestorDB.getGestorDB().execSQL("UPDATE UsuarioEmail SET contrasena = '"+ pNuevaContra +"' WHERE Email = '"+ email +"'");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
