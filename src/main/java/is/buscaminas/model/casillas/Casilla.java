@@ -85,6 +85,11 @@ public abstract class Casilla
 	
 	public void verMina()
 	{
+		// Pre:
+		// Post: Se han mostrado las minas correctamente,
+		// 		Marcando las que estaban correctamente marcadas (manteniendolas como tal) y diferenciando las que no se habían marcado
+		//			Las casillas erroneamente marcadas como mina también se cambian
+		
 		estadoAct.verMina(this);
 	}
 }

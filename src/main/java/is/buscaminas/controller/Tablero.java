@@ -132,7 +132,7 @@ public class Tablero
 		
 		while (numMinas > 0){
 			//Se obtienen 2 valores random que correspondan a posiciones dentro del tablero:
-			fila    = random.nextInt(matrizCasillas.length);
+			fila = random.nextInt(matrizCasillas.length);
 			columna = random.nextInt(matrizCasillas[0].length);
 			
 			// Se comprueba que no sea ni la primera ni ninguna de las adyacentes
@@ -250,6 +250,7 @@ public class Tablero
 	public void despejarCasilla(int pFila, int pColumna)
 	{
 		//Pre:  La fila y la columna pertenecen a valores de la matriz
+		// 	  Existe un tablero generado con casillas.
 		//Post: - Se ha despejado la casilla en caso de poderse
 		
 		if (Partida.getPartida().hayPartidaActiva()){
@@ -320,8 +321,10 @@ public class Tablero
 	
 	public void despejarAlrededor(int pFila, int pColumna)
 	{
-		// Pre:     Unas coordenadas de una casilla
+		// Pre:     Unas coordenadas de una casilla.
+		// 			Existe un tablero generado con casillas
 		// Post:    Se despejan las casillas de alrededor
+		
 		for (int fila = pFila - 1; fila <= pFila + 1; fila++){
 			for (int columna = pColumna - 1; columna <= pColumna + 1; columna++){
 				if (0 <= fila && fila < matrizCasillas.length && 0 <= columna && columna < matrizCasillas[0].length){                       // La casilla está en el tablero.
@@ -390,7 +393,7 @@ public class Tablero
 	
 	private void marcarMitadMinasRestantes()
 	{
-		// Pre:
+		// Pre: Existe un tablero generado con casillas
 		// Post: Se ha mostrado la posición del 50% de las minas que el usuario aún no había marcado correctamente
 		
 		// Se obtiene el número de casillas a marcar
@@ -419,7 +422,7 @@ public class Tablero
 	
 	private int obtenerMinasCorrectamenteMarcadas()
 	{
-		// Pre:
+		// Pre: Existe un tablero generado con casillas
 		// Post: Devuelve el número de minas que están correctamente marcadas.
 		
 		int minasCorrectamenteMarcadas = 0;
@@ -466,6 +469,11 @@ public class Tablero
 	
 	private void mostrarMinas()
 	{
+		// Pre: Existe un tablero generado con casillas
+		// Post: Se han mostrado las minas correctamente,
+		// 		Marcando las que estaban correctamente marcadas (manteniendolas como tal) y diferenciando las que no se habían marcado
+		//			Las casillas erroneamente marcadas como mina también se cambian
+		
 		for (int fila = 0; fila <= matrizCasillas.length - 1; fila++){
 			for (int columna = 0; columna <= matrizCasillas[0].length - 1; columna++){
 				matrizCasillas[fila][columna].verMina();
