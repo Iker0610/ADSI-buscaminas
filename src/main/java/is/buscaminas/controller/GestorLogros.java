@@ -66,13 +66,17 @@ public class GestorLogros
 	{
 		//Precondición: este método debe recibir las variables enviadas a su "método superior" y, además, el email del usuario que ha jugado en formato String.
 		//Postcondicián: el logro es actualizado correctamente y, en caso de ser completado, pasarlo a la lista de logrosObtenidos.
+		ArrayList<Logro> nuevosRestantes=new ArrayList<Logro>();
 		
 		for (Logro logro : logrosRestantes){
 			if (logro.comprobarLogro(victoria, nivel, email)){
 				logrosObtenidos.add(logro);
-				logrosRestantes.remove(logro);
+			}
+			else{
+				nuevosRestantes.add(logro);
 			}
 		}
+		logrosRestantes=nuevosRestantes;
 	}
 	
 	//Método para generar los objetos para la interfaz gráfica (JSON).
@@ -139,6 +143,9 @@ public class GestorLogros
 				//Para que no afecte a la modularidad, se ha añadido un método privado para que el método cargarLogros no se ocupe también de crearlos, haciendo que este proceso sea más sostenible.
 				generarLogro(res);
 			}
+
+			//Cerrar conexión base de datos
+			res.close();
 		}
 		catch (SQLException e){
 			e.printStackTrace();
@@ -172,7 +179,7 @@ public class GestorLogros
 			}
 		}
 		catch (SQLException e){
-			System.out.println("Error al extraer de la base de datos");
+			e.printStackTrace();
 		}
 	}
 	

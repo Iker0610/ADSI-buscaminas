@@ -58,10 +58,16 @@ public abstract class Logro
 					fechaObtencion = "01/01/2000";
 				}
 			}
+			String sql;
+			if(fechaObtencion!=null){
+				sql = "UPDATE LogrosUsuario SET AVANCE = " + avance + ",fechaObtencion = '" + fechaObtencion + "' WHERE email = '" + Usuario.getUsuario().getEmail() + "' AND nombreLogro = '" + nombre + "'";
+			}
+			else{
+				sql="UPDATE LogrosUsuario SET avance="+avance+" WHERE email='"+Usuario.getUsuario().getEmail()+"' AND nombreLogro='"+nombre+"'";
+			}
 			GestorDB gestorDB = GestorDB.getGestorDB();
-			String sql = "UPDATE LogrosUsuario SET AVANCE = '" + avance + "',Fecha = '" + fechaObtencion + "' WHERE email = '" + Usuario.getUsuario().getEmail() + "' AND nombreLogro = '" + nombre + "'";
 			try{
-				gestorDB.execSQL(sql);
+				GestorDB.getGestorDB().execSQL(sql);
 			}
 			catch (SQLException e){
 				e.printStackTrace();
