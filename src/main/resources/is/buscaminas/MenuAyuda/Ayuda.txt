@@ -1,0 +1,5 @@
+El objetivo del juego es despejar todas las casillas que no contengan minas. 
+Los números nos indicar cuantas de sus ocho casillas circundantes son minas. 
+Si despejas una casilla vacía se despejarán todas las de su alredor. Por el contrario, si pulsas una mina se acabará el juego, a no ser que esa mina sea una de las especiales. Las minas especiales son: 50%, que te marca donde están el 50% de las minas ocultas; y mina reset, que reinicia el tablero. 
+Pulsando botón derecho, podrás marcar donde están las minas, esto evitará que las despejes. De la misma forma, si pulsas botón derecho sobre un ya marcada, es se carcará con "?" indicando que no estás seguro de si contiene mina.
+En el panel superior podrás consultar las minas que te quedan por marcar, el ranking, el menú de ayuda y el tiempo que llevas de partida.

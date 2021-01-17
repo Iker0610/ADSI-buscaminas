@@ -38,8 +38,8 @@ public class Nivel
 		
 		if (datosCorrectos){
 			// Se actualizan en la BD
-			String sqlSentence = "UPDATE Nivel SET dificultad =" + pDificultad + ", nFilas = " + pNFilas + ", nColumnas = " + pNColumnas
-										+ "WHERE nivel = " + nivel;
+			String sqlSentence = "UPDATE Nivel SET dificultad ='" + pDificultad + "', nFilas = '" + pNFilas + "', nColumnas = '" + pNColumnas
+										+ "' WHERE nivel = '" + nivel+"'";
 			GestorDB.getGestorDB().execSQL(sqlSentence);
 			
 			
