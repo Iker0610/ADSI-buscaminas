@@ -269,7 +269,7 @@ public class GestorUsuario
 			String email = obtenerEmailRedSocial(accessToken);
 			/*-------------------------------------------------------------*/
 			
-			ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT * FROM Usuario NATURAL JOIN UsuarioEmail WHERE Email = '" + email + "'");
+			ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT * FROM Usuario WHERE Email = '" + email + "'");
 			if (res.next()){
 				String tema = res.getString("temaActual");
 				int niv = res.getInt("nivelInicial");
