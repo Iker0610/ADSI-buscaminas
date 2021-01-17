@@ -83,9 +83,8 @@ public class GestorUsuario
 		return miGestorUsuario;
 	}
 	
-	/**
-	 Authorizes the installed application to access user's protected data.
-	 */
+	//Pre: no
+	//Post: devuelve un token válido
 	private static String obtenerAuthToken() throws Exception
 	{
 		// set up authorization code flow
@@ -95,7 +94,9 @@ public class GestorUsuario
 		LocalServerReceiver receiver = new LocalServerReceiver.Builder().setHost("127.0.0.1").build();
 		return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user").getAccessToken();
 	}
-	
+
+	//Pre: el tóken es válido
+	//Post: devuelve la direccion de email
 	private static String obtenerEmailRedSocial(String bearerToken)
 	{
 		String email = "";
@@ -122,6 +123,9 @@ public class GestorUsuario
 	}
 	
 	// Métodos
+
+	//Pre: no
+	//Post: el usuario queda correctamente identificado (o registrado después de consultar) con email y contraseña
 	public void checkEmailContrasena(String pEmail, String pContra, String pNickname) throws Exception
 	{
 		System.out.println(pEmail);
@@ -151,20 +155,14 @@ public class GestorUsuario
 				}
 				else {
 					ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT * FROM Usuario NATURAL JOIN UsuarioEmail WHERE Email = '" + pEmail + "'");
-					System.out.println("Se mete en el if");
 					String tema = res.getString("temaActual");
-					System.out.println("el tema es: " + tema);
 					String contra = res.getString("contrasena");
-					System.out.println("la contrasena es: " + contra);
 					int niv = res.getInt("nivelInicial");
 					boolean admin = res.getBoolean("esAdmin");
 					res.close();
-					System.out.println("Se cierra la conexion");
 					if (contra.equals(pContra)) { //Si existe y la contrasena es correcta
 						Usuario.create(pEmail, pNickname, niv, tema, admin);
-						System.out.println("Se crea el usuario");
 						GestorLogros.getGestorLogros().cargarLogros(pEmail);
-						System.out.println("Se cargan los logros");
 					} else {//Si existe pero la contrasena es incorrecta
 						Alert alerta = new Alert(Alert.AlertType.ERROR);
 						alerta.setTitle("Contraseña Incorrecta");
@@ -200,7 +198,8 @@ public class GestorUsuario
 	}
 	
 	/*------------------------------------------------------------------------------------------------------*/
-
+	//Pre: la direccion de email es válida
+	//Post: Se envía un email a la direccion especificada
 	private void mandarEmail(String pDestinatario, String pAsunto, String pTexto) {
 		//Configuracion del proveedor
 		String remitente="alwayslate.noreply@gmail.com";
@@ -237,6 +236,8 @@ public class GestorUsuario
 		}
 	}
 
+	//Pre: la direccion de email es válida
+	//Post: Se le envía un email con la contraseña al usuario
 	public void recuperarContra(String pEmail) {
 		try {
 			ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT * FROM UsuarioEmail WHERE Email = '" + pEmail + "'");
@@ -257,7 +258,9 @@ public class GestorUsuario
 			alerta.show();
 		}
 	}
-	
+
+	//Pre: no
+	//Post: Se identifica o registra al usuario mediante su cuenta de Google
 	public void checkEmail(String pNickname)
 	{
 		DATA_STORE_FACTORY = new MemoryDataStoreFactory();
@@ -297,6 +300,9 @@ public class GestorUsuario
 		
 		
 	}
+
+	//Pre: el usuario tiene una contraseña
+	//Post: la contraseña del usuario cambia
 	public void cambiarContrasena(String pNuevaContra){
 		String email = Usuario.getUsuario().getEmail();
 		ResultadoSQL res = null;
