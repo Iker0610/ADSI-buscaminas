@@ -35,13 +35,18 @@ public class GestorDatosJuego {
     }
     public void guardarDatos(String pNivel,String pDificultad, String pColum, String nFilas, String pMensaje) throws SQLException {
         try {
-            Boolean resultadoN = true;
+            Boolean resultadoN = false;
             if (esNumerico(pDificultad) && esNumerico(pColum) && esNumerico(nFilas)) {
-                int nivel = Integer.parseInt(pNivel);
-                int dificultad = Integer.parseInt(pDificultad);
-                int colum = Integer.parseInt(pColum);
-                int filas = Integer.parseInt(nFilas);
+                if(dificultadAdecuada(Integer.parseInt(pDificultad), Integer.parseInt(nFilas), Integer.parseInt(pColum))) {
+                    int nivel = Integer.parseInt(pNivel);
+                    int dificultad = Integer.parseInt(pDificultad);
+                    int colum = Integer.parseInt(pColum);
+                    int filas = Integer.parseInt(nFilas);
                     resultadoN = GestorNiveles.getGestorNiveles().guardarDatos(nivel, dificultad, colum, filas);
+                }
+                else {
+                    mostrarDificultadNoAdecuada();
+                }
             }
             else{
                 mostrarNoNumerico();
@@ -88,6 +93,21 @@ public class GestorDatosJuego {
         noNumerico.setTitle("No numerico");
         noNumerico.setHeaderText("Por favor introduce los datos en el formato correcto.");
         noNumerico.show();
+    }
+    private boolean dificultadAdecuada( int pDificultad, int pFilas, int pColumnas){
+        int resultado = pFilas * pColumnas;
+        if(pDificultad < resultado && (pDificultad > 1) && (pDificultad < 51)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    private void mostrarDificultadNoAdecuada(){
+        Alert noAdecuada= new Alert(Alert.AlertType.ERROR);
+        noAdecuada.setTitle("No adecuada");
+        noAdecuada.setHeaderText("La dificultad debe ser menor que el número de casillas del tablero");
+        noAdecuada.show();
     }
 
 }
