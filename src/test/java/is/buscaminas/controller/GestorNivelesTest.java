@@ -24,6 +24,13 @@ class GestorNivelesTest {
             int dificultadNoValida;
             int filasNoValidas;
             int columnasNoValidas;
+            //codigo prueba: 2.1.2.1.1
+            dificultad = 4;
+            GestorNiveles.getGestorNiveles().guardarDatos(nivel, dificultad, columnas, filas);
+            ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT dificultad, nFilas, nColumnas FROM Nivel Where nivel = '" + nivel + "'");
+            assertEquals(resultado.getInt("dificultad"),dificultad);
+            resultado.close();
+
             //codigo prueba: 2.1.2.1.2
             dificultad = 1;
             GestorNiveles.getGestorNiveles().guardarDatos(nivel, dificultad, columnas, filas);
@@ -58,6 +65,13 @@ class GestorNivelesTest {
             ResultadoSQL resultado5 = GestorDB.getGestorDB().execSELECT("SELECT dificultad, nFilas, nColumnas FROM Nivel Where nivel = '" + nivel + "'");
             assertEquals(resultado5.getInt("dificultad"),dificultad);
             resultado5.close();
+
+            //codigo prueba: 2.1.2.1.8
+            dificultadNoValida = 28;
+            GestorNiveles.getGestorNiveles().guardarDatos(nivel, dificultadNoValida, columnas, filas);
+            ResultadoSQL resultado21 = GestorDB.getGestorDB().execSELECT("SELECT dificultad, nFilas, nColumnas FROM Nivel Where nivel = '" + nivel + "'");
+            assertEquals(resultado21.getInt("dificultad"),dificultad);
+            resultado21.close();
 
             //codigo prueba: 2.1.2.2.1
             dificultad = 5;
@@ -190,5 +204,23 @@ class GestorNivelesTest {
         catch (SQLException e){
             System.out.println("ERROR AL CONECTAR CON LA BASE DE DATOS");
         }
+    }
+
+    @Test
+    void getNiveles(){
+        try {
+            JsonArray lNiveles = Jsoner.deserialize((String) GestorNiveles.getGestorNiveles().getNiveles(), new JsonArray());
+            for (Object jsonObjectString : lNiveles) {
+                JsonObject NivelJson = (JsonObject) jsonObjectString;
+                ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT * FROM Nivel Where nivel = '" + NivelJson.get("nivel") + "'");
+                assertTrue(resultado.next());
+                resultado.close();
+            }
+
+        }
+        catch (SQLException e){
+            System.out.println("ERROR AL CONECTAR CON LA BASE DE DATOS");
+        }
+
     }
 }
