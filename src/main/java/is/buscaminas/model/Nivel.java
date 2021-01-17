@@ -32,6 +32,8 @@ public class Nivel
 	
 	public boolean actualizarDatos(int pDificultad, int pNColumnas, int pNFilas) throws SQLException
 	{
+		//Pre: tres integers, con la dificultad, las columnas y las filas.
+		//Post: si los datos son correctos se han actualizado los datos.
 		boolean datosCorrectos;
 		
 		datosCorrectos = pNColumnas > 0 & pNColumnas <= 50 & pNFilas > 0 & pNColumnas <= 50 & pDificultad > 0 & pDificultad < pNColumnas * pNFilas;
@@ -54,6 +56,8 @@ public class Nivel
 	
 	public String conseguirDatosNivel()
 	{
+		//Pre:
+		//Post: devuelve un Json con los datos del nivel.
 		JsonObject json = new JsonObject();
 		json.put("nivel", nivel);
 		json.put("dificultad", dificultad);
@@ -62,6 +66,8 @@ public class Nivel
 		return json.toJson();
 	}
 	public String getNivel(){
+		//Pre:
+		//Post: devuelve un Json con el nivel.
 		JsonObject json = new JsonObject();
 		json.put("nivel",nivel);
 		return json.toJson();

@@ -37,8 +37,9 @@ public class GestorNiveles
 	
 	// Patrón Singleton
 	
-	private void cargarNiveles()
-	{
+	private void cargarNiveles() {
+		//Pre:
+		//Post:Se han cargado los datos de todos los niveles de la base de datos.
 		try{
 			ResultadoSQL resultado = GestorDB.getGestorDB().execSELECT("SELECT * FROM Nivel");
 			while (resultado.next()){
@@ -59,27 +60,32 @@ public class GestorNiveles
 	
 	// Métodos
 	
-	public boolean guardarDatos(int pNivel, int pDificultad, int pNColumnas, int pNFilas) throws SQLException
-	{
+	public boolean guardarDatos(int pNivel, int pDificultad, int pNColumnas, int pNFilas) throws SQLException {
+		//Pre: cuatro integers, con el nivel, la dificultad, las columnas y las filas.
+		//Post: devuelve true si se han actualizado los datos correctamente, false en caso contrario.
 		Nivel nivel = lNiveles.get(pNivel - 1);
 		return nivel.actualizarDatos(pDificultad, pNColumnas, pNFilas);
 	}
 	
-	public String obtenerDatosNiveles()
-	{
+	public String obtenerDatosNiveles() {
+		//Pre:
+		//Post: devuelve un JsonArray con los datos de los niveles.
 		JsonArray lNivelesJSON = new JsonArray();
 		for (Nivel nivel : lNiveles) lNivelesJSON.add(nivel.conseguirDatosNivel());
 		return lNivelesJSON.toJson();
 	}
 	
-	public String getDatosNivel(int pNivel)
-	{
+	public String getDatosNivel(int pNivel) {
+		//Pre: in nivel.
+		//Post: devuelve un JsonArray con los datos de ese nivel.
+
 		return lNiveles.get(--pNivel).conseguirDatosNivel();
 	}
 
 	public String getNiveles(){
+		//Pre:
+		//Post: devuelve un JsonArray con los niveles existentes.
 		JsonArray lNivelesJSON = new JsonArray();
-
 		for (Nivel nivel : lNiveles){
 			JsonObject json = Jsoner.deserialize(nivel.getNivel(), new JsonObject());
 			lNivelesJSON.add(json);

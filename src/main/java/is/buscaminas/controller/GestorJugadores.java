@@ -80,10 +80,14 @@ public class GestorJugadores {
     }
 
     public String getNiveles(){
+        //Pre:
+        //Post: devuelve un JsonArray con los nombres de los niveles existentes.
         return GestorNiveles.getGestorNiveles().getNiveles();
     }
 
     public void guardar(String pEmail, String pContrasena, int pNivel) throws SQLException {
+        //Pre: dos strings (con el email y la contraseña) y un integer (con el nivel).
+        //Post: el formato de los dats introducidos es correcto, se han actualizado los datos correctamente.
         //Si no se ha cambiado el email
         if(usuarioSeleccionado.equals(pEmail)){
             //Se actualizan los datos en Usuario
@@ -128,6 +132,7 @@ public class GestorJugadores {
     }
 
     private void mostrarUsuarioExistente() {
+        //Se muestra una alert indiando que el email introducido es de un usuario ya existente.
         Alert usuarioEliminado = new Alert(Alert.AlertType.ERROR);
         usuarioEliminado.setTitle("Ya existe ese usuario");
         usuarioEliminado.setHeaderText("Ya existe un usuario con ese email");
@@ -135,6 +140,7 @@ public class GestorJugadores {
     }
 
     private void mostrarDatosActualizados() {
+        //Se muestra una alert indicando que los dats se han actualizado correctamente.
         Alert datosActualizados = new Alert(Alert.AlertType.CONFIRMATION);
         datosActualizados.setTitle("Datos actualizados");
         datosActualizados.setHeaderText("Los datos se han actualizado con éxito");
