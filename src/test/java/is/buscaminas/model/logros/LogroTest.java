@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 class LogroTest
@@ -23,71 +24,121 @@ class LogroTest
 	void comprobarLogro()
 	{
 		try{
-			Usuario.create("usuario1@ejemplo.com", "123", 1, "Mario", false);
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGRO VALUES('3 seguidas','Ganar 3 partidas seguidas en el nivel 1','VictoriaConsecutiva',3,'Among us',1)");
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','3 seguidas','',1)");
+			GestorLogros.getGestorLogros().reset();
+			Usuario.create("jon@ejemplo.com", "123", 1, "Mario", false);
+			GestorDB.getGestorDB().execSQL("DELETE FROM LogrosUsuario WHERE email LIKE 'jon%' OR nombreLogro LIKE 'Test logro%'");
+			GestorDB.getGestorDB().execSQL("DELETE FROM Logro WHERE nombre LIKE 'Test logro:%'");
+			GestorDB.getGestorDB().execSQL("DELETE FROM Usuario WHERE EMAIL LIKE 'jon%'");
+			GestorDB.getGestorDB().execSQL("INSERT INTO Usuario(email) VALUES('"+Usuario.getUsuario().getEmail()+"')");
+			GestorDB.getGestorDB().execSQL("INSERT INTO Logro(nombre,descripcion,tipo,objetivo) VALUES('Test logro: 3 seguidas','Ganar 3 partidas consecutivas','VictoriaConsecutiva',3)");
+			GestorDB.getGestorDB().execSQL("UPDATE LogrosUsuario SET avance=1 WHERE email='" + Usuario.getUsuario().getEmail() + "' AND nombreLogro='Test logro: 3 seguidas'");
 			ResultadoSQL res;
 			GestorLogros.getGestorLogros().cargarLogros(Usuario.getUsuario().getEmail());
 			
-			//Casos de prueba para logros de victorias consecutivas
+			//6.8 Casos de prueba para logros de victorias consecutivas
 			
-			//Caso de prueba: pierde, el nivel da igual
+			/*
+			6.8.1.1
+			El usuario pierde.
+			El método comprueba los logros y hace lo consecuente con el resultado de la partida.
+			Que el avance de los logros esté a 0.
+			El avance de los logros está a 0.
+			 */
 			GestorLogros.getGestorLogros().actualizarLogros(false, 1);
-			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 seguidas'");
+			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 seguidas'");
 			res.next();
 			assertEquals(0, res.getInt("avance"));
+			res.close();
 			
-			//Caso de prueba: pierde en un nivel diferente
-			GestorDB.getGestorDB().execSQL("DELETE FROM LOGRO WHERE NOMBRE='3 seguidas'");
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','3 seguidas','',1)");
+			/*
+			6.8.1.2
+			El usuario pierde en un nivel diferente.
+			El método comprueba los logros y hace lo consecuente con el resultado de la partida.
+			Que el avance de los logros esté a 0.
+			El avance de los logros está a 0.
+			 */
+			GestorDB.getGestorDB().execSQL("UPDATE LogrosUsuario SET avance=1 WHERE email='" + Usuario.getUsuario().getEmail() + "' AND nombreLogro='Test logro: 3 seguidas'");
 			GestorLogros.getGestorLogros().cargarLogros(Usuario.getUsuario().getEmail());
 			GestorLogros.getGestorLogros().actualizarLogros(false, 2);
-			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 seguidas'");
+			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 seguidas'");
 			res.next();
 			assertEquals(0, res.getInt("avance"));
-			
-			//Caso de prueba: gana la partida y consigue el logro
+			res.close();
+
+			/*
+			6.8.1.3
+			El usuario gana la partida y consigue el logro.
+			El método comprueba los logros y hace lo consecuente con el resultado de la partida.
+			Que el avance del logro sea igual al objetivo, que el logro conseguido esté en la lista logrosObtenidos y que le logro esté conseguido (tenga fecha de obtención).
+			El avance es igual al objetivo, el logro tiene fecha de Obtención y está en lista logrosObtenidos.
+			 */
 			GestorLogros.getGestorLogros().actualizarLogros(true, 1);
 			GestorLogros.getGestorLogros().actualizarLogros(true, 1);
 			GestorLogros.getGestorLogros().actualizarLogros(true, 1);
 			String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-			res = GestorDB.getGestorDB().execSELECT("SELECT FECHAOBTENCION FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 seguidas'");
+			res = GestorDB.getGestorDB().execSELECT("SELECT FECHAOBTENCION FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 seguidas'");
 			res.next();
 			assertEquals(fecha, res.getString("fechaObtencion"));
+			res.close();
 			
-			//Casos de prueba para logros de victorias en nivel
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGRO VALUES('3 victorias Nvl 1','Ganar 3 partidas en el nivel 1','VictoriaNivel',3,'Among us',1)");
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','3 victorias Nvl 1','',0)");
-			
-			//Caso de prueba: gana 1 vez en el mismo nivel pero no logra el objetivo
+			//6.9 Casos de prueba para logros de victorias en nivel
+			GestorDB.getGestorDB().execSQL("INSERT INTO Logro(nombre,descripcion,tipo,objetivo,nivel) VALUES('Test logro: 3 victorias Nvl 1','Ganar 3 partidas en el nivel 1','VictoriaNivel',3,1)");
+			GestorDB.getGestorDB().execSQL("UPDATE LogrosUsuario SET avance=0 WHERE email='" + Usuario.getUsuario().getEmail() + "' AND nombreLogro='Test logro: 3 victorias Nvl 1'");
+			GestorLogros.getGestorLogros().cargarLogros(Usuario.getUsuario().getEmail());
+
+			/*
+			6.8.2.1
+			El usuario gana 1 vez en el mismo nivel pero no logra el objetivo.
+			El método comprueba los logros y hace lo consecuente con el resultado de la partida.
+			Que el avance del logro sea igual al objetivo, que el logro obtenido esté en la lista de logrosObtenidos y que el logro esté conseguido (tenga fecha de obtención).
+			El avance es igual al objetivo, el logro tiene fecha de obtención y está en lista logrosObtenidos.
+			 */
 			GestorLogros.getGestorLogros().actualizarLogros(true, 1);
-			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 victorias Nvl 1");
+			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 victorias Nvl 1'");
 			res.next();
 			assertEquals(1, res.getInt("avance"));
+			res.close();
 			
-			//Caso de prueba: pierde en el mismo nivel
+			/*
+			6.8.2.2
+			Pierde en el mismo nivel
+			El método comprueba los logros y hace lo consecuente con el resultado de la partida.
+			El logro no se actualiza y se queda como está.
+			El logro no se actualiza y se queda como está.
+			 */
 			GestorLogros.getGestorLogros().actualizarLogros(false, 1);
-			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 victorias Nvl 1");
+			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 victorias Nvl 1'");
 			res.next();
 			assertEquals(1, res.getInt("avance"));
+			res.close();
 			
-			//Caso de prueba: gana en un nivel diferente
+			/*
+			6.8.2.3
+			Gana en un nivel diferente
+			El método comprueba los logros y hace lo consecuente con el resultado de la partida.
+			El logro no se actualiza y se queda como está.
+			El logro no se actualiza y se queda como está.
+			 */
 			GestorLogros.getGestorLogros().actualizarLogros(true, 2);
-			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 victorias Nvl 1");
+			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 victorias Nvl 1'");
 			res.next();
 			assertEquals(1, res.getInt("avance"));
-			
-			//Caso de prueba: gana en el mismo nivel y consigue el logro
+			res.close();
+
+			/*
+			6.8.2.4
+			Gana en el mismo nivel y consigue el logro.
+			El método comprueba los logros y hace lo consecuente con el resultado de la partida.
+			El avance del logro llega al objetivo, se le añade la fecha de Obtención y se mueve a logrosObtenidos.
+			EL avance llega al objetivo, se le ha añadido la fecha de obtención y el logro ha sido movido a logrosObtenidos.
+			 */
 			GestorLogros.getGestorLogros().actualizarLogros(true, 1);
 			GestorLogros.getGestorLogros().actualizarLogros(true, 1);
-			res = GestorDB.getGestorDB().execSELECT("SELECT FECHAOBTENCION FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 victorias Nvl 1");
+			res = GestorDB.getGestorDB().execSELECT("SELECT FECHAOBTENCION FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 victorias Nvl 1'");
 			fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 			res.next();
 			assertEquals(fecha, res.getString("fechaObtencion"));
-			
-			//Eliminar todos los registros de las bases de datos
-			GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROSUSUARIOS");
-			GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROS");
+			res.close();
 		}
 		catch (SQLException e){
 			e.printStackTrace();
@@ -101,34 +152,56 @@ class LogroTest
 	void actualizarAvance()
 	{
 		try{
-			Usuario.create("usuario1@ejemplo.com", "123", 1, "Mario", false);
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGRO VALUES('3 victorias Nvl 1','Ganar 3 partidas en el nivel 1','VictoriaNivel',3,'Among us',1)");
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','3 victorias Nvl 1','',0)");
+			GestorLogros.getGestorLogros().reset();
+			Usuario.create("jon@ejemplo.com", "123", 1, "Mario", false);
+			GestorDB.getGestorDB().execSQL("DELETE FROM LogrosUsuario WHERE email='"+Usuario.getUsuario().getEmail()+"' OR nombreLogro LIKE 'Test logro%'");
+			GestorDB.getGestorDB().execSQL("DELETE FROM Usuario WHERE email LIKE 'jon%'");
+			GestorDB.getGestorDB().execSQL("DELETE FROM Logro WHERE nombre LIKE 'Test logro%'");
+			GestorDB.getGestorDB().execSQL("INSERT INTO Usuario(email) VALUES('"+Usuario.getUsuario().getEmail()+"')");
+			GestorDB.getGestorDB().execSQL("INSERT INTO Logro(nombre,descripcion,tipo,objetivo,nivel) VALUES('Test logro: 3 victorias Nvl 1','Ganar 3 partidas en el nivel 1','VictoriaNivel',3,1)");
+			GestorDB.getGestorDB().execSQL("UPDATE LogrosUsuario SET avance =0 WHERE email='" + Usuario.getUsuario().getEmail() + "' AND nombreLogro='Test logro: 3 victorias Nvl 1'");
 			GestorLogros.getGestorLogros().cargarLogros(Usuario.getUsuario().getEmail());
 			ResultadoSQL res;
 			
-			//Caso de prueba: aumentar avance pero no llegar al objetivo
+			/*
+			6.9.1
+			Aumentar avance pero no llega al objetivo.
+			El método aumenta en una unidad el avance del logro correspondiente y se ocupa de actualizar en la base de datos.
+			El avance ha sido incrementado pero no ha llegado al objetivo.
+			El avance ha sido incrementado pero no ha llegado al objetivo.
+			 */
 			GestorLogros.getGestorLogros().actualizarLogros(true, 1);
-			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 victorias Nvl 1'");
+			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 victorias Nvl 1'");
 			res.next();
 			assertEquals(1, res.getInt("avance"));
+			res.close();
 			
-			//Caso de prueba: aumentar avance y llegar al objetivo
+			/*
+			6.9.2
+			Aumentar avance y llegar al objetivo
+			El método aumenta en una unidad el avance del logro correspondiente y se ocupa de actualizar en la base de datos.
+			El avance ha sido incrementado y ha llegado al objetivo.
+			El avance ha sido incrementado y ha llegado al objetivo.
+			 */
 			GestorLogros.getGestorLogros().actualizarLogros(true, 1);
 			GestorLogros.getGestorLogros().actualizarLogros(true, 1);
-			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 victorias Nvl 1'");
+			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 victorias Nvl 1'");
 			res.next();
 			assertEquals(3, res.getInt("avance"));
+			res.close();
 			
-			//Caso de prueba: el avance ya ha llegado al objetivo por lo que cuando se actualice no deberia actualizarse más
+			/*
+			6.9.3
+			El avance ya ha llegado al objetivo,
+			El método aumenta en una unidad el avance del logro correspondiente y se ocupa de actualizar en la base de datos.
+			El avance no tiene que incrementarse porque ya ha llegado al objetivo.
+			El avance no se incrementa.
+			 */
 			GestorLogros.getGestorLogros().actualizarLogros(true, 1);
-			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 victorias Nvl 1'");
+			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 victorias Nvl 1'");
 			res.next();
 			assertEquals(3, res.getInt("avance"));
-			
-			//Eliminar todos los registros de las bases de datos
-			GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROSUSUARIOS");
-			GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROS");
+			res.close();
 		}
 		catch (SQLException e){
 			e.printStackTrace();
@@ -142,24 +215,33 @@ class LogroTest
 	void resetearAvance()
 	{
 		try{
-			Usuario.create("usuario1@ejemplo.com", "123", 1, "Mario", false);
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGRO VALUES('3 seguidas','Ganar 3 partidas seguidas','VictoriaConsecutiva',3,'Among us',1)");
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','3 seguidas','',2)");
+			GestorLogros.getGestorLogros().reset();
+			Usuario.create("jon@ejemplo.com", "123", 1, "Mario", false);
+			GestorDB.getGestorDB().execSQL("DELETE FROM LogrosUsuario WHERE email LIKE 'jon%'");
+			GestorDB.getGestorDB().execSQL("DELETE FROM Usuario WHERE email LIKE 'jon%'");
+			GestorDB.getGestorDB().execSQL("DELETE FROM Logro WHERE nombre LIKE 'Test logro%'");
+			GestorDB.getGestorDB().execSQL("INSERT INTO Usuario(email) VALUES('"+Usuario.getUsuario().getEmail()+"')");
+			GestorDB.getGestorDB().execSQL("INSERT INTO Logro(nombre,descripcion,tipo,objetivo) VALUES('Test logro: 3 seguidas','Ganar 3 partidas seguidas','VictoriaConsecutiva',3)");
+			GestorDB.getGestorDB().execSQL("UPDATE LogrosUsuario SET avance=2 WHERE email='"+Usuario.getUsuario().getEmail()+"' AND nombreLogro='Test logro: 3 seguidas'");
 			GestorLogros.getGestorLogros().cargarLogros(Usuario.getUsuario().getEmail());
 			ResultadoSQL res;
 			
-			//Caso de prueba único: un logro con cualquier avance acaba en 0 tras este método
-			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL=" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 seguidas'");
+			/*
+			6.10
+			El logro tiene un avance que no es 0.
+			Un logro con cualquier avance acaba en 0.
+			Que el avance del logro sea 0.
+			El avance del logro es 0.
+			 */
+			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 seguidas'");
 			res.next();
 			assertEquals(2, res.getInt("avance"));
+			res.close();
 			GestorLogros.getGestorLogros().actualizarLogros(false, 1);
-			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL=" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='3 seguidas'");
+			res = GestorDB.getGestorDB().execSELECT("SELECT AVANCE FROM LOGROSUSUARIO WHERE EMAIL='" + Usuario.getUsuario().getEmail() + "' AND NOMBRELOGRO='Test logro: 3 seguidas'");
 			res.next();
 			assertEquals(0, res.getInt("avance"));
-			
-			//Eliminar todos los registros de las bases de datos
-			GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROSUSUARIOS");
-			GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROS");
+			res.close();
 		}
 		catch (SQLException e){
 			e.printStackTrace();
@@ -173,54 +255,65 @@ class LogroTest
 	void getDatosLogro()
 	{
 		try{
-			Usuario.create("usuario1@ejemplo.com", "123", 1, "Mario", false);
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGROS VALUES('4 seguidas','Ganar 4 partidas seguidas','VictoriaConsecutiva',4,'Minecraft',1)");
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGROS VALUES('3 seguidas','Ganar 3 partidas seguidas','VictoriaConsecutiva',3,'Among us',1)");
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','4 seguidas','',0");
-			GestorDB.getGestorDB().execSQL("INSERT INTO LOGROSUSUARIO VALUES('" + Usuario.getUsuario().getEmail() + "','3 seguidas','" + new SimpleDateFormat("dd/MM/yyyy").format(new Date()) + "',3");
+			GestorLogros.getGestorLogros().reset();
+			Usuario.create("jon@ejemplo.com", "123", 1, "Mario", false);
+			GestorDB.getGestorDB().execSQL("DELETE FROM LogrosUsuario WHERE email LIKE 'jon%' OR nombreLogro LIKE 'Test logro%'");
+			GestorDB.getGestorDB().execSQL("DELETE FROM Logro WHERE nombre LIKE 'Test logro%'");
+			GestorDB.getGestorDB().execSQL("DELETE FROM Usuario WHERE email LIKE 'jon%'");
+			GestorDB.getGestorDB().execSQL("INSERT INTO Usuario(email) VALUES('"+Usuario.getUsuario().getEmail()+"')");
+			GestorDB.getGestorDB().execSQL("INSERT INTO Logro(nombre,descripcion,tipo,objetivo) VALUES('Test logro: 4 seguidas','Ganar 4 partidas seguidas','VictoriaConsecutiva',4)");
+			GestorDB.getGestorDB().execSQL("INSERT INTO Logro(nombre,descripcion,tipo,objetivo) VALUES('Test logro: 3 seguidas','Ganar 3 partidas seguidas','VictoriaConsecutiva',3)");
+			GestorDB.getGestorDB().execSQL("UPDATE LogrosUsuario SET avance=0 WHERE email='" + Usuario.getUsuario().getEmail() + "' AND nombreLogro='Test logro: 4 seguidas'");
+			GestorDB.getGestorDB().execSQL("UPDATE LogrosUsuario SET avance=3,fechaObtencion='" + new SimpleDateFormat("dd/MM/yyyy").format(new Date()) + "' WHERE email='"+Usuario.getUsuario().getEmail()+"' AND nombreLogro='Test logro: 3 seguidas'");
 			String res = null;
 			JsonObject datos = null;
 			JsonArray logrosObtenidos, logrosRestantes;
 			
-			//Logros sin cargar
+			/*
+			6.11.1
+			Los logros están sin cargar.
+			El método devuelve de tipo primitivo los datos que componen un logro para que sea más fácil de leer por la interfaz.
+			Que las listas de memoria que almacenan los logros estén vacías.
+			Las listas de memoria que almacenan los logros están vacías.
+			 */
 			logrosObtenidos = new JsonArray();
 			logrosRestantes = new JsonArray();
 			res = GestorLogros.getGestorLogros().getLogros();
-			Jsoner.deserialize(res, datos);
-			Jsoner.deserialize((String) datos.get("logrosObtenidos"), logrosObtenidos);
-			Jsoner.deserialize((String) datos.get("logrosRestantes"), logrosRestantes);
-			assertEquals(new JsonArray(), logrosObtenidos);
-			assertEquals(new JsonArray(), logrosRestantes);
+			datos=Jsoner.deserialize(res, new JsonObject());
+			logrosObtenidos=Jsoner.deserialize((String) datos.get("logrosObtenidos"), new JsonArray());
+			logrosRestantes=Jsoner.deserialize((String) datos.get("logrosRestantes"), new JsonArray());
+			assertEquals(0, logrosObtenidos.size());
+			assertEquals(0, logrosRestantes.size());
 			
-			//Con los logros cargados
+			/*
+			6.11.2
+			Los logros se han cargado.
+			El método devuelve de tipo primitivo los datos que componen un logro para que sea más fácil de leer por la interfaz.
+			Que devuelva la información de los logros en formato primitivo.
+			Devuelve la información de los logros en formato primitivo.
+			 */
 			GestorLogros.getGestorLogros().cargarLogros(Usuario.getUsuario().getEmail());
 			res = GestorLogros.getGestorLogros().getLogros();
-			Jsoner.deserialize(res, datos);
-			Jsoner.deserialize((String) datos.get("logrosObtenidos"), logrosObtenidos);
-			Jsoner.deserialize((String) datos.get("logrosRestantes"), logrosRestantes);
+			datos=Jsoner.deserialize(res, new JsonObject());
+			logrosObtenidos=Jsoner.deserialize((String) datos.get("logrosObtenidos"), new JsonArray());
+			logrosRestantes=Jsoner.deserialize((String) datos.get("logrosRestantes"), new JsonArray());
 			//PRIMERO LOGROS OBTENIDOS
-			String logro = (String) logrosObtenidos.get(0);
-			JsonObject datosLogro = null;
-			Jsoner.deserialize(logro, datosLogro);
-			assertEquals("3 seguidas", datosLogro.get("nombre"));
-			assertEquals("Ganar 3 partidas seguidas", datosLogro.get("descripcion"));
-			assertEquals(3, datosLogro.get("objetivo"));
-			assertEquals(3, datosLogro.get("avance"));
-			assertEquals(new SimpleDateFormat("dd/MM/yyyy").format(new Date()), datosLogro.get("fechaObtencion"));
-			assertEquals("Among us", datosLogro.get("nombreTema"));
+				String logro = (String) logrosObtenidos.get(1);	//Porque el logro conseguido está en la segunda posición
+				JsonObject datosLogro = null;
+				datosLogro=Jsoner.deserialize(logro, new JsonObject());
+				assertEquals("Test logro: 3 seguidas", (String) datosLogro.get("nombre"));
+				assertEquals("Ganar 3 partidas seguidas", (String) datosLogro.get("descripcion"));
+				assertEquals("3", datosLogro.get("objetivo").toString());
+				assertEquals("3", datosLogro.get("avance").toString());
+				assertEquals(new SimpleDateFormat("dd/MM/yyyy").format(new Date()), datosLogro.get("fechaObtencion"));
 			//SEGUNDO LOGROS RESTANTES
-			logro = (String) logrosRestantes.get(0);
-			Jsoner.deserialize(logro, datosLogro);
-			assertEquals("4 seguidas", datosLogro.get("nombre"));
-			assertEquals("Ganar 4 partidas seguidas", datosLogro.get("descripcion"));
-			assertEquals(4, datosLogro.get("objetivo"));
-			assertEquals(0, datosLogro.get("avance"));
-			assertEquals("", datosLogro.get("fechaObtencion"));
-			assertEquals("Minecraft", datosLogro.get("nombreTema"));
-			
-			//Eliminar todos los registros de las bases de datos
-			GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROSUSUARIOS");
-			GestorDB.getGestorDB().execSQL("DELETE * FROM LOGROS");
+				logro = (String) logrosRestantes.get(logrosRestantes.size()-1);
+				datosLogro=Jsoner.deserialize(logro, new JsonObject());
+				assertEquals("Test logro: 4 seguidas", datosLogro.get("nombre"));
+				assertEquals("Ganar 4 partidas seguidas", datosLogro.get("descripcion"));
+				assertEquals("4", datosLogro.get("objetivo").toString());
+				assertEquals("0", datosLogro.get("avance").toString());
+				assertNull(datosLogro.get("fechaObtencion"));
 		}
       catch (Exception e){
           e.printStackTrace();
