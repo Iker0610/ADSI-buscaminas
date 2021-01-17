@@ -21,6 +21,8 @@ public abstract class Casilla
 		estadoAct  = new Oculto();
 		lObservers = new PropertyChangeSupport(this);
 		lObservers.addPropertyChangeListener(pVistaCasilla);
+		lObservers.firePropertyChange("estado", null, estadoAct.getClass().getSimpleName());
+		
 	}
 	
 	protected Casilla(Casilla pCasilla)

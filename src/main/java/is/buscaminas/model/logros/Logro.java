@@ -64,15 +64,20 @@ public abstract class Logro
 				gestorDB.execSQL(sql);
 			}
 			catch (SQLException e){
-				System.out.println("Error al extraer información de la base de datos");
+				e.printStackTrace();
 			}
 		}
 		return conseguido;
 	}
 	
-	protected void resetearAvance()
-	{
+	protected void resetearAvance()	{
 		avance = 0;
+		try {
+			GestorDB.getGestorDB().execSQL("UPDATE LogrosUsuario SET avance=" + avance + " WHERE email='" + Usuario.getUsuario().getEmail() + "' AND nombreLogro='" + nombre + "'");
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
 	}
 	
 	//Método que devuelve un elemento para la interfaz gráfica con los datos del logro en formato primitivo.

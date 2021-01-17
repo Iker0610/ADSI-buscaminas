@@ -4,7 +4,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane maxWidth="400.0" minWidth="500.0" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.InicioController">
+<AnchorPane maxWidth="400.0" minWidth="500.0" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="is.buscaminas.view.FXMLControllers.UI_Inicio">
     <ImageView fx:id="background" fitHeight="602.0" fitWidth="500.0"/>
     <BorderPane layoutX="-7.0" layoutY="-5.0" prefHeight="607.0" prefWidth="512.0">
         <bottom>

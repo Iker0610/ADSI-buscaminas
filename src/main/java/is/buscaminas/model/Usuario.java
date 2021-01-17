@@ -31,9 +31,7 @@ public class Usuario
 	}
 	
 	public static void create(String pEmail, String pNickname, int pNivelInicial, String pTematicaActual, boolean pEsAdmin) throws IllegalAccessException{
-		Class<?> caller = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass();
-		if (caller.equals(GestorUsuario.class)) mUsuario = new Usuario(pEmail, pNickname, pNivelInicial, pTematicaActual, pEsAdmin);
-		else throw new IllegalAccessException();
+		mUsuario = new Usuario(pEmail, pNickname, pNivelInicial, pTematicaActual, pEsAdmin);
 	}
 	
 	public static Usuario getUsuario() throws NoSuchElementException{
@@ -74,11 +72,16 @@ public class Usuario
 		
 		//Se carga la fuente
 		try{
-			Font.loadFont(new FileInputStream(new File("src/main/resources/is/buscaminas/temas/" + pTema + "/fuente/font.ttf")), 20);
+			Font.loadFont(new FileInputStream(new File("src/main/resources/is/buscaminas/temas/" + tematicaActual.toLowerCase().replaceAll("\\s", "") + "/fuente/font.ttf")), 20);
 		}
 		catch (FileNotFoundException e){
 			// Todo Crear emergente
 			e.printStackTrace();
 		}
+	}
+	
+	// Logout
+	public void logOut(){
+		mUsuario = null;
 	}
 }

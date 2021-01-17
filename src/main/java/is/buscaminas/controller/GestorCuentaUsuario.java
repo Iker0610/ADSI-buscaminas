@@ -21,7 +21,11 @@ public class GestorCuentaUsuario {
         return mGestorCuentaUsuario;
     }
 
-    public void cambiarTematica(String pNombreTema){
+    public String obtenerTemas() throws SQLException {
+        return GestorTematica.getGestorTematica().obtenerTemas();
+    }
+
+    public void cambiarTematica(String pNombreTema) throws SQLException {
         GestorTematica.getGestorTematica().cambiarTematica(pNombreTema);
     }
 

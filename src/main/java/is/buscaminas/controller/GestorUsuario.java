@@ -65,7 +65,6 @@ public class GestorUsuario
 	private static GestorUsuario miGestorUsuario;
 	/*------------------------------------------------------------------------*/
 	private static DataStoreFactory DATA_STORE_FACTORY;
-	private boolean allowConstructor;
 	
 	/*------------------------------------------------------------------------*/
 	
@@ -110,7 +109,7 @@ public class GestorUsuario
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			
-			String line = null;
+			String line;
 			StringWriter out = new StringWriter(connection.getContentLength() > 0 ? connection.getContentLength() : 2048);
 			while ((line = reader.readLine()) != null){
 				out.append(line);
@@ -127,7 +126,7 @@ public class GestorUsuario
 	{
 		try{
 			ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT * FROM UsuarioEmail NATURAL JOIN Usuario WHERE Email = '" + pEmail + "'");
-			try{
+			if (res.next()){
 				res.next();
 				String tema = res.getString("temaActual");
 				String contra = res.getString("contrasena");
@@ -147,7 +146,7 @@ public class GestorUsuario
 				}
 				
 			}
-			catch (SQLException e){ //El usuario no existe
+			else{ //El usuario no existe
 				Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
 				alerta.setTitle("Registro");
 				alerta.setHeaderText(null);
@@ -155,7 +154,7 @@ public class GestorUsuario
 				Optional<ButtonType> result = alerta.showAndWait();
 				
 				if (result.get() == ButtonType.OK){ //El usuario no existe pero se quiere registrar
-					Usuario.create(pEmail, pNickname, 1, "mario", false);
+					Usuario.create(pEmail, pNickname, 1, "Basico", false);
 					GestorDB.getGestorDB().execSQL("INSERT INTO Usuario (Email) VALUES ('" + pEmail + "')");
 					GestorDB.getGestorDB().execSQL("INSERT INTO UsuarioEmail (email, contrasena) VALUES ('" + pEmail + "', '" + pContra + "')");
 					GestorLogros.getGestorLogros().cargarLogros(pEmail);
@@ -164,9 +163,7 @@ public class GestorUsuario
 					throw new Exception();
 				}
 			}
-			
-			
-			Usuario.create(pEmail, pNickname, 1, "mario", true);
+			Usuario.create(pEmail, pNickname, 1, "Basico", true);
 		}
 		catch (IllegalAccessException | SQLException e){
 			e.printStackTrace();
@@ -223,14 +220,13 @@ public class GestorUsuario
 		}
 	}
 	
-	public void checkEmail(String pNickname) throws Exception
+	public void checkEmail(String pNickname)
 	{
 		DATA_STORE_FACTORY = new MemoryDataStoreFactory();
 		try{
 			final String accessToken = obtenerAuthToken();
 			String email = obtenerEmailRedSocial(accessToken);
 			/*-------------------------------------------------------------*/
-			
 			
 			ResultadoSQL res = GestorDB.getGestorDB().execSELECT("SELECT * FROM Usuario WHERE Email = '" + email + "'");
 			if (res.next()){
@@ -248,8 +244,8 @@ public class GestorUsuario
 				Optional<ButtonType> result = alerta.showAndWait();
 				
 				if (result.get() == ButtonType.OK){ //El usuario no existe pero se quiere registrar
-					Usuario.create(email, pNickname, 1, "mario", false);
 					GestorDB.getGestorDB().execSQL("INSERT INTO Usuario (Email) VALUES ('" + email + "')");
+					Usuario.create(email, pNickname, 1, "Basico", false);
 					GestorLogros.getGestorLogros().cargarLogros(email);
 				}
 				else{
